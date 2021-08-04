@@ -6,8 +6,8 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="16"
-8-->C:\Users\jonas\AndroidStudioProjects\AreaFoliar\libs\opencv\AndroidManifest.xml
+8-->E:\AndroidProjects\LIMA\libs\opencv\AndroidManifest.xml
 9        android:targetSdkVersion="28" />
-9-->C:\Users\jonas\AndroidStudioProjects\AreaFoliar\libs\opencv\AndroidManifest.xml
+9-->E:\AndroidProjects\LIMA\libs\opencv\AndroidManifest.xml
 10
 11</manifest>

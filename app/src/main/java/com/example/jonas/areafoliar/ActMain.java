@@ -21,7 +21,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -33,7 +32,6 @@ import android.widget.Toast;
 import com.example.jonas.areafoliar.database.DadosOpenHelper;
 import com.example.jonas.areafoliar.helper.BitmapHelper;
 import com.example.jonas.areafoliar.repositorio.FolhasRepositorio;
-import com.pnikosis.materialishprogress.ProgressWheel;
 
 import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
@@ -66,7 +64,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
     private FolhasRepositorio folhaRepositorio;
     //private int cont = 1;
     private String data_completa;
-    private List<MatOfPoint2f> square = new ArrayList<>();
+    private List<MatOfPoint> square = new ArrayList<>();
     private List<MatOfPoint> leaves = new ArrayList<>();
     private List<MatOfPoint> leavesPCA = new ArrayList<>();
 
@@ -377,7 +375,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
             Imgproc.approxPolyDP(new MatOfPoint2f(contours.get(i).toArray()), approx[i], Imgproc.arcLength(new MatOfPoint2f(contours.get(i).toArray()), true) * 0.02, true);
             //approxPolyDP(contours[i], approx, arcLength(contours[i], true)*0.02, true);
             //if(approx.size() == 4 && fabs(contourArea(approx)) > 10000 && fabs(contourArea(approx)) < 999999999 && isContourConvex(approx) ){ NÃO CONSEGUI COLOCAR O isContourConvex
-            if (approx[i].toArray().length == 4 && Math.abs(Imgproc.contourArea(approx[i])) > 10000 && Math.abs(Imgproc.contourArea(approx[i])) < 999999999) {
+            if (approx[i].toArray().length == 4 && Math.abs(Imgproc.contourArea(approx[i])) > 1000 && Math.abs(Imgproc.contourArea(approx[i])) < 10000000000.0) {
                 double maxCosine = 0;
 
                 for (int j = 2; j < 5; j++) {
@@ -386,7 +384,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                 }
 
                 if (maxCosine < 0.3) {
-                    square.add(approx[i]);
+                    square.add(contours.get(i));
                     Imgproc.drawContours(ImageMat, contours, i, new Scalar(0, 255, 0), 3);
                 } else {
                     leaves.add(contours.get(i));
@@ -395,7 +393,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                     List<Point> pts = contourPCA.toList();
                     Imgproc.drawContours(ImageMat, contours, i, new Scalar(255, 0, 0), 3);
                 }
-            } else if (Math.abs(Imgproc.contourArea(approx[i])) > 1000 && Math.abs(Imgproc.contourArea(approx[i])) < 999999999) {
+            } else if (Math.abs(Imgproc.contourArea(approx[i])) > 1000 && Math.abs(Imgproc.contourArea(approx[i])) < 10000000000.0) {
                 leaves.add(contours.get(i));
                 MatOfPoint contourPCA =  pca(contours, i);
                 leavesPCA.add(contourPCA);
@@ -406,7 +404,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
     }
 
     void surfaceCalc() {
-        if(square.size() <= 0 || square.size() > 1){
+        if(square.size() <= 0){
             Toast.makeText(getApplicationContext(), "The square could not be found. Please try again.", Toast.LENGTH_LONG).show();
         }else if(leaves.size() <= 0){
             Toast.makeText(getApplicationContext(), "No leaf can be found. Please try again.", Toast.LENGTH_LONG).show();
@@ -417,7 +415,8 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
 
             //---------------------Variaveis auxiliares calculos-----------------------
 
-            double largSquare, compSquare;
+            double pixelsWidSquare, pixelsLenSquare;
+            double pixelsPerSquare;
             //double sum = 0.0;
             double mL = 0.0, mC = 0.0, mA = 0.0, mP = 0.0;
             double dL = 0.0, dC = 0.0, dA = 0.0, dP = 0.0;
@@ -429,11 +428,13 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
 
             //-------------------SQUARE----------------------
 
-            largSquare = Math.sqrt((Math.pow((square.get(0).toArray()[2].x - square.get(0).toArray()[1].x), 2) + Math.pow((square.get(0).toArray()[2].y - square.get(0).toArray()[1].y), 2)));
-            compSquare = Math.sqrt((Math.pow((square.get(0).toArray()[1].x - square.get(0).toArray()[0].x), 2) + Math.pow((square.get(0).toArray()[1].y - square.get(0).toArray()[0].y), 2)));
+            pixelsPerSquare = Imgproc.arcLength(new MatOfPoint2f(square.get(0).toArray()), true);
 
-            double contourSquare = Imgproc.contourArea(square.get(0));
-            double perSquare = Math.sqrt(areaQuadrado) * 4;
+            pixelsWidSquare = pixelsPerSquare/4;//Math.sqrt((Math.pow((square.get(0).toArray()[2].x - square.get(0).toArray()[1].x), 2) + Math.pow((square.get(0).toArray()[2].y - square.get(0).toArray()[1].y), 2)));
+            pixelsLenSquare = pixelsWidSquare;//Math.sqrt((Math.pow((square.get(0).toArray()[1].x - square.get(0).toArray()[0].x), 2) + Math.pow((square.get(0).toArray()[1].y - square.get(0).toArray()[0].y), 2)));
+
+            double pixelsAreaSquare = Imgproc.contourArea(square.get(0));
+            double realPerSquare = Math.sqrt(areaQuadrado) * 4;
 
             //final Point p = square.get(0).toArray()[0];
             //int n = square.get(0).toArray().length;
@@ -443,7 +444,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
             //---------------------LEAFS-----------------------
 
             Rect[] boundRect = new Rect[leavesPCA.size()];
-
+            double realSideSquare = Math.sqrt(areaQuadrado);
             for (int i = 0; i < leavesPCA.size(); i++) {
                 Folha folha = new Folha();
                 folha.setData(data_completa);
@@ -469,11 +470,11 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                 //_____________Calculo Largura e Comprimento_____________
                 boundRect[i] = Imgproc.boundingRect(leavesPCA.get(i));
 
-                double aux = Math.sqrt((Math.pow((boundRect[i].tl().x - boundRect[i].tl().x), 2) + Math.pow((boundRect[i].br().y - boundRect[i].tl().y), 2)));
-                aux = (aux * Math.sqrt((areaQuadrado))) / largSquare;
+                double aux = boundRect[i].width;//Math.sqrt((Math.pow((boundRect[i].tl().x - boundRect[i].tl().x), 2) + Math.pow((boundRect[i].br().y - boundRect[i].tl().y), 2)));
+                aux = (aux * realSideSquare) / pixelsWidSquare;
 
-                double aux2 = Math.sqrt((Math.pow((boundRect[i].tl().x - boundRect[i].br().x), 2) + Math.pow((boundRect[i].tl().y - boundRect[i].tl().y), 2)));
-                aux2 = (aux2 * Math.sqrt((areaQuadrado))) / compSquare;
+                double aux2 = boundRect[i].height;//Math.sqrt((Math.pow((boundRect[i].tl().x - boundRect[i].br().x), 2) + Math.pow((boundRect[i].tl().y - boundRect[i].tl().y), 2)));
+                aux2 = (aux2 * realSideSquare) / pixelsLenSquare;
 
                 if (aux2 > aux) {
                     mL += aux;
@@ -499,14 +500,14 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                     //LC[i] = aux2 / aux;
                 }
                 //_____________Calculo Area_____________
-                double auxArea = ((Imgproc.contourArea(leavesPCA.get(i)) * areaQuadrado) / contourSquare);
+                double auxArea = ((Imgproc.contourArea(leaves.get(i)) * areaQuadrado) / pixelsAreaSquare);
                 folha.setArea(auxArea + "");
                 //sum += auxArea;
                 //result.append("\nArea: "); result.append(QString::number(auxArea));
                 mA += auxArea;
                 A[i] = auxArea;
                 //_____________Calculo Perimetro_____________
-                double auxPer = ((Imgproc.arcLength(new MatOfPoint2f(leavesPCA.get(i).toArray()), true) * perSquare) / Imgproc.arcLength(new MatOfPoint2f(square.get(0)), true));
+                double auxPer = ((Imgproc.arcLength(new MatOfPoint2f(leaves.get(i).toArray()), true) * realPerSquare) / pixelsPerSquare);
                 //result.append("\nPerimeter: "); result.append(QString::number(auxPer));
                 folha.setPerimetro(auxPer + "");
                 mP += auxPer;
