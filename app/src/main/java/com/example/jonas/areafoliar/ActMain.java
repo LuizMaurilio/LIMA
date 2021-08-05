@@ -411,7 +411,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
         }else{
             List<MatOfPoint> result = new ArrayList<>();
             SharedPreferences sharedPreferences = getSharedPreferences("valorLadoPref", Context.MODE_PRIVATE);
-            float areaQuadrado = sharedPreferences.getInt("lado", 5) * sharedPreferences.getInt("lado", 5);
+            float areaQuadrado = sharedPreferences.getInt("area", 5);
 
             //---------------------Variaveis auxiliares calculos-----------------------
 

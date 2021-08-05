@@ -58,7 +58,7 @@
     <string name="pref_text">preference_text</string>
     <string name="stringDescIconFolha">ícone folha</string>
     <!--<string name="configGeralQuad">Defina a dimensão do lado do quadrado utilizado:</string>-->
-    <string name="configGeralQuad">Define the dimension of the side of the square used:</string>
+    <string name="configGeralQuad">Define the dimension of the area of the square used:</string>
     <!--<string name="name_linha_config_dados">Name:</string>-->
     <string name="name_linha_config_dados">Name:</string>
     <!--<string name="area_linha_config_dados">Área:</string>-->

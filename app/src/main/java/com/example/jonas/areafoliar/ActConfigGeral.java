@@ -5,13 +5,18 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 
 
 public class ActConfigGeral extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
-    private CheckBox checkbox3,checkbox4,checkbox5;
+    //private CheckBox checkbox3,checkbox4,checkbox5;
+    private EditText editTextNumberDados;
+    private Button buttonDados;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +25,17 @@ public class ActConfigGeral extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         sharedPreferences = getSharedPreferences("valorLadoPref", Context.MODE_PRIVATE);
-        int valor = sharedPreferences.getInt("lado", 5);
-        checkbox3 = findViewById(R.id.checkbox3);
+        int valor = sharedPreferences.getInt("area", 5);
+        editTextNumberDados = (EditText)findViewById(R.id.editTextNumberDados);
+        buttonDados = (Button)findViewById(R.id.buttonDados);
+        buttonDados.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validaCampos();
+            }
+        });
+
+        /*checkbox3 = findViewById(R.id.checkbox3);
         checkbox4 = findViewById(R.id.checkbox4);
         checkbox5 = findViewById(R.id.checkbox5);
         if(valor == 3){
@@ -36,10 +50,10 @@ public class ActConfigGeral extends AppCompatActivity {
             checkbox3.setChecked(false);
             checkbox4.setChecked(false);
             checkbox5.setChecked(true);
-        }
+        }*/
     }
 
-    public void validaCheckBox(int check){
+    /*public void validaCheckBox(int check){
         sharedPreferences = getSharedPreferences("valorLadoPref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -82,10 +96,28 @@ public class ActConfigGeral extends AppCompatActivity {
             editor.putString(getString(R.string.pref_text), "5");
             editor.apply();
         }*/
+    //}
+
+    public void validaCampos(){
+        sharedPreferences = getSharedPreferences("valorLadoPref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String valor = editTextNumberDados.getText().toString();
+        if (isCampoVazio(valor)) editTextNumberDados.requestFocus();
+        else {
+            int area = Integer.parseInt(String.valueOf(editTextNumberDados.getText()));
+            editor.putInt("area", area);
+            editor.apply();
+            finish();
+        }
+    }
+
+    private boolean isCampoVazio(String a){
+        boolean resultado = (TextUtils.isEmpty(a) || a.trim().isEmpty());
+        return resultado;
     }
 
 
-    public void onCheckboxClicked(View view) {
+    /*public void onCheckboxClicked(View view) {
         boolean checked = ((CheckBox) view).isChecked();
         switch (view.getId()) {
             case R.id.checkbox3:
@@ -129,6 +161,6 @@ public class ActConfigGeral extends AppCompatActivity {
                 }
                 break;
         }*/
-    }
+    //}
 
 }
