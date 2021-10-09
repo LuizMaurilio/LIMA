@@ -206,9 +206,29 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                 cal.setTime(dataCalc);
                 Date data_atual = cal.getTime();
                 data_completa = dateFormat.format(data_atual);
-                findObjects(result);
-                surfaceCalc();
-                if (square.size() <= 0 || square.size() > 1 || leaves.size() <= 0) {
+//                findObjects(result);
+//                surfaceCalc();
+
+                SharedPreferences sharedPreferences = getSharedPreferences("valorLadoPref", Context.MODE_PRIVATE);
+                float areaQuadrado = sharedPreferences.getInt("area", 1);
+
+                ActCalculos calc = new ActCalculos();
+                calc.findObjects(result, ImageMat);
+                calc.surfaceCalc(areaQuadrado, ImageMat);
+
+//                Log.d("yourTag", calc.getNome());
+//                Log.d("yourTag", calc.getAltura());
+//                Log.d("yourTag", calc.getArea());
+//                Log.d("yourTag", calc.getData());
+//                Log.d("yourTag", calc.getPerimetro());
+                //findObjects(result);
+                //surfaceCalc();
+//                Log.d("yourTag", "value: " + calc.getSquare().size());
+
+                atualizarBanco(calc.getListaFolhas());
+
+                //if (square.size() <= 0 || square.size() > 1 || leaves.size() <= 0) {
+                if (calc.getSquare().size() <= 0 || calc.getSquare().size() > 1 || calc.getLeaves().size() <= 0) {
                     //Toast.makeText(getApplicationContext(), "An error occurred while analyzing the image. Please try again.", Toast.LENGTH_LONG).show();
                 } else {
                     //Converte o Mat em bitmap para salvar na tela
@@ -565,6 +585,14 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
             folhaMedia.setPerimetro(mP + "");
             folhaMedia.setTipo(1);
             folhaRepositorio.inserir(folhaMedia);
+        }
+    }
+
+    public void atualizarBanco(List<Folha> ListaFolhas){
+        for(int i = 0; i < ListaFolhas.size(); i++ ){
+            folhaRepositorio.inserir(ListaFolhas.get(i));
+            Log.d("Inserção", "Concluída");
+            Log.d("valores", "ValoresFOlha: " + ListaFolhas.get(i).getArea());
         }
     }
 }

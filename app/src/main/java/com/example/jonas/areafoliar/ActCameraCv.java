@@ -141,7 +141,7 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
                 } else {
                     BitmapHelper.getInstance().setBitmap(bitmap);
                     //Abre a tela para mostrar o resultado
-                    Intent it = new Intent(this, ActCamera.class);
+                    Intent it = new Intent(this, ActCamera.class); //OUTPUT IMAGE
                     it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     List<Folha> dados = folhaRepositorio.consultar();
                     int codigo = dados.get(dados.size() - 1).getCodigo();
@@ -467,13 +467,23 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
                 cal.setTime(dataCalc);
                 Date data_atual = cal.getTime();
                 data_completa = dateFormat.format(data_atual);
-                findObjects(result);
-                surfaceCalc();
+
+                SharedPreferences sharedPreferences = getSharedPreferences("valorLadoPref", Context.MODE_PRIVATE);
+                float areaQuadrado = sharedPreferences.getInt("area", 1);
+
+                ActCalculos calc = new ActCalculos();
+                calc.findObjects(result, ImageMat);
+                calc.surfaceCalc(areaQuadrado, ImageMat);
+
+                atualizarBanco(calc.getListaFolhas());
+//                findObjects(result);
+//                surfaceCalc();
                 //Converte o Mat em bitmap para salvar na tela
                 Utils.matToBitmap(ImageMat, bitmap);
                 //Cria objeto de ByteArray
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                if (square.size() <= 0 || square.size() > 1 || leaves.size() <= 0) {
+//                if (square.size() <= 0 || square.size() > 1 || leaves.size() <= 0) {
+                if (calc.getSquare().size() <= 0 || calc.getSquare().size() > 1 || calc.getLeaves().size() <= 0) {
                     //Toast.makeText(getApplicationContext(), "An error occurred while analyzing the image. Please try again.", Toast.LENGTH_LONG).show();
                 } else {
                     //Converte o bitmap para JPEG
@@ -534,5 +544,13 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
         //Imgproc.threshold(ImageMat, result, 80, 255, Imgproc.THRESH_BINARY_INV);
         //Imgproc.adaptiveThreshold(src,result,255, Imgproc.ADAPTIVE_THRESH_MEAN_C,Imgproc.THRESH_BINARY_INV,19,5);
         return ImageMat;
+    }
+
+    public void atualizarBanco(List<Folha> ListaFolhas){
+        for(int i = 0; i < ListaFolhas.size(); i++ ){
+            folhaRepositorio.inserir(ListaFolhas.get(i));
+            Log.d("Inserção", "Concluída");
+            Log.d("valores", "ValoresFOlha: " + ListaFolhas.get(i).getArea());
+        }
     }
 }

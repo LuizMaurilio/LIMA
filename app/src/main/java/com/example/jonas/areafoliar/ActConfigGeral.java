@@ -17,6 +17,7 @@ public class ActConfigGeral extends AppCompatActivity {
     //private CheckBox checkbox3,checkbox4,checkbox5;
     private EditText editTextNumberDados;
     private Button buttonDados;
+    private CheckBox c1,c2,c3,c4,c5,c6,c7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +26,40 @@ public class ActConfigGeral extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         sharedPreferences = getSharedPreferences("valorLadoPref", Context.MODE_PRIVATE);
-        int valor = sharedPreferences.getInt("area", 5);
+        int valor = sharedPreferences.getInt("area", 1);
         editTextNumberDados = (EditText)findViewById(R.id.editTextNumberDados);
+        editTextNumberDados.setText(String.valueOf(valor));
+
+        c1 = findViewById(R.id.calcArea);
+        c2 = findViewById(R.id.calcSomaArea);
+        c3 = findViewById(R.id.calcWidth);
+        c4 = findViewById(R.id.calcLength);
+        c5 = findViewById(R.id.calcWidthDLength);
+        c6 = findViewById(R.id.calcPerimeter);
+        c7 = findViewById(R.id.calcAvgDev);
+
+        Boolean prec1 = sharedPreferences.getBoolean("calcArea", false);
+        if(!prec1) c1.setChecked(false);
+        else c1.setChecked(true);
+        Boolean prec2 = sharedPreferences.getBoolean("calcSomaArea", false);
+        if(!prec2) c2.setChecked(false);
+        else c2.setChecked(true);
+        Boolean prec3 = sharedPreferences.getBoolean("calcWidth", false);
+        if(!prec3) c3.setChecked(false);
+        else c3.setChecked(true);
+        Boolean prec4 = sharedPreferences.getBoolean("calcLength", false);
+        if(!prec4) c4.setChecked(false);
+        else c4.setChecked(true);
+        Boolean prec5 = sharedPreferences.getBoolean("calcWidthDLength", false);
+        if(!prec5) c5.setChecked(false);
+        else c5.setChecked(true);
+        Boolean prec6 = sharedPreferences.getBoolean("calcPerimeter", false);
+        if(!prec6) c6.setChecked(false);
+        else c6.setChecked(true);
+        Boolean prec7 = sharedPreferences.getBoolean("calcAvgDev", false);
+        if(!prec7) c7.setChecked(false);
+        else c7.setChecked(true);
+
         buttonDados = (Button)findViewById(R.id.buttonDados);
         buttonDados.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,9 +139,24 @@ public class ActConfigGeral extends AppCompatActivity {
         else {
             int area = Integer.parseInt(String.valueOf(editTextNumberDados.getText()));
             editor.putInt("area", area);
+            if (c1.isChecked()) editor.putBoolean("calcArea", true);
+            else editor.putBoolean("calcArea", false);
+            if (c2.isChecked()) editor.putBoolean("calcSomaArea", true);
+            else editor.putBoolean("calcSomaArea", false);
+            if (c3.isChecked()) editor.putBoolean("calcWidth", true);
+            else editor.putBoolean("calcWidth", false);
+            if (c4.isChecked()) editor.putBoolean("calcLength", true);
+            else editor.putBoolean("calcLength", false);
+            if (c5.isChecked()) editor.putBoolean("calcWidthDLength", true);
+            else editor.putBoolean("calcWidthDLength", false);
+            if (c6.isChecked()) editor.putBoolean("calcPerimeter", true);
+            else editor.putBoolean("calcPerimeter", false);
+            if (c7.isChecked()) editor.putBoolean("calcAvgDev", true);
+            else editor.putBoolean("calcAvgDev", false);
             editor.apply();
             finish();
         }
+
     }
 
     private boolean isCampoVazio(String a){
