@@ -240,7 +240,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                     //Salva o bitmap enquanto o app é utilzado
                     BitmapHelper.getInstance().setBitmap(bitmap);
                     //Abre a tela para mostrar o resultado
-                    Intent it = new Intent(this, ActCamera.class);
+                    Intent it = new Intent(this, ActSaidaImagem.class);
                     it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                     List<Folha> dados = folhaRepositorio.consultar();

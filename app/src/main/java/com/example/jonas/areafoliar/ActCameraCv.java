@@ -141,7 +141,7 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
                 } else {
                     BitmapHelper.getInstance().setBitmap(bitmap);
                     //Abre a tela para mostrar o resultado
-                    Intent it = new Intent(this, ActCamera.class); //OUTPUT IMAGE
+                    Intent it = new Intent(this, ActSaidaImagem.class); //OUTPUT IMAGE
                     it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     List<Folha> dados = folhaRepositorio.consultar();
                     int codigo = dados.get(dados.size() - 1).getCodigo();
@@ -490,7 +490,7 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     BitmapHelper.getInstance().setBitmap(bitmap);
                     //Abre a tela para mostrar o resultado
-                    Intent it = new Intent(this, ActCamera.class);
+                    Intent it = new Intent(this, ActSaidaImagem.class);
                     try {
                         stream.close();
                     } catch (IOException e) {

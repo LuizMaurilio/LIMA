@@ -29,8 +29,8 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".ActCamera"
-            android:label="@string/title_activity_act_camera"
+            android:name=".ActSaidaImagem"
+            android:label="@string/title_activity_act_saida_imagem"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ActCameraCv"

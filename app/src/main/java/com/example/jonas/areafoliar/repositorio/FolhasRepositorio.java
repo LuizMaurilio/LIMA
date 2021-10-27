@@ -30,6 +30,10 @@ public class FolhasRepositorio {
         conexao.insertOrThrow("FOLHA",null,contentValues);
     }
 
+    public void inserirImagem(){
+
+    }
+
     public void excluir(int codigo){
         String[] parametros  = new String[1];
         parametros[0] = String.valueOf(codigo);
@@ -65,5 +69,9 @@ public class FolhasRepositorio {
             }while(resultado.moveToNext());
         }
         return folhas;
+    }
+
+    public void consultarImagens(){
+
     }
 }

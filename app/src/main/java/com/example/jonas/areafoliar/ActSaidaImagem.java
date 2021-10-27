@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,7 +32,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActCamera extends AppCompatActivity implements View.OnClickListener {
+public class ActSaidaImagem extends AppCompatActivity implements View.OnClickListener {
 
     ImageView imageViewFoto;
     private Bitmap foto;
@@ -50,7 +49,7 @@ public class ActCamera extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         Matrix matrix = new Matrix();
         matrix.postRotate(90);
-        setContentView(R.layout.act_camera);
+        setContentView(R.layout.act_saida_imagem);
         imageViewFoto = findViewById(R.id.imageViewFoto);
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;

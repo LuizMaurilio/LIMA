@@ -276,6 +276,8 @@ public class ActCalculos extends AppCompatActivity{
                     mL += aux;
                     mC += aux2;
                     //result.append("\nWidth: "); result.append(QString::number(aux));
+                    aux = (Math.round(aux*100.0)/100.0);
+                    aux2 = (Math.round(aux2*100.0)/100.0);
                     folha.setLargura(aux + "");
                     //setLargura(aux + "");
                     L[i] = aux;
@@ -288,6 +290,8 @@ public class ActCalculos extends AppCompatActivity{
                 } else {
                     mL += aux2;
                     mC += aux;
+                    aux = (Math.round(aux*100.0)/100.0);
+                    aux2 = (Math.round(aux2*100.0)/100.0);
                     //result.append("\nWidth: "); result.append(QString::number(aux2));
                     folha.setLargura(aux2 + "");
                     //setLargura(aux2 + "");
@@ -301,6 +305,7 @@ public class ActCalculos extends AppCompatActivity{
                 }
                 //_____________Calculo Area_____________
                 double auxArea = ((Imgproc.contourArea(getLeaves().get(i)) * areaQuadrado) / pixelsAreaSquare);
+                auxArea = (Math.round(auxArea*10.0)/10.0);
                 folha.setArea(auxArea + "");
                 //setArea(auxArea + "");
                 //sum += auxArea;
@@ -310,6 +315,7 @@ public class ActCalculos extends AppCompatActivity{
                 //_____________Calculo Perimetro_____________
                 double auxPer = ((Imgproc.arcLength(new MatOfPoint2f(getLeaves().get(i).toArray()), true) * realPerSquare) / pixelsPerSquare);
                 //result.append("\nPerimeter: "); result.append(QString::number(auxPer));
+                auxPer = (Math.round(auxPer*100.0)/100.0);
                 folha.setPerimetro(auxPer + "");
                 //setPerimetro(auxPer + "");
                 mP += auxPer;
