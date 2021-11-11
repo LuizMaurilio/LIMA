@@ -39,6 +39,7 @@ public class ActDados extends AppCompatActivity{
     private ArrayList<Folha> mesPresente = new ArrayList<>();
     private ArrayList<Folha> maisRecentes = new ArrayList<>();
     private Folhas2Adapter folhas2Adapter;
+    private ActCalculos calc;
 
     @SuppressLint("SimpleDateFormat")
     @Override
@@ -51,7 +52,8 @@ public class ActDados extends AppCompatActivity{
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listDados.setLayoutManager(linearLayoutManager);
         folhasRepositorio = new FolhasRepositorio(conexao);
-        dados = folhasRepositorio.consultar();
+        calc = folhasRepositorio.consultar();
+        dados = calc.getListaFolhas();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
         Date data = new Date();
         Calendar cal = Calendar.getInstance();
@@ -111,8 +113,9 @@ public class ActDados extends AppCompatActivity{
                 break;
         }
         for(int i = 0; i < dados.size(); i ++){
-            diaFolha = dados.get(i).getData().substring(0,2);
-            mesFolha = dados.get(i).getData().substring(3,5);
+            diaFolha = calc.getNome().substring(0,2);
+//            mesFolha = dados.get(i).getData().substring(3,5);
+            mesFolha = calc.getNome().substring(3,5);
             if(diaFolha.equals(diaAtual) && mesFolha.equals(mesAtual)){
                 maisRecentes.add(dados.get(i));
             }else if(mesFolha.equals(mesAtual)){
@@ -145,7 +148,7 @@ public class ActDados extends AppCompatActivity{
         //Array de medias dos testes
         ArrayList<Folha> medias = new ArrayList<>();
         for(int i = 0; i < folhasCarregadas.size(); i ++){
-            if(folhasCarregadas.get(i).getTipo() == 1){
+            if(folhasCarregadas.get(i).getNum_Folha() == 1){
                 medias.add(folhasCarregadas.get(i));
             }
         }
@@ -154,7 +157,8 @@ public class ActDados extends AppCompatActivity{
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        dados = folhasRepositorio.consultar();
+        calc = folhasRepositorio.consultar();
+        dados = calc.getListaFolhas();
         maisRecentes.clear();
         mesPresente.clear();
         mesPassado.clear();

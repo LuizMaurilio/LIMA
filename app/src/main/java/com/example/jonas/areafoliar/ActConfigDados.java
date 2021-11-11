@@ -28,6 +28,7 @@ public class ActConfigDados extends AppCompatActivity {
     private SQLiteDatabase conexao;
     private Folha folha;
     public static List<Folha> dados;
+    private ActCalculos calc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,8 @@ public class ActConfigDados extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listDados.setLayoutManager(linearLayoutManager);
         folhasRepositorio = new FolhasRepositorio(conexao);
-        dados = folhasRepositorio.consultar();
+        calc = folhasRepositorio.consultar();
+        dados = calc.getListaFolhas();
         edtNomeTeste = findViewById(R.id.edtNomeTeste);
         criarConexao();
         verificaParametro();
@@ -90,13 +92,16 @@ public class ActConfigDados extends AppCompatActivity {
 
         ArrayList<Folha> folhasSelecionadas = new ArrayList<>();
         for(int i = 0; i < dados.size(); i ++){
-            if(dados.get(i).getTipo() == 0 && dados.get(i).getData().equals(folha.getData())){
+//            if(dados.get(i).getData().equals(folha.getData())){
                 folhasSelecionadas.add(dados.get(i));
-            }else if(dados.get(i).getTipo() == 1 && dados.get(i).getData().equals(folha.getData())){
-                edtNomeTeste.setText(dados.get(i).getNome());
-                edtNomeTeste.setSelection(edtNomeTeste.getText().length());
-            }
+           // }
+//            else if(dados.get(i).getNum_Folha() == 1 && dados.get(i).getData().equals(folha.getData())){
+//                edtNomeTeste.setText(dados.get(i).getNome());
+//                edtNomeTeste.setSelection(edtNomeTeste.getText().length());
+//            }
         }
+        edtNomeTeste.setText(calc.getNome());
+        edtNomeTeste.setSelection(edtNomeTeste.getText().length());
 
         FolhasAdapter folhasAdapter = new FolhasAdapter(folhasSelecionadas);
         listDados.setAdapter(folhasAdapter);

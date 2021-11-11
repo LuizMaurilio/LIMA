@@ -40,13 +40,19 @@ public class ActCalculos extends AppCompatActivity{
     private List<Folha> ListaFolhas = new ArrayList<>();
 
     private String nome;
-    private String area;
-    private String altura;
-    private String largura;
-    private String tipo;
-    private String perimetro;
-    private String data;
-
+    private Double sumareas;
+    private Float area_Quad;
+    private Double larg_Media;
+    private Double larg_Desvio;
+    private Double comp_Medio;
+    private Double comp_Desvio;
+    private Double area_Media;
+    private Double area_Desvio;
+    private Double per_Media;
+    private Double per_Desvio;
+    private String especie;
+    private String tratamento;
+    private String repeticao;
 
     //private Context context;
 
@@ -243,7 +249,7 @@ public class ActCalculos extends AppCompatActivity{
             for (int i = 0; i < getLeavesPCA().size(); i++) {
                 Folha folha = new Folha();
                 folha.setData(data_completa);
-                folha.setTipo(0);
+                folha.setNum_Folha(i+1);
                 //final Point p = leaves.get(i).toArray()[0];
                 //int n = leaves.get(i).toArray().length;
                 Scalar color2 = new Scalar(0, 0, 255);
@@ -285,6 +291,9 @@ public class ActCalculos extends AppCompatActivity{
                     folha.setAltura(aux2 + "");
                     //setAltura(aux2 + "");
                     C[i] = aux2;
+
+                    Double largcomp = aux/aux2;
+                    folha.setLargcomp(largcomp + "");
                     //result.append("\nWidth/Length: "); result.append(QString::number(aux/aux2));
                     //LC[i] = aux / aux2;
                 } else {
@@ -299,6 +308,9 @@ public class ActCalculos extends AppCompatActivity{
                     //result.append("\nLength: "); result.append(QString::number(aux));
                     C[i] = aux;
                     folha.setAltura(aux + "");
+
+                    Double largcomp = aux2/aux;
+                    folha.setLargcomp(largcomp + "");
                     //setAltura(aux + "");
                     //result.append("\nWidth/Length: "); result.append(QString::number(aux2/aux));
                     //LC[i] = aux2 / aux;
@@ -362,74 +374,15 @@ public class ActCalculos extends AppCompatActivity{
 //                folhaRepositorio.inserir(folha);
                 getListaFolhas().add(folha);
             }
-//            Folha folhaMedia = new Folha();
-//            folhaMedia.setNome(data_completa + " - Nome do teste");
-//            folhaMedia.setArea(mA + "");
-//            folhaMedia.setAltura(mC + "");
-//            folhaMedia.setLargura(mL + "");
-//            folhaMedia.setData(data_completa);
-//            folhaMedia.setPerimetro(mP + "");
-//            folhaMedia.setTipo(1);
-//            folhaRepositorio.inserir(folhaMedia);
+            setNome(data_completa + " - Nome do teste");
+            setSumareas(mA);
+            setComp_Medio(mC);
+            setLarg_Media(mL);
+            setPer_Media(mP);
+            setArea_Quad(areaQuadrado);
         }
-        Log.d("yourTag", "This is my message55555");}
+    }
 
-
-//    public String getNome() {
-//        return nome;
-//    }
-//
-//    public void setNome(String nome) {
-//        this.nome = nome;
-//    }
-//
-//    public String getArea() {
-//        return area;
-//    }
-//
-//    public void setArea(String area) {
-//        this.area = area;
-//    }
-//
-//    public String getAltura() {
-//        return altura;
-//    }
-//
-//    public void setAltura(String altura) {
-//        this.altura = altura;
-//    }
-//
-//    public String getLargura() {
-//        return largura;
-//    }
-//
-//    public void setLargura(String largura) {
-//        this.largura = largura;
-//    }
-//
-//    public String getTipo() {
-//        return tipo;
-//    }
-//
-//    public void setTipo(String tipo) {
-//        this.tipo = tipo;
-//    }
-//
-//    public String getPerimetro() {
-//        return perimetro;
-//    }
-//
-//    public void setPerimetro(String perimetro) {
-//        this.perimetro = perimetro;
-//    }
-//
-//    public String getData() {
-//        return data;
-//    }
-//
-//    public void setData(String data) {
-//        this.data = data;
-//    }
 
     public List<MatOfPoint> getSquare() {
         return square;
@@ -461,6 +414,118 @@ public class ActCalculos extends AppCompatActivity{
 
     public void setListaFolhas(List<Folha> listaFolhas) {
         ListaFolhas = listaFolhas;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Double getSumareas() {
+        return sumareas;
+    }
+
+    public void setSumareas(Double sumareas) {
+        this.sumareas = sumareas;
+    }
+
+    public Float getArea_Quad() {
+        return area_Quad;
+    }
+
+    public void setArea_Quad(Float area_Quad) {
+        this.area_Quad = area_Quad;
+    }
+
+    public Double getLarg_Media() {
+        return larg_Media;
+    }
+
+    public void setLarg_Media(Double larg_Media) {
+        this.larg_Media = larg_Media;
+    }
+
+    public Double getLarg_Desvio() {
+        return larg_Desvio;
+    }
+
+    public void setLarg_Desvio(Double larg_Desvio) {
+        this.larg_Desvio = larg_Desvio;
+    }
+
+    public Double getComp_Medio() {
+        return comp_Medio;
+    }
+
+    public void setComp_Medio(Double comp_Medio) {
+        this.comp_Medio = comp_Medio;
+    }
+
+    public Double getComp_Desvio() {
+        return comp_Desvio;
+    }
+
+    public void setComp_Desvio(Double comp_Desvio) {
+        this.comp_Desvio = comp_Desvio;
+    }
+
+    public Double getArea_Media() {
+        return area_Media;
+    }
+
+    public void setArea_Media(Double area_Media) {
+        this.area_Media = area_Media;
+    }
+
+    public Double getArea_Desvio() {
+        return area_Desvio;
+    }
+
+    public void setArea_Desvio(Double area_Desvio) {
+        this.area_Desvio = area_Desvio;
+    }
+
+    public Double getPer_Media() {
+        return per_Media;
+    }
+
+    public void setPer_Media(Double per_Media) {
+        this.per_Media = per_Media;
+    }
+
+    public Double getPer_Desvio() {
+        return per_Desvio;
+    }
+
+    public void setPer_Desvio(Double per_Desvio) {
+        this.per_Desvio = per_Desvio;
+    }
+
+    public String getEspecie() {
+        return especie;
+    }
+
+    public void setEspecie(String especie) {
+        this.especie = especie;
+    }
+
+    public String getTratamento() {
+        return tratamento;
+    }
+
+    public void setTratamento(String tratamento) {
+        this.tratamento = tratamento;
+    }
+
+    public String getRepeticao() {
+        return repeticao;
+    }
+
+    public void setRepeticao(String repeticao) {
+        this.repeticao = repeticao;
     }
 }
 

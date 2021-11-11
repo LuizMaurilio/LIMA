@@ -225,12 +225,15 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                 //surfaceCalc();
 //                Log.d("yourTag", "value: " + calc.getSquare().size());
 
-                atualizarBanco(calc.getListaFolhas());
+//                atualizarBanco(calc.getListaFolhas());
+                folhaRepositorio.inserir(calc);
 
                 //if (square.size() <= 0 || square.size() > 1 || leaves.size() <= 0) {
                 if (calc.getSquare().size() <= 0 || calc.getSquare().size() > 1 || calc.getLeaves().size() <= 0) {
-                    //Toast.makeText(getApplicationContext(), "An error occurred while analyzing the image. Please try again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "An error occurred while analyzing the image. Please try again.", Toast.LENGTH_LONG).show();
+                    Log.d("yourTag", "An error occurred while analyzing the image. Please try again.");
                 } else {
+                    Log.d("yourTag", "ERROR");
                     //Converte o Mat em bitmap para salvar na tela
                     Utils.matToBitmap(ImageMat, bitmap);
                     //Cria objeto de ByteArray
@@ -242,8 +245,8 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                     //Abre a tela para mostrar o resultado
                     Intent it = new Intent(this, ActSaidaImagem.class);
                     it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                    List<Folha> dados = folhaRepositorio.consultar();
+                    ActCalculos auxCalc = folhaRepositorio.consultar();
+                    List<Folha> dados = auxCalc.getListaFolhas();
                     int codigo = dados.get(dados.size() - 1).getCodigo();
                     it.putExtra("CODIGO",codigo);
                     // Show progress bar
@@ -471,7 +474,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
             for (int i = 0; i < leavesPCA.size(); i++) {
                 Folha folha = new Folha();
                 folha.setData(data_completa);
-                folha.setTipo(0);
+                //folha.setTipo(0);
                 //final Point p = leaves.get(i).toArray()[0];
                 //int n = leaves.get(i).toArray().length;
                 Scalar color2 = new Scalar(0, 0, 255);
@@ -574,7 +577,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                 dP = Math.sqrt(dP / leavesPCA.size());
                 //result.append("\nPerimeter deviation: "); result.append(QString::number(dP));
                 //result.append("\n\n");
-                folhaRepositorio.inserir(folha);
+                //folhaRepositorio.inserir(folha);
             }
             Folha folhaMedia = new Folha();
             folhaMedia.setNome(data_completa + " - Nome do teste");
@@ -583,18 +586,18 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
             folhaMedia.setLargura(mL + "");
             folhaMedia.setData(data_completa);
             folhaMedia.setPerimetro(mP + "");
-            folhaMedia.setTipo(1);
-            folhaRepositorio.inserir(folhaMedia);
+            //folhaMedia.setTipo(1);
+            //folhaRepositorio.inserir(folhaMedia);
         }
     }
 
-    public void atualizarBanco(List<Folha> ListaFolhas){
-        for(int i = 0; i < ListaFolhas.size(); i++ ){
-            folhaRepositorio.inserir(ListaFolhas.get(i));
-            Log.d("Inserção", "Concluída");
-            Log.d("valores", "ValoresFOlha: " + ListaFolhas.get(i).getArea());
-        }
-    }
+//    public void atualizarBanco(List<Folha> ListaFolhas){
+//        for(int i = 0; i < ListaFolhas.size(); i++ ){
+//            folhaRepositorio.inserir(ListaFolhas.get(i));
+//            Log.d("Inserção", "Concluída");
+//            Log.d("valores", "ValoresFOlha: " + ListaFolhas.get(i).getArea());
+//        }
+//    }
 }
 
 

@@ -42,6 +42,7 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
     private SQLiteDatabase conexao;
     private Folha folha;
     public static List<Folha> dados;
+    private ActCalculos calc;
 
 
     @Override
@@ -62,8 +63,8 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         folhasRepositorio = new FolhasRepositorio(conexao);
-        dados = folhasRepositorio.consultar();
-
+        calc = folhasRepositorio.consultar();
+        dados = calc.getListaFolhas();
         /*
         if(ActCameraCv.bitmap != null){
             foto = ActCameraCv.bitmap;
@@ -118,7 +119,7 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
 
                 ArrayList<Folha> folhasSelecionadas = new ArrayList<>();
                 for (int i = 0; i < dados.size(); i++) {
-                    if (dados.get(i).getTipo() == 0 && dados.get(i).getData().equals(folha.getData()))
+                    if (dados.get(i).getData().equals(folha.getData()))
                         folhasSelecionadas.add(dados.get(i));
                 }
 

@@ -11,12 +11,13 @@ public class DadosOpenHelper extends SQLiteOpenHelper {
 
 
     public DadosOpenHelper(Context context) {
-        super(context, "Dados", null, 3);
+        super(context, "Dados", null, 7);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(ScriptDLL.getCreateTableCliente());
+        db.execSQL(ScriptDLL.getCreateTableImagem());
+        db.execSQL(ScriptDLL.getCreateTableFolha());
     }
 
     @Override
