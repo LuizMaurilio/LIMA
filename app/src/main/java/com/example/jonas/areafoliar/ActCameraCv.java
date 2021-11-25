@@ -135,7 +135,7 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
                 //Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
                 //Salva a imagem
 
-                SharedPreferences sharedPreferences = getSharedPreferences("valorLadoPref", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
                 float areaQuadrado = sharedPreferences.getInt("area", 1);
 
                 ActCalculos calc = new ActCalculos();
@@ -291,7 +291,7 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
             Toast.makeText(getApplicationContext(), "No leaf can be found. Please try again.", Toast.LENGTH_LONG).show();
         } else {
             List<MatOfPoint> result = new ArrayList<>();
-            SharedPreferences sharedPreferences = getSharedPreferences("valorLadoPref", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
             float areaQuadrado = sharedPreferences.getInt("lado", 5) * sharedPreferences.getInt("lado", 5);
 
             //---------------------Variaveis auxiliares calculos-----------------------
@@ -478,7 +478,7 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
                 Date data_atual = cal.getTime();
                 data_completa = dateFormat.format(data_atual);
 
-                SharedPreferences sharedPreferences = getSharedPreferences("valorLadoPref", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
                 float areaQuadrado = sharedPreferences.getInt("area", 1);
 
                 ActCalculos calc = new ActCalculos();

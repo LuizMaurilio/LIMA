@@ -1,6 +1,8 @@
 package com.example.jonas.areafoliar;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -31,8 +33,6 @@ public class ActCalculos extends AppCompatActivity{
     //private Mat ImageMat;
     public Bitmap bitmap;
 
-    private FolhasRepositorio folhaRepositorio;
-
     private String data_completa;
     private List<MatOfPoint> square = new ArrayList<>();
     private List<MatOfPoint> leaves = new ArrayList<>();
@@ -54,32 +54,11 @@ public class ActCalculos extends AppCompatActivity{
     private String tratamento;
     private String repeticao;
 
-    //private Context context;
-
-//    protected void onCreate(){
-//        criarConexao();
-//    }
-//    public ActCalculos(){
-//        criarConexao();
-//    }
-
     static {
         if (!OpenCVLoader.initDebug()) {
             Log.i("OpenCv", "OpenCV loaded failed");
         } else {
             Log.i("OpenCv", "OpenCV loaded successfully");
-        }
-    }
-
-
-    public void criarConexao() {
-        try {
-            DadosOpenHelper dadosOpenHelper = new DadosOpenHelper(this);
-            SQLiteDatabase conexao = dadosOpenHelper.getWritableDatabase();
-            folhaRepositorio = new FolhasRepositorio(conexao);
-            //Toast.makeText(getApplicationContext(), "Conexão criada com sucesso!", Toast.LENGTH_SHORT).show();
-        } catch (SQLException ex) {
-            //Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -157,28 +136,21 @@ public class ActCalculos extends AppCompatActivity{
         MatOfPoint2f[] contoursPoly = new MatOfPoint2f[contours.size()];
         //Imgproc.findContours(thresh, contours, Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
         MatOfPoint2f[] approx = new MatOfPoint2f[contours.size()];
-        Log.d("yourTag", "This is my message55555");
         for (int i = 0; i < contours.size(); i++) {
             approx[i] = new MatOfPoint2f();
             Imgproc.approxPolyDP(new MatOfPoint2f(contours.get(i).toArray()), approx[i], Imgproc.arcLength(new MatOfPoint2f(contours.get(i).toArray()), true) * 0.02, true);
             //approxPolyDP(contours[i], approx, arcLength(contours[i], true)*0.02, true);
             //if(approx.size() == 4 && fabs(contourArea(approx)) > 10000 && fabs(contourArea(approx)) < 999999999 && isContourConvex(approx) ){ NÃO CONSEGUI COLOCAR O isContourConvex
-            Log.d("yourTag", "This is my m222222225");
             if (approx[i].toArray().length == 4 && Math.abs(Imgproc.contourArea(approx[i])) > 1000 && Math.abs(Imgproc.contourArea(approx[i])) < 10000000000.0) {
                 double maxCosine = 0;
-                Log.d("yourTag", "This is my m888888888885");
                 for (int j = 2; j < 5; j++) {
                     double cosine = Math.abs(angle(approx[i].toArray()[j % 4], approx[i].toArray()[j - 2], approx[i].toArray()[j - 1]));
                     maxCosine = Math.max(maxCosine, cosine);
-                    Log.d("yourTag", "This is my 1671671451755");
                 }
                 if (maxCosine < 0.3) {
-                    Log.d("yourTag", "This is my 8989898989");
                     getSquare().add(contours.get(i));
                     Imgproc.drawContours(ImageMat, contours, i, new Scalar(0, 255, 0), 3);
-                    Log.d("yourTag", "contour drawn");
                 } else {
-                    Log.d("yourTag", "This is my 7777777777");
                     getLeaves().add(contours.get(i));
                     MatOfPoint contourPCA = pca(contours, i);
                     getLeavesPCA().add(contourPCA);
@@ -186,7 +158,6 @@ public class ActCalculos extends AppCompatActivity{
                     Imgproc.drawContours(ImageMat, contours, i, new Scalar(255, 0, 0), 3);
                 }
             } else if (Math.abs(Imgproc.contourArea(approx[i])) > 1000 && Math.abs(Imgproc.contourArea(approx[i])) < 10000000000.0) {
-                Log.d("yourTag", "This is my 787878787878787");
                 getLeaves().add(contours.get(i));
                 MatOfPoint contourPCA =  pca(contours, i);
                 getLeavesPCA().add(contourPCA);
@@ -194,7 +165,6 @@ public class ActCalculos extends AppCompatActivity{
                 Imgproc.drawContours(ImageMat, contours, i, new Scalar(255, 0, 0), 3);
             }
         }
-        Log.d("myTag", "This is my message10000");
     }
 
     void surfaceCalc(float areaQuadrado, Mat ImageMat) {

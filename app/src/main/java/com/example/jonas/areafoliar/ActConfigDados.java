@@ -1,6 +1,8 @@
 package com.example.jonas.areafoliar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,7 +28,7 @@ public class ActConfigDados extends AppCompatActivity {
     private EditText edtNomeTeste;
     private RecyclerView listDados;
     private FolhasRepositorio folhasRepositorio;
-    private SQLiteDatabase conexao;
+    //private SQLiteDatabase conexao;
     private Folha folha;
     public static List<Folha> dados;
     private ActCalculos calc;
@@ -41,11 +44,11 @@ public class ActConfigDados extends AppCompatActivity {
         listDados.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listDados.setLayoutManager(linearLayoutManager);
-        folhasRepositorio = new FolhasRepositorio(conexao);
         calc = folhasRepositorio.consultar();
+        Log.d("TESTE CALC NOMEDADOS", calc.getNome());
         dados = calc.getListaFolhas();
+        Log.d("TESTE DADOS", dados.get(0).getPerimetro());
         edtNomeTeste = findViewById(R.id.edtNomeTeste);
-        criarConexao();
         verificaParametro();
     }
 
@@ -110,7 +113,7 @@ public class ActConfigDados extends AppCompatActivity {
     public void criarConexao() {
         try {
             DadosOpenHelper dadosOpenHelper = new DadosOpenHelper(this);
-            conexao = dadosOpenHelper.getWritableDatabase();
+            SQLiteDatabase conexao = dadosOpenHelper.getWritableDatabase();
             folhasRepositorio = new FolhasRepositorio(conexao);
         } catch (SQLException ex) {
             Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();

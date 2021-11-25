@@ -15,7 +15,7 @@ import java.util.List;
 
 public class FolhasRepositorio {
     private SQLiteDatabase conexao;
-    private String idAtual;
+    private static String idAtual;
     public FolhasRepositorio(SQLiteDatabase conexao){
         this.conexao = conexao;
     }
@@ -71,7 +71,7 @@ public class FolhasRepositorio {
         ActCalculos calc = new ActCalculos();
         List<Folha> folhas = calc.getListaFolhas();
         String sql = "SELECT CODIGO,id_Imagem,num_Folha,AREA,ALTURA,LARGURA,largcomp,PERIMETRO " +  "FROM FOLHA" + " WHERE id_Imagem ='" + idAtual+ "' ;";
-        String sql2 = "SELECT id_Imagem, especie, area_Quad, larg_Media " + "FROM IMAGEM;";
+        String sql2 = "SELECT id_Imagem, especie, area_Quad, larg_Media " + "FROM IMAGEM" + " WHERE id_Imagem = '" + idAtual + "';";
         @SuppressLint("Recycle") Cursor resultado = conexao.rawQuery(sql,null);
         @SuppressLint("Recycle") Cursor resultado2 = conexao.rawQuery(sql2, null);
         if (resultado.getCount() > 0){
@@ -89,12 +89,18 @@ public class FolhasRepositorio {
                 folhas.add(folha);
             }while(resultado.moveToNext());
         }
-        resultado2.moveToFirst();
-        calc.setListaFolhas(folhas);
-        calc.setNome(resultado2.getString(resultado2.getColumnIndexOrThrow("id_Imagem")));
-        calc.setEspecie(resultado2.getString(resultado2.getColumnIndexOrThrow("especie")));
-        calc.setArea_Quad(resultado2.getFloat(resultado2.getColumnIndexOrThrow("area_Quad")));
-        calc.setLarg_Media(resultado2.getDouble(resultado2.getColumnIndexOrThrow("larg_Media")));
+        if (resultado2.getCount()>0) {
+            resultado2.moveToFirst();
+            calc.setListaFolhas(folhas);
+            Log.d("TESTE REPOSI", "ENTROU NOVAMENTE" + folhas.get(0).getAltura());
+            Log.d("TESTE DO REPOSI", resultado2.getString(resultado2.getColumnIndexOrThrow("id_Imagem")));
+            Log.d("TESTE DO REPOSIArea", resultado2.getString(resultado2.getColumnIndexOrThrow("area_Quad")));
+            calc.setNome(resultado2.getString(resultado2.getColumnIndexOrThrow("id_Imagem")));
+            calc.setEspecie(resultado2.getString(resultado2.getColumnIndexOrThrow("especie")));
+            calc.setArea_Quad(resultado2.getFloat(resultado2.getColumnIndexOrThrow("area_Quad")));
+            calc.setLarg_Media(resultado2.getDouble(resultado2.getColumnIndexOrThrow("larg_Media")));
+
+        }
         return calc;
     }
 

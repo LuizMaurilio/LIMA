@@ -209,7 +209,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
 //                findObjects(result);
 //                surfaceCalc();
 
-                SharedPreferences sharedPreferences = getSharedPreferences("valorLadoPref", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
                 float areaQuadrado = sharedPreferences.getInt("area", 1);
 
                 ActCalculos calc = new ActCalculos();
@@ -220,7 +220,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
 //                Log.d("yourTag", calc.getAltura());
 //                Log.d("yourTag", calc.getArea());
 //                Log.d("yourTag", calc.getData());
-//                Log.d("yourTag", calc.getPerimetro());
+                //Log.d("TESTE DA FOLHA", calc.getListaFolhas().get(0).getPerimetro());
                 //findObjects(result);
                 //surfaceCalc();
 //                Log.d("yourTag", "value: " + calc.getSquare().size());
@@ -233,7 +233,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                     Toast.makeText(getApplicationContext(), "An error occurred while analyzing the image. Please try again.", Toast.LENGTH_LONG).show();
                     Log.d("yourTag", "An error occurred while analyzing the image. Please try again.");
                 } else {
-                    Log.d("yourTag", "ERROR");
+                    //Log.d("yourTag", "ERROR");
                     //Converte o Mat em bitmap para salvar na tela
                     Utils.matToBitmap(ImageMat, bitmap);
                     //Cria objeto de ByteArray
@@ -247,6 +247,8 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                     it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     ActCalculos auxCalc = folhaRepositorio.consultar();
                     List<Folha> dados = auxCalc.getListaFolhas();
+                    Log.d("LIRECUPERADA FOLHAMAIN", dados.get(0).getPerimetro() + dados.get(0).getAltura());
+                    Log.d("TESTE CALCNOME MAIN", calc.getNome());
                     int codigo = dados.get(dados.size() - 1).getCodigo();
                     it.putExtra("CODIGO",codigo);
                     // Show progress bar
@@ -436,7 +438,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
             Toast.makeText(getApplicationContext(), "No leaf can be found. Please try again.", Toast.LENGTH_LONG).show();
         }else{
             List<MatOfPoint> result = new ArrayList<>();
-            SharedPreferences sharedPreferences = getSharedPreferences("valorLadoPref", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
             float areaQuadrado = sharedPreferences.getInt("area", 5);
 
             //---------------------Variaveis auxiliares calculos-----------------------

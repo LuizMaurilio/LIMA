@@ -3,6 +3,7 @@ package com.example.jonas.areafoliar;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -13,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,7 +41,7 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
     private int codigo;
     private int voltar;
     private FolhasRepositorio folhasRepositorio;
-    private SQLiteDatabase conexao;
+    //private SQLiteDatabase conexao;
     private Folha folha;
     public static List<Folha> dados;
     private ActCalculos calc;
@@ -62,7 +64,6 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
         criarConexao();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        folhasRepositorio = new FolhasRepositorio(conexao);
         calc = folhasRepositorio.consultar();
         dados = calc.getListaFolhas();
         /*
@@ -199,8 +200,9 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
     public void criarConexao() {
         try {
             DadosOpenHelper dadosOpenHelper = new DadosOpenHelper(this);
-            conexao = dadosOpenHelper.getWritableDatabase();
+            SQLiteDatabase conexao = dadosOpenHelper.getWritableDatabase();
             folhasRepositorio = new FolhasRepositorio(conexao);
+            Log.d("TESTE SAIDA IMAGEMCONEX", "CONEXÃO REALIZADA");
             //Toast.makeText(getApplicationContext(), "Conexão criada com sucesso!", Toast.LENGTH_SHORT).show();
         } catch (SQLException ex) {
             Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();

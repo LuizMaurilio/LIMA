@@ -4,12 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout-v23/linha_config_dados.xml" value="0.36666666666666664" />
+        <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/act_camera_cv.xml" value="0.36666666666666664" />
         <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/act_config_dados.xml" value="0.36666666666666664" />
         <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/act_config_geral.xml" value="0.36666666666666664" />
         <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/act_dados.xml" value="0.36666666666666664" />
+        <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/act_main.xml" value="0.36666666666666664" />
         <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/act_saida_imagem.xml" value="0.36666666666666664" />
         <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/content_act_config_geral.xml" value="0.36666666666666664" />
-        <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/linha_config_dados.xml" value="0.20677083333333332" />
+        <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/linha_config_dados.xml" value="0.33" />
         <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/menu/act_config_dados.xml" value="0.20677083333333332" />
       </map>
     </option>
