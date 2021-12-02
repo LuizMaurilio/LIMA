@@ -6,40 +6,36 @@ import android.os.Parcelable;
 import java.io.Serializable;
 
 public class Folha implements Serializable, Parcelable {
-    private String nome;
-    private String area;
-    private String altura;
-    private String largura;
-    private String data;
-    private String perimetro;
-    private String largcomp;
-    private int codigo, num_Folha, mImageResource;
 
-    public Folha(String nome, String area, String altura, String largura, String data, int num, String perimetro, String largcomp) {
-        this.nome = nome;
+    private Double largcomp, perimetro, area, comprimento, largura;
+    private int num_Folha;
+    private int mImageResource;
+    private int cod;
+    private String idImg;
+
+    public Folha(String idImg, Double area, Double comprimento, Double largura, int num, Double perimetro, Double largcomp, int cod) {
+        this.idImg = idImg;
         this.area = area;
-        this.altura = altura;
+        this.comprimento = comprimento;
         this.largura = largura;
-        this.data = data;
         this.num_Folha = num;
         this.perimetro = perimetro;
         this.largcomp = largcomp;
+        this.cod = cod;
     }
 
     public Folha() {
-        this.codigo = 0;
+        this.setCod(0);
     }
 
     private Folha(Parcel in) {
-        nome = in.readString();
-        area = in.readString();
-        altura = in.readString();
-        largura = in.readString();
-        data = in.readString();
-        codigo = in.readInt();
-        perimetro = in.readString();
+        idImg = in.readString();
+        area = in.readDouble();
+        comprimento = in.readDouble();
+        largura = in.readDouble();
+        perimetro = in.readDouble();
         num_Folha = in.readInt();
-        largcomp = in.readString();
+        largcomp = in.readDouble();
     }
 
     public static final Creator<Folha> CREATOR = new Creator<Folha>() {
@@ -54,52 +50,36 @@ public class Folha implements Serializable, Parcelable {
         }
     };
 
-    public String getNome() {
-        return nome;
+    public String getIdImg() {
+        return idImg;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setIdImg(String idImg) {
+        this.idImg = idImg;
     }
 
-    public String getArea() {
+    public Double getArea() {
         return area;
     }
 
-    public void setArea(String area) {
+    public void setArea(Double area) {
         this.area = area;
     }
 
-    public String getAltura() {
-        return altura;
+    public Double getComprimento() {
+        return comprimento;
     }
 
-    public void setAltura(String altura) {
-        this.altura = altura;
+    public void setComprimento(Double comprimento) {
+        this.comprimento = comprimento;
     }
 
-    public String getLargura() {
+    public Double getLargura() {
         return largura;
     }
 
-    public void setLargura(String largura) {
+    public void setLargura(Double largura) {
         this.largura = largura;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
     }
 
     public int getNum_Folha() {
@@ -110,11 +90,11 @@ public class Folha implements Serializable, Parcelable {
         this.num_Folha = num;
     }
 
-    public String getPerimetro() {
+    public Double getPerimetro() {
         return perimetro;
     }
 
-    public void setPerimetro(String perimetro) {
+    public void setPerimetro(Double perimetro) {
         this.perimetro = perimetro;
     }
 
@@ -133,14 +113,22 @@ public class Folha implements Serializable, Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(nome);
+        dest.writeString(idImg);
     }
 
-    public String getLargcomp() {
+    public Double getLargcomp() {
         return largcomp;
     }
 
-    public void setLargcomp(String largcomp) {
+    public void setLargcomp(Double largcomp) {
         this.largcomp = largcomp;
+    }
+
+    public int getCod() {
+        return cod;
+    }
+
+    public void setCod(int cod) {
+        this.cod = cod;
     }
 }

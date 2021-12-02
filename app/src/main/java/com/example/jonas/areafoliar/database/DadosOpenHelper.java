@@ -11,7 +11,7 @@ public class DadosOpenHelper extends SQLiteOpenHelper {
 
 
     public DadosOpenHelper(Context context) {
-        super(context, "Dados", null, 7);
+        super(context, "Dados", null, 10);
     }
 
     @Override

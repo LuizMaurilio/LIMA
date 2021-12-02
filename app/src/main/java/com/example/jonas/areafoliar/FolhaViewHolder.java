@@ -23,7 +23,7 @@ class FolhaViewHolder extends ChildViewHolder {
             public void onClick(View v) {
                 if(ActDados.dados.size() > 0){
                     Intent it = new Intent(context, ActConfigDados.class);
-                    it.putExtra("CODIGO", folha.getCodigo());
+                    it.putExtra("CODIGO", folha.getCod());
                     ((AppCompatActivity)context).startActivityForResult(it,0);
                 }
             }
@@ -32,11 +32,11 @@ class FolhaViewHolder extends ChildViewHolder {
 
     void bind(Folha folha){
         this.folha = folha;
-        txtNome.setText(folha.getNome());
-        txtArea.setText(folha.getArea());
-        txtAltura.setText(folha.getAltura());
-        txtLargura.setText(folha.getLargura());
-        txtPerimetro.setText(folha.getPerimetro());
+        txtNome.setText(folha.getNum_Folha()+"");
+        txtArea.setText(folha.getArea()+ "");
+        txtAltura.setText(folha.getComprimento()+"");
+        txtLargura.setText(folha.getLargura()+"");
+        txtPerimetro.setText(folha.getPerimetro()+"");
     }
 
 }

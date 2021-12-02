@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,6 +57,7 @@ public class ActDados extends AppCompatActivity{
         folhasRepositorio = new FolhasRepositorio(conexao);
         calc = folhasRepositorio.consultar();
         dados = calc.getListaFolhas();
+        Log.d("TESTE DADOS", calc.getIdImg());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
         Date data = new Date();
         Calendar cal = Calendar.getInstance();
@@ -64,6 +66,7 @@ public class ActDados extends AppCompatActivity{
         String data_completa = dateFormat.format(data_atual);
         diaAtual = data_completa.substring(0,2);
         mesAtual = data_completa.substring(3,5);
+        Log.d("TESTE HISTORICO", dados.get(0).getIdImg());
         switch (mesAtual) {
             case "01":
                 //nomeMesAtual = "Janeiro";
@@ -115,11 +118,12 @@ public class ActDados extends AppCompatActivity{
                 break;
         }
         for(int i = 0; i < dados.size(); i ++){
-            diaFolha = calc.getNome().substring(0,2);
+            diaFolha = calc.getIdImg().substring(0,2);
 //            mesFolha = dados.get(i).getData().substring(3,5);
-            mesFolha = calc.getNome().substring(3,5);
+            mesFolha = calc.getIdImg().substring(3,5);
             if(diaFolha.equals(diaAtual) && mesFolha.equals(mesAtual)){
                 maisRecentes.add(dados.get(i));
+                Log.d("TESTE HISTORICO", dados.get(i).getIdImg());
             }else if(mesFolha.equals(mesAtual)){
                 mesPresente.add(dados.get(i));
             }else if(Integer.parseInt(mesFolha) == (Integer.parseInt((mesAtual)) - 1)){
@@ -166,8 +170,8 @@ public class ActDados extends AppCompatActivity{
         mesPassado.clear();
         maisAntigo.clear();
         for(int i = 0; i < dados.size(); i ++){
-            diaFolha = dados.get(i).getData().substring(0,2);
-            mesFolha = dados.get(i).getData().substring(3,5);
+            diaFolha = dados.get(i).getIdImg().substring(0,2);
+            mesFolha = dados.get(i).getIdImg().substring(3,5);
             if(diaFolha.equals(diaAtual) && mesFolha.equals(mesAtual)){
                 maisRecentes.add(dados.get(i));
             }else if(mesFolha.equals(mesAtual)){

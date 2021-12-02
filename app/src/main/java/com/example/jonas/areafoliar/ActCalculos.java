@@ -40,6 +40,7 @@ public class ActCalculos extends AppCompatActivity{
     private List<Folha> ListaFolhas = new ArrayList<>();
 
     private String nome;
+    private String idImg;
     private Double sumareas;
     private Float area_Quad;
     private Double larg_Media;
@@ -167,7 +168,7 @@ public class ActCalculos extends AppCompatActivity{
         }
     }
 
-    void surfaceCalc(float areaQuadrado, Mat ImageMat) {
+    void surfaceCalc(float areaQuadrado, Mat ImageMat, String name) {
         //Log.d("yourTag", "This is my 651654784165");
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
         Date dataCalc = new Date();
@@ -218,7 +219,7 @@ public class ActCalculos extends AppCompatActivity{
             double realSideSquare = Math.sqrt(areaQuadrado);
             for (int i = 0; i < getLeavesPCA().size(); i++) {
                 Folha folha = new Folha();
-                folha.setData(data_completa);
+                folha.setIdImg(data_completa);
                 folha.setNum_Folha(i+1);
                 //final Point p = leaves.get(i).toArray()[0];
                 //int n = leaves.get(i).toArray().length;
@@ -233,11 +234,6 @@ public class ActCalculos extends AppCompatActivity{
                 Imgproc.putText(ImageMat, (i + 1) + "", new Point(x, y), Core.FONT_HERSHEY_SIMPLEX, 5, color3,
                         12
                 );
-                //result.append("\nLeaf: ");
-                //result.append(QString::number (i + 1));
-                folha.setNome(data_completa + " " + (i + 1));
-                //setNome(data_completa + " " + (i + 1));
-                //result.append("\n\n");*/
 
                 //_____________Calculo Largura e Comprimento_____________
                 boundRect[i] = Imgproc.boundingRect(getLeavesPCA().get(i));
@@ -254,16 +250,16 @@ public class ActCalculos extends AppCompatActivity{
                     //result.append("\nWidth: "); result.append(QString::number(aux));
                     aux = (Math.round(aux*100.0)/100.0);
                     aux2 = (Math.round(aux2*100.0)/100.0);
-                    folha.setLargura(aux + "");
+                    folha.setLargura(aux);
                     //setLargura(aux + "");
                     L[i] = aux;
                     //result.append("\nLength: "); result.append(QString::number(aux2));
-                    folha.setAltura(aux2 + "");
+                    folha.setComprimento(aux2);
                     //setAltura(aux2 + "");
                     C[i] = aux2;
 
                     Double largcomp = aux/aux2;
-                    folha.setLargcomp(largcomp + "");
+                    folha.setLargcomp(largcomp);
                     //result.append("\nWidth/Length: "); result.append(QString::number(aux/aux2));
                     //LC[i] = aux / aux2;
                 } else {
@@ -272,15 +268,15 @@ public class ActCalculos extends AppCompatActivity{
                     aux = (Math.round(aux*100.0)/100.0);
                     aux2 = (Math.round(aux2*100.0)/100.0);
                     //result.append("\nWidth: "); result.append(QString::number(aux2));
-                    folha.setLargura(aux2 + "");
+                    folha.setLargura(aux2);
                     //setLargura(aux2 + "");
                     L[i] = aux2;
                     //result.append("\nLength: "); result.append(QString::number(aux));
                     C[i] = aux;
-                    folha.setAltura(aux + "");
+                    folha.setComprimento(aux);
 
                     Double largcomp = aux2/aux;
-                    folha.setLargcomp(largcomp + "");
+                    folha.setLargcomp(largcomp);
                     //setAltura(aux + "");
                     //result.append("\nWidth/Length: "); result.append(QString::number(aux2/aux));
                     //LC[i] = aux2 / aux;
@@ -288,7 +284,7 @@ public class ActCalculos extends AppCompatActivity{
                 //_____________Calculo Area_____________
                 double auxArea = ((Imgproc.contourArea(getLeaves().get(i)) * areaQuadrado) / pixelsAreaSquare);
                 auxArea = (Math.round(auxArea*10.0)/10.0);
-                folha.setArea(auxArea + "");
+                folha.setArea(auxArea);
                 //setArea(auxArea + "");
                 //sum += auxArea;
                 //result.append("\nArea: "); result.append(QString::number(auxArea));
@@ -298,7 +294,7 @@ public class ActCalculos extends AppCompatActivity{
                 double auxPer = ((Imgproc.arcLength(new MatOfPoint2f(getLeaves().get(i).toArray()), true) * realPerSquare) / pixelsPerSquare);
                 //result.append("\nPerimeter: "); result.append(QString::number(auxPer));
                 auxPer = (Math.round(auxPer*100.0)/100.0);
-                folha.setPerimetro(auxPer + "");
+                folha.setPerimetro(auxPer);
                 //setPerimetro(auxPer + "");
                 mP += auxPer;
                 P[i] = auxPer;
@@ -344,12 +340,21 @@ public class ActCalculos extends AppCompatActivity{
 //                folhaRepositorio.inserir(folha);
                 getListaFolhas().add(folha);
             }
-            setNome(data_completa + " - Nome do teste");
+            setIdImg(data_completa);
+            setNome(name);
             setSumareas(mA);
             setComp_Medio(mC);
+            setComp_Desvio(dC);
             setLarg_Media(mL);
+            setLarg_Desvio(dL);
             setPer_Media(mP);
+            setPer_Desvio(dP);
             setArea_Quad(areaQuadrado);
+            setRepeticao("");
+            setTratamento("");
+            setEspecie("");
+            setArea_Desvio(dA);
+            setArea_Media(mA);
         }
     }
 
@@ -496,6 +501,14 @@ public class ActCalculos extends AppCompatActivity{
 
     public void setRepeticao(String repeticao) {
         this.repeticao = repeticao;
+    }
+
+    public String getIdImg() {
+        return idImg;
+    }
+
+    public void setIdImg(String idImg) {
+        this.idImg = idImg;
     }
 }
 

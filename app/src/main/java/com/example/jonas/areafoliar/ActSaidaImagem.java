@@ -113,20 +113,20 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
                 int cod = bundle.getInt("CODIGO");
 
                 for (int j = 0; j < dados.size(); j++) {
-                    if (dados.get(j).getCodigo() == cod) {
+                    if (dados.get(j).getCod() == cod) {
                         folha = dados.get(j);
                     }
                 }
 
                 ArrayList<Folha> folhasSelecionadas = new ArrayList<>();
                 for (int i = 0; i < dados.size(); i++) {
-                    if (dados.get(i).getData().equals(folha.getData()))
+                    if (dados.get(i).getIdImg().equals(folha.getIdImg()))
                         folhasSelecionadas.add(dados.get(i));
                 }
 
                 for (int t = 0; t < folhasSelecionadas.size(); t++) {
                         folha = folhasSelecionadas.get(t);
-                        data.append("\n" + " " + "," + folha.getNome() + "," + folha.getLargura() + "," + folha.getAltura() + "," + folha.getArea() + "," + folha.getPerimetro());
+                        data.append("\n" + " " + "," + folha.getIdImg() + "," + folha.getLargura() + "," + folha.getComprimento() + "," + folha.getArea() + "," + folha.getPerimetro());
                 }
 
                 try {

@@ -38,11 +38,11 @@ public class FolhasAdapter extends RecyclerView.Adapter<FolhasAdapter.ViewHolder
     public void onBindViewHolder(@NonNull FolhasAdapter.ViewHolderFolhas viewHolder, int i) {
         if (folhas != null && (folhas.size() > 0)) {
             Folha folha = folhas.get(i);
-            viewHolder.edtNome.setText(folha.getNome());
-            viewHolder.edtArea.setText(folha.getArea());
-            viewHolder.edtAltura.setText(folha.getAltura());
-            viewHolder.edtLargura.setText(folha.getLargura());
-            viewHolder.edtPerimetro.setText(folha.getPerimetro());
+            viewHolder.edtNome.setText(folha.getNum_Folha()+"");
+            viewHolder.edtArea.setText(folha.getArea()+"");
+            viewHolder.edtAltura.setText(folha.getComprimento()+"");
+            viewHolder.edtLargura.setText(folha.getLargura()+"");
+            viewHolder.edtPerimetro.setText(folha.getPerimetro()+"");
         }
     }
 
@@ -86,7 +86,7 @@ public class FolhasAdapter extends RecyclerView.Adapter<FolhasAdapter.ViewHolder
                         Button cancelar = dialog.findViewById(R.id.excBtn);
                         Button confirmar = dialog.findViewById(R.id.confBtn);
                         final EditText input = dialog.findViewById(R.id.edtNomeAlterarFolha);
-                        input.setText(folha.getNome());
+                        input.setText(folha.getNum_Folha()+"");
                         input.setSelection(input.getText().length());
 
                         cancelar.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +94,7 @@ public class FolhasAdapter extends RecyclerView.Adapter<FolhasAdapter.ViewHolder
                             public void onClick(View v) {
                                 try {
                                     //Falta recalcular a área da média quando excluir e também atualizar o list com os dados novos!!!!!!
-                                    folhasRepositorio.excluir(folha.getCodigo());
+                                    folhasRepositorio.excluir(folha.getCod());
                                     dialog.dismiss(); // fecha o dialog
                                 } catch (SQLException ignored) {
 
@@ -104,7 +104,7 @@ public class FolhasAdapter extends RecyclerView.Adapter<FolhasAdapter.ViewHolder
                         confirmar.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                folhasRepositorio.alterar(folha.getCodigo(), input.getText().toString());
+                                folhasRepositorio.alterar(folha.getIdImg(), input.getText().toString());
                                 dialog.dismiss();
                             }
                         });

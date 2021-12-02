@@ -45,9 +45,7 @@ public class ActConfigDados extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listDados.setLayoutManager(linearLayoutManager);
         calc = folhasRepositorio.consultar();
-        Log.d("TESTE CALC NOMEDADOS", calc.getNome());
         dados = calc.getListaFolhas();
-        Log.d("TESTE DADOS", dados.get(0).getPerimetro());
         edtNomeTeste = findViewById(R.id.edtNomeTeste);
         verificaParametro();
     }
@@ -67,7 +65,7 @@ public class ActConfigDados extends AppCompatActivity {
 
     private void confirmar() {
         try{
-            folhasRepositorio.alterar(folha.getCodigo(),edtNomeTeste.getText().toString());
+            folhasRepositorio.alterar(calc.getIdImg(),edtNomeTeste.getText().toString());
             Intent itDados = new Intent(this, ActDados.class);
             startActivityForResult(itDados, 0);
             finish();
@@ -88,7 +86,7 @@ public class ActConfigDados extends AppCompatActivity {
         int cod = bundle.getInt("CODIGO");
 
         for(int j = 0; j < dados.size(); j ++){
-            if(dados.get(j).getCodigo() == cod){
+            if(dados.get(j).getCod() == cod){
                 folha = dados.get(j);
             }
         }
@@ -129,8 +127,8 @@ public class ActConfigDados extends AppCompatActivity {
                 break;
             case R.id.action_excluir:
                 for(int i = 0; i < dados.size(); i ++){
-                    if(dados.get(i).getData().equals(folha.getData())){
-                        folhasRepositorio.excluir(dados.get(i).getCodigo());
+                    if(dados.get(i).getIdImg().equals(folha.getIdImg())){
+                        folhasRepositorio.excluir(dados.get(i).getCod());
                     }
                 }
                 finish();
