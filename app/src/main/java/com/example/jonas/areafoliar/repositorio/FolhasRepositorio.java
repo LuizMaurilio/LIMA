@@ -67,15 +67,21 @@ public class FolhasRepositorio {
         conexao.update("IMAGEM",contentValues,"id_Imagem = ? ", parametros);
     }
 
-    public ActCalculos consultar(){ // FAZER UMA FUNÇÃO QUE SELECIONA APENAS AS FOLHAS COM O MESMO ID
+    public ActCalculos consultar(Boolean hist){ // FAZER UMA FUNÇÃO QUE SELECIONA APENAS AS FOLHAS COM O MESMO ID // FUNÇÃO AGORA RECEBE UMA VARIAVEL PARA DETERMINAR SE A CHAMADA É O HISTORICO OU O TESTE ATUAL
         ActCalculos calc = new ActCalculos();
         List<Folha> folhas = new ArrayList<>();
-        String sql = "SELECT CODIGO,id_Imagem,num_Folha,AREA,COMPRIMENTO,LARGURA,largcomp,PERIMETRO " +  "FROM FOLHA" + " WHERE id_Imagem = '" + idAtual+ "' ;";
         String sql2 = "SELECT id_Imagem, especie, area_Quad, larg_Media, larg_Desvio, comp_Desvio, comp_Media, per_Desvio, per_Media, area_Media, area_Desvio, sumareas, tratamento, repeticao, nome " + "FROM IMAGEM" + " WHERE id_Imagem = '" + idAtual + "';";
-        @SuppressLint("Recycle") Cursor resultado = conexao.rawQuery(sql,null);
+        @SuppressLint("Recycle") Cursor resultado;
         @SuppressLint("Recycle") Cursor resultado2 = conexao.rawQuery(sql2, null);
+        if (hist) {
+            String sql3 = "SELECT CODIGO,id_Imagem,num_Folha,AREA,COMPRIMENTO,LARGURA,largcomp,PERIMETRO " +  "FROM FOLHA;";
+            resultado = conexao.rawQuery(sql3,null);
+        }
+        else{
+            String sql = "SELECT CODIGO,id_Imagem,num_Folha,AREA,COMPRIMENTO,LARGURA,largcomp,PERIMETRO " +  "FROM FOLHA" + " WHERE id_Imagem = '" + idAtual+ "' ;";
+            resultado = conexao.rawQuery(sql, null);
+        }
         if (resultado.getCount() > 0){
-            Log.d("RESULTADO1 >0", " OK");
             resultado.moveToFirst();
             do{
                 Folha folha = new Folha();
@@ -88,13 +94,11 @@ public class FolhasRepositorio {
                 folha.setPerimetro(resultado.getDouble(resultado.getColumnIndexOrThrow("PERIMETRO")));
                 folha.setLargcomp(resultado.getDouble(resultado.getColumnIndexOrThrow("largcomp")));
                 folhas.add(folha);
-                Log.d("folha adicionada", " OK");
             }while(resultado.moveToNext());
+            calc.setListaFolhas(folhas);
         }
         if (resultado2.getCount()>0) {
             resultado2.moveToFirst();
-            calc.setListaFolhas(folhas);
-            Log.d("LISTA ADICIONADA", " OK");
             calc.setIdImg(resultado2.getString(resultado2.getColumnIndexOrThrow("id_Imagem")));
             calc.setEspecie(resultado2.getString(resultado2.getColumnIndexOrThrow("especie")));
             calc.setArea_Quad(resultado2.getFloat(resultado2.getColumnIndexOrThrow("area_Quad")));

@@ -64,7 +64,7 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
         criarConexao();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        calc = folhasRepositorio.consultar();
+        calc = folhasRepositorio.consultar(false);
         dados = calc.getListaFolhas();
         /*
         if(ActCameraCv.bitmap != null){
@@ -202,7 +202,6 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
             DadosOpenHelper dadosOpenHelper = new DadosOpenHelper(this);
             SQLiteDatabase conexao = dadosOpenHelper.getWritableDatabase();
             folhasRepositorio = new FolhasRepositorio(conexao);
-            Log.d("TESTE SAIDA IMAGEMCONEX", "CONEXÃO REALIZADA");
             //Toast.makeText(getApplicationContext(), "Conexão criada com sucesso!", Toast.LENGTH_SHORT).show();
         } catch (SQLException ex) {
             Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();

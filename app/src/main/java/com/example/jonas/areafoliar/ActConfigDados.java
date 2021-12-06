@@ -44,7 +44,7 @@ public class ActConfigDados extends AppCompatActivity {
         listDados.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listDados.setLayoutManager(linearLayoutManager);
-        calc = folhasRepositorio.consultar();
+        calc = folhasRepositorio.consultar(false);
         dados = calc.getListaFolhas();
         edtNomeTeste = findViewById(R.id.edtNomeTeste);
         verificaParametro();

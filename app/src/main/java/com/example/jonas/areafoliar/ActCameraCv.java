@@ -292,12 +292,4 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
         //Imgproc.adaptiveThreshold(src,result,255, Imgproc.ADAPTIVE_THRESH_MEAN_C,Imgproc.THRESH_BINARY_INV,19,5);
         return ImageMat;
     }
-
-    public void atualizarBanco(List<Folha> ListaFolhas){
-        for(int i = 0; i < ListaFolhas.size(); i++ ){
-            //folhaRepositorio.inserir(ListaFolhas.get(i));
-            Log.d("Inserção", "Concluída");
-            Log.d("valores", "ValoresFOlha: " + ListaFolhas.get(i).getArea());
-        }
-    }
 }

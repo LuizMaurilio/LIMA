@@ -217,7 +217,6 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                 calc.findObjects(result, ImageMat);
                 calc.surfaceCalc(areaQuadrado, ImageMat, nome);
 
-                Log.d("TESTE DA FOLHA", calc.getListaFolhas().get(0).getPerimetro()+"");
                 //findObjects(result);
                 //surfaceCalc();
 //                Log.d("yourTag", "value: " + calc.getSquare().size());
@@ -242,7 +241,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                     //Abre a tela para mostrar o resultado
                     Intent it = new Intent(this, ActSaidaImagem.class);
                     it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    ActCalculos auxCalc = folhaRepositorio.consultar();
+                    ActCalculos auxCalc = folhaRepositorio.consultar(false);
                     List<Folha> dados = auxCalc.getListaFolhas();
                     Log.d("TESTE MAIN LISTA", dados.get(0).getIdImg());
                     int codigo = dados.get(dados.size() - 1).getCod();

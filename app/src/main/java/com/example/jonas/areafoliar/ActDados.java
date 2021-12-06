@@ -55,9 +55,8 @@ public class ActDados extends AppCompatActivity{
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listDados.setLayoutManager(linearLayoutManager);
         folhasRepositorio = new FolhasRepositorio(conexao);
-        calc = folhasRepositorio.consultar();
+        calc = folhasRepositorio.consultar(true);
         dados = calc.getListaFolhas();
-        Log.d("TESTE DADOS", calc.getIdImg());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
         Date data = new Date();
         Calendar cal = Calendar.getInstance();
@@ -65,8 +64,7 @@ public class ActDados extends AppCompatActivity{
         Date data_atual = cal.getTime();
         String data_completa = dateFormat.format(data_atual);
         diaAtual = data_completa.substring(0,2);
-        mesAtual = data_completa.substring(3,5);
-        Log.d("TESTE HISTORICO", dados.get(0).getIdImg());
+        mesAtual = data_completa.substring(3,5); // todo PROBLEMA COM HISTÓRICO É QUE ELE RETORNA APENAS UM ACT CALC, TEM QUE RETORNAR TODOS
         switch (mesAtual) {
             case "01":
                 //nomeMesAtual = "Janeiro";
@@ -117,13 +115,11 @@ public class ActDados extends AppCompatActivity{
                 nomeMesAtual = "December";
                 break;
         }
-        for(int i = 0; i < dados.size(); i ++){
-            diaFolha = calc.getIdImg().substring(0,2);
-//            mesFolha = dados.get(i).getData().substring(3,5);
-            mesFolha = calc.getIdImg().substring(3,5);
+        for(int i = 0; i < dados.size(); i ++){    //todo modularizar essa função, está repetida
+            diaFolha = dados.get(i).getIdImg().substring(0,2);
+            mesFolha = dados.get(i).getIdImg().substring(3,5);
             if(diaFolha.equals(diaAtual) && mesFolha.equals(mesAtual)){
                 maisRecentes.add(dados.get(i));
-                Log.d("TESTE HISTORICO", dados.get(i).getIdImg());
             }else if(mesFolha.equals(mesAtual)){
                 mesPresente.add(dados.get(i));
             }else if(Integer.parseInt(mesFolha) == (Integer.parseInt((mesAtual)) - 1)){
@@ -163,7 +159,7 @@ public class ActDados extends AppCompatActivity{
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        calc = folhasRepositorio.consultar();
+        calc = folhasRepositorio.consultar(true);
         dados = calc.getListaFolhas();
         maisRecentes.clear();
         mesPresente.clear();
@@ -176,7 +172,7 @@ public class ActDados extends AppCompatActivity{
                 maisRecentes.add(dados.get(i));
             }else if(mesFolha.equals(mesAtual)){
                 mesPresente.add(dados.get(i));
-            }else if(Integer.parseInt(mesFolha) == (Integer.parseInt((mesAtual)) - 1)){
+            }else if(Integer.parseInt(mesFolha.trim()) == (Integer.parseInt((mesAtual.trim())) - 1)){
                 mesPassado.add(dados.get(i));
             }else{
                 maisAntigo.add(dados.get(i));

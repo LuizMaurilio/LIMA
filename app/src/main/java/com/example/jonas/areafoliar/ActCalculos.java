@@ -169,7 +169,6 @@ public class ActCalculos extends AppCompatActivity{
     }
 
     void surfaceCalc(float areaQuadrado, Mat ImageMat, String name) {
-        //Log.d("yourTag", "This is my 651654784165");
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
         Date dataCalc = new Date();
         Calendar cal = Calendar.getInstance();
