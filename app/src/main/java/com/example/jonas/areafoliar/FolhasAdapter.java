@@ -94,7 +94,7 @@ public class FolhasAdapter extends RecyclerView.Adapter<FolhasAdapter.ViewHolder
                             public void onClick(View v) {
                                 try {
                                     //Falta recalcular a área da média quando excluir e também atualizar o list com os dados novos!!!!!!
-                                    folhasRepositorio.excluir(folha.getCod());
+                                    folhasRepositorio.excluir(folha.getIdImg());
                                     dialog.dismiss(); // fecha o dialog
                                 } catch (SQLException ignored) {
 

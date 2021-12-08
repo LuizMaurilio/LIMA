@@ -128,7 +128,7 @@ public class ActConfigDados extends AppCompatActivity {
             case R.id.action_excluir:
                 for(int i = 0; i < dados.size(); i ++){
                     if(dados.get(i).getIdImg().equals(folha.getIdImg())){
-                        folhasRepositorio.excluir(dados.get(i).getCod());
+                        folhasRepositorio.excluir(calc.getIdImg());
                     }
                 }
                 finish();

@@ -53,13 +53,14 @@ public class FolhasRepositorio {
         conexao.insertOrThrow("IMAGEM", null, content);
     }
 
-    public void excluir(int codigo){
+    public void excluir(String idImg){
         String[] parametros  = new String[1];
-        parametros[0] = String.valueOf(codigo);
-        conexao.delete("FOLHA","CODIGO = ? ",parametros);
+        parametros[0] = idImg;
+        conexao.delete("FOLHA","id_Imagem = ? ",parametros);
+        conexao.delete("IMAGEM", "id_Imagem = ?", parametros);
     }
 
-    public void alterar(String idImg, String nome){
+    public void alterar(String idImg, String nome){ //todo conferir funções de excluir e alterar
         ContentValues contentValues = new ContentValues();
         contentValues.put("nome",nome);
         String[] parametros  = new String[1];

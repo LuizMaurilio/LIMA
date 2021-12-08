@@ -64,7 +64,7 @@ public class ActDados extends AppCompatActivity{
         Date data_atual = cal.getTime();
         String data_completa = dateFormat.format(data_atual);
         diaAtual = data_completa.substring(0,2);
-        mesAtual = data_completa.substring(3,5); // todo PROBLEMA COM HISTÓRICO É QUE ELE RETORNA APENAS UM ACT CALC, TEM QUE RETORNAR TODOS
+        mesAtual = data_completa.substring(3,5);
         switch (mesAtual) {
             case "01":
                 //nomeMesAtual = "Janeiro";
@@ -115,7 +115,7 @@ public class ActDados extends AppCompatActivity{
                 nomeMesAtual = "December";
                 break;
         }
-        for(int i = 0; i < dados.size(); i ++){    //todo modularizar essa função, está repetida
+        for(int i = 0; i < dados.size(); i ++){    //TODO modularizar essa função, está repetida
             diaFolha = dados.get(i).getIdImg().substring(0,2);
             mesFolha = dados.get(i).getIdImg().substring(3,5);
             if(diaFolha.equals(diaAtual) && mesFolha.equals(mesAtual)){
