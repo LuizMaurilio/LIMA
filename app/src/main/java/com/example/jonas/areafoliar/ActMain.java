@@ -215,7 +215,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
 
                 ActCalculos calc = new ActCalculos();
                 calc.findObjects(result, ImageMat);
-                calc.surfaceCalc(areaQuadrado, ImageMat, nome);
+                calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null));
 
                 //findObjects(result);
                 //surfaceCalc();

@@ -141,7 +141,7 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
 
                 ActCalculos calc = new ActCalculos();
                 calc.findObjects(result, ImageMat);
-                calc.surfaceCalc(areaQuadrado, ImageMat, "Camera");  // RESOLVER!!!!!
+                calc.surfaceCalc(areaQuadrado, ImageMat, "Camera", sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null));  // RESOLVER!!!!!
 
                 folhaRepositorio.inserir(calc);
 
@@ -220,7 +220,7 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
 
                 ActCalculos calc = new ActCalculos();
                 calc.findObjects(result, ImageMat);
-                calc.surfaceCalc(areaQuadrado, ImageMat, nome);
+                calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null));
 
                 folhaRepositorio.inserir(calc);
 //                findObjects(result);

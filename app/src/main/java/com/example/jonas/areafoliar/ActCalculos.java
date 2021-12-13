@@ -168,7 +168,7 @@ public class ActCalculos extends AppCompatActivity{
         }
     }
 
-    void surfaceCalc(float areaQuadrado, Mat ImageMat, String name) {
+    void surfaceCalc(float areaQuadrado, Mat ImageMat, String name, String treatment, String species) {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
         Date dataCalc = new Date();
         Calendar cal = Calendar.getInstance();
@@ -350,8 +350,8 @@ public class ActCalculos extends AppCompatActivity{
             setPer_Desvio(dP);
             setArea_Quad(areaQuadrado);
             setRepeticao("");
-            setTratamento("");
-            setEspecie("");
+            setTratamento(treatment);
+            setEspecie(species);
             setArea_Desvio(dA);
             setArea_Media(mA);
         }
