@@ -127,44 +127,37 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
                 SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
 
                 StringBuilder data = new StringBuilder();
-                data.append("Nome do Teste, Id Imagem, Area Quadrado, ");
+                data.append("Nome do Teste:," + calc.getNome()+"\nId Imagem:,"+calc.getIdImg()+"\nArea Quadrado:,"+calc.getArea_Quad());
 
-                if(calc.getEspecie() != null) data.append("Especie, ");
-                if(calc.getTratamento() != null) data.append("Tratamento, ");
-                if(calc.getRepeticao()!= null) data.append("Repeticao, ");
-                if(sharedPreferences.getBoolean("calcSomaArea", false)) data.append("Sum Areas, ");
-                if(sharedPreferences.getBoolean("calcAvgDev", false)) data.append("  , Avg Deviation, Averages");
-
-                data.append("\n" + calc.getNome() + "," + calc.getIdImg()+","+calc.getArea_Quad()+",");
-
-                if(calc.getEspecie() != null) data.append(calc.getEspecie()+", ");
-                if(calc.getTratamento() != null) data.append(calc.getTratamento()+", ");
-                if(calc.getRepeticao()!= null) data.append(calc.getRepeticao()+", ");
-                if(sharedPreferences.getBoolean("calcSomaArea", false)) data.append( calc.getSumareas()+", ");
-                if(sharedPreferences.getBoolean("calcAvgDev", false)) { //REPETIÇÃO NECESSÁRIA PARA MANTER FORMATAÇÃO CORRETA
-                    if(sharedPreferences.getBoolean("calcWidth", false)) data.append("Largura, "+ calc.getLarg_Desvio()+","+ calc.getLarg_Media()+",");
-                    if(sharedPreferences.getBoolean("calcLength", false)) data.append("Comprimento, " + calc.getComp_Desvio()+","+calc.getComp_Medio()+",");
-                    if(sharedPreferences.getBoolean("calcPerimeter", false)) data.append("Perimetro,"+calc.getPer_Desvio()+","+calc.getPer_Media()+",");
-                    if(sharedPreferences.getBoolean("calcArea", false)) data.append("Area,"+ calc.getArea_Desvio()+","+calc.getArea_Media()+",");
+                if(calc.getEspecie() != null) {
+                    data.append("\nEspecie:, ");
+                    data.append(calc.getEspecie()+", ");
                 }
-//                if(sharedPreferences.getBoolean("calcAvgDev", false)) { //REPETIÇÃO NECESSÁRIA PARA MANTER FORMATAÇÃO CORRETA
-//                    if(sharedPreferences.getBoolean("calcWidth", false)) {
-//                        data.append("Largura, "+ calc.getLarg_Desvio()+","+ calc.getLarg_Media()+",");
-//                        if(sharedPreferences.getBoolean("calcLength", false)) data.append("\nComprimento, " + calc.getComp_Desvio()+","+calc.getComp_Medio()+",");
-//                        if(sharedPreferences.getBoolean("calcPerimeter", false)) data.append("\nPerimetro,"+calc.getPer_Desvio()+","+calc.getPer_Media()+",");
-//                        if(sharedPreferences.getBoolean("calcArea", false)) data.append("\nArea,"+ calc.getArea_Desvio()+","+calc.getArea_Media()+",");
-//                    }
-//                    else if(sharedPreferences.getBoolean("calcLength", false)) {
-//                        data.append("Comprimento, " + calc.getComp_Desvio()+","+calc.getComp_Medio()+",");
-//                        if(sharedPreferences.getBoolean("calcPerimeter", false)) data.append("\nPerimetro,"+calc.getPer_Desvio()+","+calc.getPer_Media()+",");
-//                        if(sharedPreferences.getBoolean("calcArea", false)) data.append("\nArea,"+ calc.getArea_Desvio()+","+calc.getArea_Media()+",");
-//                    }
-//                    else if(sharedPreferences.getBoolean("calcPerimeter", false)) {
-//                        data.append("Perimetro,"+calc.getPer_Desvio()+","+calc.getPer_Media()+",");
-//                        if(sharedPreferences.getBoolean("calcArea", false)) data.append("\nArea,"+ calc.getArea_Desvio()+","+calc.getArea_Media()+",");
-//                    }
-//                    else if(sharedPreferences.getBoolean("calcArea", false)) data.append("Area,"+ calc.getArea_Desvio()+","+calc.getArea_Media()+",");
-//                }
+                if(calc.getTratamento() != null) {
+                    data.append("\nTratamento:, ");
+                    data.append(calc.getTratamento()+", ");
+                }
+                if(calc.getRepeticao()!= null) {
+                    data.append("\nRepeticao:, ");
+                    data.append(calc.getRepeticao()+", ");
+                }
+                if(sharedPreferences.getBoolean("calcSomaArea", false)) {
+                    data.append("\nSum Areas:, ");
+                    data.append( calc.getSumareas()+", ");
+                }
+                if(sharedPreferences.getBoolean("calcAvgDev", false)) {
+                    data.append("\nAvg Deviation and Averages");
+                    if (sharedPreferences.getBoolean("calcAvgDev", false)) {
+                        if (sharedPreferences.getBoolean("calcWidth", false))
+                            data.append("Largura, " + calc.getLarg_Desvio() + "," + calc.getLarg_Media() + ",");
+                        if (sharedPreferences.getBoolean("calcLength", false))
+                            data.append("Comprimento, " + calc.getComp_Desvio() + "," + calc.getComp_Medio() + ",");
+                        if (sharedPreferences.getBoolean("calcPerimeter", false))
+                            data.append("Perimetro," + calc.getPer_Desvio() + "," + calc.getPer_Media() + ",");
+                        if (sharedPreferences.getBoolean("calcArea", false))
+                            data.append("Area," + calc.getArea_Desvio() + "," + calc.getArea_Media() + ",");
+                    }
+                }
 
                 Bundle bundle = getIntent().getExtras();
                 assert bundle != null;
@@ -175,12 +168,6 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
                         folha = dados.get(j);
                     }
                 }
-
-//                ArrayList<Folha> folhasSelecionadas = new ArrayList<>();
-//                for (int i = 0; i < dados.size(); i++) {
-//                    if (dados.get(i).getIdImg().equals(folha.getIdImg()))
-//                        folhasSelecionadas.add(dados.get(i));
-//                }
 
                 data.append("\n\n Num Folha, ");
                 if(sharedPreferences.getBoolean("calcArea", false)) data.append("Area, ");
