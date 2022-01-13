@@ -49,6 +49,8 @@ public class FolhasRepositorio {
         content.put("sumareas", calc.getSumareas());
         content.put("per_Media", calc.getPer_Media());
         content.put("per_Desvio", calc.getPer_Desvio());
+        content.put("largcomp_Desvio", calc.getLargComp_Desvio());
+        content.put("largcomp_Media", calc.getLargComp_Media());
 
         conexao.insertOrThrow("IMAGEM", null, content);
     }
@@ -71,7 +73,7 @@ public class FolhasRepositorio {
     public ActCalculos consultar(Boolean hist){ // FAZER UMA FUNÇÃO QUE SELECIONA APENAS AS FOLHAS COM O MESMO ID // FUNÇÃO AGORA RECEBE UMA VARIAVEL PARA DETERMINAR SE A CHAMADA É O HISTORICO OU O TESTE ATUAL
         ActCalculos calc = new ActCalculos();
         List<Folha> folhas = new ArrayList<>();
-        String sql2 = "SELECT id_Imagem, especie, area_Quad, larg_Media, larg_Desvio, comp_Desvio, comp_Media, per_Desvio, per_Media, area_Media, area_Desvio, sumareas, tratamento, repeticao, nome " + "FROM IMAGEM" + " WHERE id_Imagem = '" + idAtual + "';";
+        String sql2 = "SELECT id_Imagem, especie, area_Quad, larg_Media, larg_Desvio, comp_Desvio, comp_Media, per_Desvio, per_Media, area_Media, area_Desvio, largcomp_Desvio, largcomp_Media, sumareas, tratamento, repeticao, nome " + "FROM IMAGEM" + " WHERE id_Imagem = '" + idAtual + "';";
         @SuppressLint("Recycle") Cursor resultado;
         @SuppressLint("Recycle") Cursor resultado2 = conexao.rawQuery(sql2, null);
         if (hist) {
@@ -106,11 +108,13 @@ public class FolhasRepositorio {
             calc.setLarg_Media(resultado2.getDouble(resultado2.getColumnIndexOrThrow("larg_Media")));
             calc.setLarg_Desvio(resultado2.getDouble(resultado2.getColumnIndexOrThrow("larg_Desvio")));
             calc.setComp_Medio(resultado2.getDouble(resultado2.getColumnIndexOrThrow("comp_Media")));
-            calc.setComp_Medio(resultado2.getDouble(resultado2.getColumnIndexOrThrow("comp_Desvio")));
+            calc.setComp_Desvio(resultado2.getDouble(resultado2.getColumnIndexOrThrow("comp_Desvio")));
             calc.setPer_Media(resultado2.getDouble(resultado2.getColumnIndexOrThrow("per_Media")));
             calc.setPer_Desvio(resultado2.getDouble(resultado2.getColumnIndexOrThrow("per_Desvio")));
             calc.setArea_Media(resultado2.getDouble(resultado2.getColumnIndexOrThrow("area_Media")));
             calc.setArea_Desvio(resultado2.getDouble(resultado2.getColumnIndexOrThrow("area_Desvio")));
+            calc.setLargComp_Media(resultado2.getDouble(resultado2.getColumnIndexOrThrow("largcomp_Media")));
+            calc.setLargComp_Desvio(resultado2.getDouble(resultado2.getColumnIndexOrThrow("largcomp_Desvio")));
             calc.setSumareas(resultado2.getDouble(resultado2.getColumnIndexOrThrow("sumareas")));
             calc.setTratamento(resultado2.getString(resultado2.getColumnIndexOrThrow("tratamento")));
             calc.setRepeticao(resultado2.getString(resultado2.getColumnIndexOrThrow("repeticao")));

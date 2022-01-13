@@ -32,6 +32,8 @@ public class ScriptDLL {
         sql.append(" comp_Desvio REAL (3, 4),");
         sql.append(" area_Media  REAL (3, 4),");
         sql.append(" area_Desvio REAL (3, 4),");
+        sql.append(" largcomp_Desvio REAL (3, 4),");
+        sql.append(" largcomp_Media REAL (3, 4),");
         sql.append(" sumareas    REAL (3, 4),");
         sql.append(" per_Media   REAL (3, 4),");
         sql.append(" per_Desvio  REAL (3, 4));");
