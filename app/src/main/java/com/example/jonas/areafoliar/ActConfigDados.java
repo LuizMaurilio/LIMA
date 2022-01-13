@@ -44,7 +44,10 @@ public class ActConfigDados extends AppCompatActivity {
         listDados.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listDados.setLayoutManager(linearLayoutManager);
-        calc = folhasRepositorio.consultar(false);
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        String cod = bundle.getString("Id_img");
+        calc = folhasRepositorio.consultar(false, cod);
         dados = calc.getListaFolhas();
         edtNomeTeste = findViewById(R.id.edtNomeTeste);
         verificaParametro();
@@ -126,11 +129,7 @@ public class ActConfigDados extends AppCompatActivity {
                 confirmar();
                 break;
             case R.id.action_excluir:
-                for(int i = 0; i < dados.size(); i ++){
-                    if(dados.get(i).getIdImg().equals(folha.getIdImg())){
-                        folhasRepositorio.excluir(calc.getIdImg());
-                    }
-                }
+                folhasRepositorio.excluir(calc.getIdImg());
                 finish();
                 break;
         }

@@ -70,7 +70,8 @@ public class FolhasRepositorio {
         conexao.update("IMAGEM",contentValues,"id_Imagem = ? ", parametros);
     }
 
-    public ActCalculos consultar(Boolean hist){ // FAZER UMA FUNÇÃO QUE SELECIONA APENAS AS FOLHAS COM O MESMO ID // FUNÇÃO AGORA RECEBE UMA VARIAVEL PARA DETERMINAR SE A CHAMADA É O HISTORICO OU O TESTE ATUAL
+    public ActCalculos consultar(Boolean hist, String cod){ // FAZER UMA FUNÇÃO QUE SELECIONA APENAS AS FOLHAS COM O MESMO ID // FUNÇÃO AGORA RECEBE UMA VARIAVEL PARA DETERMINAR SE A CHAMADA É O HISTORICO OU O TESTE ATUAL
+        if(cod != null) idAtual = cod;
         ActCalculos calc = new ActCalculos();
         List<Folha> folhas = new ArrayList<>();
         String sql2 = "SELECT id_Imagem, especie, area_Quad, larg_Media, larg_Desvio, comp_Desvio, comp_Media, per_Desvio, per_Media, area_Media, area_Desvio, largcomp_Desvio, largcomp_Media, sumareas, tratamento, repeticao, nome " + "FROM IMAGEM" + " WHERE id_Imagem = '" + idAtual + "';";

@@ -55,7 +55,7 @@ public class ActDados extends AppCompatActivity{
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listDados.setLayoutManager(linearLayoutManager);
         folhasRepositorio = new FolhasRepositorio(conexao);
-        calc = folhasRepositorio.consultar(true);
+        calc = folhasRepositorio.consultar(true, null);
         dados = calc.getListaFolhas();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
         Date data = new Date();
@@ -146,7 +146,7 @@ public class ActDados extends AppCompatActivity{
         listDados.setAdapter(folhas2Adapter);
     }
 
-    protected ArrayList<Folha> calculaMedia(ArrayList<Folha> folhasCarregadas){
+    protected ArrayList<Folha> calculaMedia(ArrayList<Folha> folhasCarregadas){ //TODO retirar essa func pois médias estão no banco *fazer ajustes necessários
         //Array de medias dos testes
         ArrayList<Folha> medias = new ArrayList<>();
         for(int i = 0; i < folhasCarregadas.size(); i ++){
@@ -159,7 +159,7 @@ public class ActDados extends AppCompatActivity{
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        calc = folhasRepositorio.consultar(true);
+        calc = folhasRepositorio.consultar(true, null);
         dados = calc.getListaFolhas();
         maisRecentes.clear();
         mesPresente.clear();

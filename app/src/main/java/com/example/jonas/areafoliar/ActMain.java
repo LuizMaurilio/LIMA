@@ -65,11 +65,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
     //int total = 0;
     //double altura = 0, largura = 0, areaQuadradoPx = 0, areaFolhaCm = 0;
     private FolhasRepositorio folhaRepositorio;
-    //private int cont = 1;
     private String data_completa;
-    private List<MatOfPoint> square = new ArrayList<>();
-    private List<MatOfPoint> leaves = new ArrayList<>();
-    private List<MatOfPoint> leavesPCA = new ArrayList<>();
 
     private static CustomProgressBar progressBar = new CustomProgressBar();
     @Override
@@ -241,9 +237,8 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                     //Abre a tela para mostrar o resultado
                     Intent it = new Intent(this, ActSaidaImagem.class);
                     it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    ActCalculos auxCalc = folhaRepositorio.consultar(false);
+                    ActCalculos auxCalc = folhaRepositorio.consultar(false, null);
                     List<Folha> dados = auxCalc.getListaFolhas();
-                    Log.d("TESTE MAIN LISTA", dados.get(0).getIdImg());
                     int codigo = dados.get(dados.size() - 1).getCod();
                     it.putExtra("CODIGO",codigo);
                     // Show progress bar

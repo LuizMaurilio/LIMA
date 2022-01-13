@@ -23,7 +23,7 @@ class FolhaViewHolder extends ChildViewHolder {
             public void onClick(View v) {
                 if(ActDados.dados.size() > 0){
                     Intent it = new Intent(context, ActConfigDados.class);
-                    it.putExtra("CODIGO", folha.getCod());
+                    it.putExtra("Id_img", folha.getIdImg());
                     ((AppCompatActivity)context).startActivityForResult(it,0);
                 }
             }

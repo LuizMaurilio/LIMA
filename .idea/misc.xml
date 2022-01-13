@@ -10,8 +10,19 @@
         <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/act_dados.xml" value="0.36666666666666664" />
         <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/act_main.xml" value="0.36666666666666664" />
         <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/act_saida_imagem.xml" value="0.36666666666666664" />
+        <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/act_splash_screen_inicial.xml" value="0.36666666666666664" />
+        <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/app_bar_act_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/content_act_camera.xml" value="0.36666666666666664" />
         <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/content_act_config_geral.xml" value="0.36666666666666664" />
+        <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/content_act_dados.xml" value="0.36666666666666664" />
+        <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/content_act_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/dialog_alterarfolha.xml" value="0.36666666666666664" />
+        <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/dialog_dados_info.xml" value="0.36666666666666664" />
+        <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/expandable_recyclerview_folha.xml" value="0.36666666666666664" />
+        <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/expandable_recyclerview_historico.xml" value="0.36666666666666664" />
         <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/linha_config_dados.xml" value="0.33" />
+        <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/nav_header_act_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/layout/progress_bar.xml" value="0.36666666666666664" />
         <entry key="..\:/BolsaDeTP/ProjetoArea/app/src/main/res/menu/act_config_dados.xml" value="0.20677083333333332" />
       </map>
     </option>
