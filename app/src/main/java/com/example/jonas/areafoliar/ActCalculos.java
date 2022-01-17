@@ -197,6 +197,7 @@ public class ActCalculos extends AppCompatActivity{
             double[] C = new double[getLeaves().size()];
             double[] A = new double[getLeaves().size()];
             double[] P = new double[getLeaves().size()];
+            double[] LC = new double[getLeaves().size()];
             //double[] LC = new double[leaves.size()];
 
             //-------------------SQUARE----------------------
@@ -250,39 +251,29 @@ public class ActCalculos extends AppCompatActivity{
                     aux2 = (Math.round(aux2*100.0)/100.0);
                     mL += aux;
                     mC += aux2;
-                    //result.append("\nWidth: "); result.append(QString::number(aux));
                     folha.setLargura(aux);
-                    //setLargura(aux + "");
                     L[i] = aux;
-                    //result.append("\nLength: "); result.append(QString::number(aux2));
                     folha.setComprimento(aux2);
-                    //setAltura(aux2 + "");
                     C[i] = aux2;
 
                     Double largcomp = aux/aux2;
                     folha.setLargcomp(largcomp);
                     mLC += largcomp;
-                    //result.append("\nWidth/Length: "); result.append(QString::number(aux/aux2));
-                    //LC[i] = aux / aux2;
+                    LC[i] = largcomp;
                 } else {
                     aux = (Math.round(aux*100.0)/100.0);
                     aux2 = (Math.round(aux2*100.0)/100.0);
                     mL += aux2;
                     mC += aux;
-                    //result.append("\nWidth: "); result.append(QString::number(aux2));
                     folha.setLargura(aux2);
-                    //setLargura(aux2 + "");
                     L[i] = aux2;
-                    //result.append("\nLength: "); result.append(QString::number(aux));
                     C[i] = aux;
                     folha.setComprimento(aux);
 
                     Double largcomp = aux2/aux;
                     folha.setLargcomp(largcomp);
                     mLC += largcomp;
-                    //setAltura(aux + "");
-                    //result.append("\nWidth/Length: "); result.append(QString::number(aux2/aux));
-                    //LC[i] = aux2 / aux;
+                    LC[i] = largcomp;
                 }
                 //_____________Calculo Area_____________
                 double auxArea = ((Imgproc.contourArea(getLeaves().get(i)) * areaQuadrado) / pixelsAreaSquare);
@@ -305,58 +296,12 @@ public class ActCalculos extends AppCompatActivity{
                 //_____________Result sum areas_____________
                 //result.append("\nSum areas: "); result.append(QString::number(sum));
                 //result.append("\n\n");
-
-                //_____________Calculo Media e Desvio_____________
-
-                //_____________Media_____________
-//                mL = mL / getLeavesPCA().size();
-//                //result.append("\nAverage width: "); result.append(QString::number(mL));
-//                Log.d("TESTE DE MEDIA", ""+mC);
-//                mC = mC / getLeavesPCA().size();
-//                Log.d("TESTE DE MEDIA", ""+mC+"tamanho folhas: "+getLeavesPCA().size());
-//                //result.append("\nAverage lenght: "); result.append(QString::number(mC));
-//                mLC = mLC / getLeavesPCA().size();
-//                mA = mA / getLeavesPCA().size();
-//                //result.append("\nAverage area: "); result.append(QString::number(mA));
-//                mP = mP / getLeavesPCA().size();
-//                //result.append("\nAverage perimeter: "); result.append(QString::number(mP));
-//                //result.append("\n\n");
-//                //_____________Desvio_____________
-//                for (int j = 0; j < getLeavesPCA().size(); j++) {
-//                    dL += Math.pow(L[j] - mL, 2);
-//                }
-//                dL = Math.sqrt(dL / getLeavesPCA().size());
-//                //result.append("\nWidth deviation: "); result.append(QString::number(dL));
-//                for (int k = 0; k < getLeavesPCA().size(); k++) {
-//                    dC += Math.pow(C[k] - mC, 2);
-//                }
-//                dC = Math.sqrt(dC / getLeavesPCA().size());
-//                //result.append("\nLenght deviation: "); result.append(QString::number(dC));
-//                for (int l = 0; l < getLeavesPCA().size(); l++) {
-//                    dA += Math.pow(A[l] - mA, 2);
-//                }
-//                dA = Math.sqrt(dA / getLeavesPCA().size());
-//                //result.append("\nArea deviation: "); result.append(QString::number(dA));
-//                for (int k = 0; k < getLeavesPCA().size(); k++) {
-//                    dP += Math.pow(P[k] - mP, 2);
-//                }
-//                dP = Math.sqrt(dP / getLeavesPCA().size());
-//
-//                for (int k = 0; k < getLeavesPCA().size(); k++) {
-//                    dLC += Math.pow(P[k] - mLC, 2);
-//                }
-//                dLC = Math.sqrt(dLC / getLeavesPCA().size());
-
-                //result.append("\nPerimeter deviation: "); result.append(QString::number(dP));
-                //result.append("\n\n");
-//                folhaRepositorio.inserir(folha);
                 getListaFolhas().add(folha);
             }
+
             mL = mL / getLeavesPCA().size();
             //result.append("\nAverage width: "); result.append(QString::number(mL));
-            Log.d("TESTE DE MEDIA", ""+mC);
             mC = mC / getLeavesPCA().size();
-            Log.d("TESTE DE MEDIA", ""+mC+"tamanho folhas: "+getLeavesPCA().size());
             //result.append("\nAverage lenght: "); result.append(QString::number(mC));
             mLC = mLC / getLeavesPCA().size();
             mA = mA / getLeavesPCA().size();
@@ -386,9 +331,10 @@ public class ActCalculos extends AppCompatActivity{
             dP = Math.sqrt(dP / getLeavesPCA().size());
 
             for (int k = 0; k < getLeavesPCA().size(); k++) {
-                dLC += Math.pow(P[k] - mLC, 2);
+                dLC += Math.pow(LC[k] - mLC, 2);
             }
             dLC = Math.sqrt(dLC / getLeavesPCA().size());
+
             setIdImg(data_completa);
             setNome(name);
             setSumareas(mA);

@@ -1,9 +1,11 @@
 package com.example.jonas.areafoliar;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.SurfaceView;
@@ -126,8 +129,6 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
                 cal.setTime(dataCalc);
                 Date data_atual = cal.getTime();
                 data_completa = dateFormat.format(data_atual);
-                //findObjects(result);
-               // surfaceCalc();
                 //Realiza a cnoversão de Mat para Bitmap
                 bitmap = Bitmap.createBitmap(result.cols(), result.rows(), Bitmap.Config.ARGB_8888);
                 Utils.matToBitmap(ImageMat, bitmap);
