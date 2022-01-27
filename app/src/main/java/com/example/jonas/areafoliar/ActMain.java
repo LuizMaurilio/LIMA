@@ -229,8 +229,6 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                 cal.setTime(dataCalc);
                 Date data_atual = cal.getTime();
                 data_completa = dateFormat.format(data_atual);
-//                findObjects(result);
-//                surfaceCalc();
 
                 SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
                 float areaQuadrado = sharedPreferences.getInt("area", 1);
@@ -239,11 +237,8 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                 calc.findObjects(result, ImageMat);
                 calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null));
 
-                //findObjects(result);
-                //surfaceCalc();
-//                Log.d("yourTag", "value: " + calc.getSquare().size());
+                Log.d("TESTE SÓ QUADRADO", "Nome:"+nome + calc.getIdImg() + calc.getNome() +","+ calc.getArea_Quad());
 
-//                atualizarBanco(calc.getListaFolhas());
                 folhaRepositorio.inserir(calc);
 
                 //if (square.size() <= 0 || square.size() > 1 || leaves.size() <= 0) {

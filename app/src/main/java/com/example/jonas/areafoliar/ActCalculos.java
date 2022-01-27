@@ -334,7 +334,7 @@ public class ActCalculos extends AppCompatActivity{
                 dLC += Math.pow(LC[k] - mLC, 2);
             }
             dLC = Math.sqrt(dLC / getLeavesPCA().size());
-
+            // TODO AJUSTAR CASAS DECIMAIS DAS MEDIAS E DESVIOS
             setIdImg(data_completa);
             setNome(name);
             setSumareas(mA);

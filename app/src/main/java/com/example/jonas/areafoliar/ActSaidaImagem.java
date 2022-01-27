@@ -105,25 +105,6 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
                 ContentValues contentValues = new ContentValues();
                 Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
 
-                Double larg_Media, larg_Desvio, area_Media, area_Desvio, per_Media,per_Desvio, comp_Media, comp_Desvio, sumareas, larg, comp, largcomp, area, perimetro;
-                Float areaQuad;
-                Integer num;
-                String img, nome, especie, tratamento, repeticao;
-                especie = calc.getEspecie();
-                tratamento = calc.getTratamento();
-                img = calc.getIdImg();
-                repeticao = calc.getRepeticao();
-                areaQuad = calc.getArea_Quad();
-                larg_Media = calc.getLarg_Media();
-                larg_Desvio = calc.getLarg_Desvio();
-                comp_Desvio = calc.getComp_Desvio();
-                comp_Media = calc.getComp_Medio();
-                sumareas = calc.getSumareas();
-                per_Desvio = calc.getPer_Desvio();
-                per_Media = calc.getPer_Media();
-                area_Desvio = calc.getArea_Desvio();
-                area_Media = calc.getArea_Media();
-
                 SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
 
                 StringBuilder data = new StringBuilder();
@@ -191,7 +172,7 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
                     FileOutputStream out = openFileOutput("data.csv", Context.MODE_PRIVATE);
                     out.write((data.toString()).getBytes());
                     out.close();
-
+                    //TODO NO OUTLOOK FUNCIONA
                     //exporting
                     Context context = getApplicationContext();
                     File filelocation = new File(getFilesDir(), "data.csv");
