@@ -75,16 +75,6 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
         setContentView(R.layout.act_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-    //TODO PERMISSÕES
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 0);
-//        }
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-//        }
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
-//        }
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) +
             ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) +
@@ -188,17 +178,8 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        //if (requestCode == TELA_CAMERA && resultCode == 1) {
-            /*Bundle params = data != null ? data.getExtras() : null;
-            Bitmap imagem = (Bitmap) params.get("bitmap");
-            Matrix matrix = new Matrix();
-            matrix.postRotate(90);
-            Bitmap rotated = Bitmap.createBitmap(ActCameraCv.bitmap, 0, 0, ActCameraCv.bitmap.getWidth(), ActCameraCv.bitmap.getHeight(), matrix, true);
-            imageViewFoto.setImageBitmap(rotated);*/
-        //}
         if (requestCode == 2) {
             if (data == null) {
-                //Toast.makeText(getApplicationContext(), "Escolha uma foto", Toast.LENGTH_LONG).show();
                 Toast.makeText(getApplicationContext(), "Choose a photo", Toast.LENGTH_LONG).show();
             } else {
                 Uri imagemSelecionada = data.getData();
@@ -235,17 +216,14 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
 
                 ActCalculos calc = new ActCalculos();
                 calc.findObjects(result, ImageMat);
-                calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null));
-
-                Log.d("TESTE SÓ QUADRADO", "Nome:"+nome + calc.getIdImg() + calc.getNome() +","+ calc.getArea_Quad());
-
-                folhaRepositorio.inserir(calc);
 
                 //if (square.size() <= 0 || square.size() > 1 || leaves.size() <= 0) {
                 if (calc.getSquare().size() <= 0 || calc.getSquare().size() > 1 || calc.getLeaves().size() <= 0) {
                     Toast.makeText(getApplicationContext(), "An error occurred while analyzing the image. Please try again.", Toast.LENGTH_LONG).show();
                     Log.d("yourTag", "An error occurred while analyzing the image. Please try again.");
                 } else {
+                    calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null), sharedPreferences.getString("repetition", null));
+                    folhaRepositorio.inserir(calc);
                     //Log.d("yourTag", "ERROR");
                     //Converte o Mat em bitmap para salvar na tela
                     Utils.matToBitmap(ImageMat, bitmap);
@@ -258,7 +236,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                     //Abre a tela para mostrar o resultado
                     Intent it = new Intent(this, ActSaidaImagem.class);
                     it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    ActCalculos auxCalc = folhaRepositorio.consultar(false, null);
+                    ActCalculos auxCalc = folhaRepositorio.consultar(null);
                     List<Folha> dados = auxCalc.getListaFolhas();
                     int codigo = dados.get(dados.size() - 1).getCod();
                     it.putExtra("CODIGO",codigo);

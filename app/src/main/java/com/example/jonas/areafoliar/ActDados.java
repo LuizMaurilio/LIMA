@@ -36,13 +36,12 @@ public class ActDados extends AppCompatActivity{
     private SQLiteDatabase conexao;
     private FolhasRepositorio folhasRepositorio;
     private String diaAtual,mesAtual,nomeMesAtual,diaFolha,mesFolha;
-    public static List<Folha> dados;
+    public static List<Folha> calculos;
     private ArrayList<Folha> maisAntigo = new ArrayList<>();
-    private ArrayList<Folha> mesPassado = new ArrayList<>();
     private ArrayList<Folha> mesPresente = new ArrayList<>();
+    private ArrayList<Folha> mesPassado = new ArrayList<>();
     private ArrayList<Folha> maisRecentes = new ArrayList<>();
     private Folhas2Adapter folhas2Adapter;
-    private ActCalculos calc;
 
     @SuppressLint("SimpleDateFormat")
     @Override
@@ -55,8 +54,7 @@ public class ActDados extends AppCompatActivity{
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listDados.setLayoutManager(linearLayoutManager);
         folhasRepositorio = new FolhasRepositorio(conexao);
-        calc = folhasRepositorio.consultar(true, null);
-        dados = calc.getListaFolhas();
+        calculos = folhasRepositorio.consultaHist();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
         Date data = new Date();
         Calendar cal = Calendar.getInstance();
@@ -115,84 +113,49 @@ public class ActDados extends AppCompatActivity{
                 nomeMesAtual = "December";
                 break;
         }
-        for(int i = 0; i < dados.size(); i ++){    //TODO modularizar essa função, está repetida
-            diaFolha = dados.get(i).getIdImg().substring(0,2);
-            mesFolha = dados.get(i).getIdImg().substring(3,5);
-            if(diaFolha.equals(diaAtual) && mesFolha.equals(mesAtual)){
-                maisRecentes.add(dados.get(i));
-            }else if(mesFolha.equals(mesAtual)){
-                mesPresente.add(dados.get(i));
-            }else if(Integer.parseInt(mesFolha) == (Integer.parseInt((mesAtual)) - 1)){
-                mesPassado.add(dados.get(i));
-            }else{
-                maisAntigo.add(dados.get(i));
-            }
-        }
-        ArrayList<Historico> historicos = new ArrayList<>();
-        //Historico recente = new Historico("Hoje",calculaMedia(maisRecentes));
-        Historico recente = new Historico("Today",calculaMedia(maisRecentes));
-        historicos.add(recente);
-        Historico presente = new Historico(nomeMesAtual,calculaMedia(mesPresente));
-        historicos.add(presente);
-        //Historico passado = new Historico("Mês passado",calculaMedia(mesPassado));
-        Historico passado = new Historico("Last month",calculaMedia(mesPassado));
-        historicos.add(passado);
-        //Historico antigos = new Historico("Mais antigo",calculaMedia(maisAntigo));
-        Historico antigos = new Historico("Older",calculaMedia(maisAntigo));
-        historicos.add(antigos);
-        folhas2Adapter = new Folhas2Adapter(historicos);
-        //folhasAdapter = new FolhasAdapter(dados);
-        //listDados.setAdapter(folhasAdapter);
+        histSections(calculos);
+        folhas2Adapter = new Folhas2Adapter(addHistoricos());
         listDados.setAdapter(folhas2Adapter);
     }
 
-    protected ArrayList<Folha> calculaMedia(ArrayList<Folha> folhasCarregadas){ //TODO retirar essa func pois médias estão no banco *fazer ajustes necessários
-        //Array de medias dos testes
-        ArrayList<Folha> medias = new ArrayList<>();
-        for(int i = 0; i < folhasCarregadas.size(); i ++){
-            if(folhasCarregadas.get(i).getNum_Folha() == 1){
-                medias.add(folhasCarregadas.get(i));
+    public ArrayList<Historico> addHistoricos(){
+        ArrayList<Historico> historicos = new ArrayList<>();
+        Historico recente = new Historico("Today",maisRecentes);
+        historicos.add(recente);
+        Historico presente = new Historico(nomeMesAtual,mesPresente);
+        historicos.add(presente);
+        Historico passado = new Historico("Last month",mesPassado);
+        historicos.add(passado);
+        Historico antigos = new Historico("Older",maisAntigo);
+        historicos.add(antigos);
+        return historicos;
+    }
+
+    public void histSections(List<Folha> calculos){
+        for(int i = 0; i < calculos.size(); i ++){
+            diaFolha = calculos.get(i).getIdImg().substring(0,2);
+            mesFolha = calculos.get(i).getIdImg().substring(3,5);
+            if(diaFolha.equals(diaAtual) && mesFolha.equals(mesAtual)){
+                maisRecentes.add(calculos.get(i));
+            }else if(mesFolha.equals(mesAtual)){
+                mesPresente.add(calculos.get(i));
+            }else if(Integer.parseInt(mesFolha.trim()) == (Integer.parseInt((mesAtual.trim())) - 1)){
+                mesPassado.add(calculos.get(i));
+            }else{
+                maisAntigo.add(calculos.get(i));
             }
         }
-        return medias;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        calc = folhasRepositorio.consultar(true, null);
-        dados = calc.getListaFolhas();
+        calculos = folhasRepositorio.consultaHist();
         maisRecentes.clear();
         mesPresente.clear();
         mesPassado.clear();
         maisAntigo.clear();
-        for(int i = 0; i < dados.size(); i ++){
-            diaFolha = dados.get(i).getIdImg().substring(0,2);
-            mesFolha = dados.get(i).getIdImg().substring(3,5);
-            if(diaFolha.equals(diaAtual) && mesFolha.equals(mesAtual)){
-                maisRecentes.add(dados.get(i));
-            }else if(mesFolha.equals(mesAtual)){
-                mesPresente.add(dados.get(i));
-            }else if(Integer.parseInt(mesFolha.trim()) == (Integer.parseInt((mesAtual.trim())) - 1)){
-                mesPassado.add(dados.get(i));
-            }else{
-                maisAntigo.add(dados.get(i));
-            }
-        }
-        ArrayList<Historico> historicos = new ArrayList<>();
-        //Historico recente = new Historico("Hoje",calculaMedia(maisRecentes));
-        Historico recente = new Historico("Today",calculaMedia(maisRecentes));
-        historicos.add(recente);
-        Historico presente = new Historico(nomeMesAtual,calculaMedia(mesPresente));
-        historicos.add(presente);
-        //Historico passado = new Historico("Mês passado",calculaMedia(mesPassado));
-        Historico passado = new Historico("Last month",calculaMedia(mesPassado));
-        historicos.add(passado);
-        //Historico antigos = new Historico("Mais antigo",calculaMedia(maisAntigo));
-        Historico antigos = new Historico("Older",calculaMedia(maisAntigo));
-        historicos.add(antigos);
-        folhas2Adapter = new Folhas2Adapter(historicos);
-        //folhasAdapter = new FolhasAdapter(dados);
-        //listDados.setAdapter(folhasAdapter);
+        histSections(calculos);
+        folhas2Adapter = new Folhas2Adapter(addHistoricos());
         listDados.setAdapter(folhas2Adapter);
     }
 

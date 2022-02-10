@@ -12,6 +12,7 @@ public class Folha implements Serializable, Parcelable {
     private int mImageResource;
     private int cod;
     private String idImg;
+    private String nomeImagem; //uso exclusivo do histórico
 
     public Folha(String idImg, Double area, Double comprimento, Double largura, int num, Double perimetro, Double largcomp, int cod) {
         this.idImg = idImg;
@@ -130,5 +131,13 @@ public class Folha implements Serializable, Parcelable {
 
     public void setCod(int cod) {
         this.cod = cod;
+    }
+
+    public String getNomeImagem() {
+        return nomeImagem;
+    }
+
+    public void setNomeImagem(String nomeImagem) {
+        this.nomeImagem = nomeImagem;
     }
 }

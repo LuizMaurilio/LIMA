@@ -21,7 +21,7 @@ class FolhaViewHolder extends ChildViewHolder {
         itemView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(ActDados.dados.size() > 0){
+                if(ActDados.calculos.size() > 0){
                     Intent it = new Intent(context, ActConfigDados.class);
                     it.putExtra("Id_img", folha.getIdImg());
                     ((AppCompatActivity)context).startActivityForResult(it,0);
@@ -32,7 +32,7 @@ class FolhaViewHolder extends ChildViewHolder {
 
     void bind(Folha folha){
         this.folha = folha;
-        txtNome.setText(folha.getNum_Folha()+"");
+        txtNome.setText(folha.getNomeImagem()+"");
         txtArea.setText(folha.getArea()+ "");
         txtAltura.setText(folha.getComprimento()+"");
         txtLargura.setText(folha.getLargura()+"");

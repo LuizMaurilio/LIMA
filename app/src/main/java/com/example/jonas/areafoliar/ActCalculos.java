@@ -170,18 +170,14 @@ public class ActCalculos extends AppCompatActivity{
         }
     }
 
-    void surfaceCalc(float areaQuadrado, Mat ImageMat, String name, String treatment, String species) {
+    void surfaceCalc(float areaQuadrado, Mat ImageMat, String name, String treatment, String species, String repetition) {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
         Date dataCalc = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(dataCalc);
         Date data_atual = cal.getTime();
         data_completa = dateFormat.format(data_atual);
-        if(getSquare().size() <= 0){
-            //Toast.makeText(getApplicationContext(), "The square could not be found. Please try again.", Toast.LENGTH_LONG).show();
-        }else if(getLeaves().size() <= 0){
-            //Toast.makeText(getApplicationContext(), "No leaf can be found. Please try again.", Toast.LENGTH_LONG).show();
-        }else{
+
             List<MatOfPoint> result = new ArrayList<>();
             //SharedPreferences sharedPreferences = getSharedPreferences("valorLadoPref", Context.MODE_PRIVATE);
             //float areaQuadrado = sharedPreferences.getInt("area", 5);
@@ -247,38 +243,33 @@ public class ActCalculos extends AppCompatActivity{
                 aux2 = (aux2 * realSideSquare) / pixelsLenSquare;
 
                 if (aux2 > aux) {
-                    aux = (Math.round(aux*100.0)/100.0);
-                    aux2 = (Math.round(aux2*100.0)/100.0);
                     mL += aux;
                     mC += aux2;
-                    folha.setLargura(aux);
+                    folha.setLargura(Math.round(aux*100.0)/100.0);
                     L[i] = aux;
-                    folha.setComprimento(aux2);
+                    folha.setComprimento(Math.round(aux2*100.0)/100.0);
                     C[i] = aux2;
 
                     Double largcomp = aux/aux2;
-                    folha.setLargcomp(largcomp);
+                    folha.setLargcomp(Math.round(largcomp*100.0)/100.0);
                     mLC += largcomp;
                     LC[i] = largcomp;
                 } else {
-                    aux = (Math.round(aux*100.0)/100.0);
-                    aux2 = (Math.round(aux2*100.0)/100.0);
                     mL += aux2;
                     mC += aux;
-                    folha.setLargura(aux2);
+                    folha.setLargura(Math.round(aux2*100.0)/100.0);
                     L[i] = aux2;
                     C[i] = aux;
-                    folha.setComprimento(aux);
+                    folha.setComprimento(Math.round(aux*100.0)/100.0);
 
                     Double largcomp = aux2/aux;
-                    folha.setLargcomp(largcomp);
+                    folha.setLargcomp(Math.round(largcomp*100.0)/100.0);
                     mLC += largcomp;
                     LC[i] = largcomp;
                 }
                 //_____________Calculo Area_____________
                 double auxArea = ((Imgproc.contourArea(getLeaves().get(i)) * areaQuadrado) / pixelsAreaSquare);
-                auxArea = (Math.round(auxArea*10.0)/10.0);
-                folha.setArea(auxArea);
+                folha.setArea(Math.round(auxArea*10.0)/10.0);
                 //setArea(auxArea + "");
                 //sum += auxArea;
                 //result.append("\nArea: "); result.append(QString::number(auxArea));
@@ -287,8 +278,7 @@ public class ActCalculos extends AppCompatActivity{
                 //_____________Calculo Perimetro_____________
                 double auxPer = ((Imgproc.arcLength(new MatOfPoint2f(getLeaves().get(i).toArray()), true) * realPerSquare) / pixelsPerSquare);
                 //result.append("\nPerimeter: "); result.append(QString::number(auxPer));
-                auxPer = (Math.round(auxPer*100.0)/100.0);
-                folha.setPerimetro(auxPer);
+                folha.setPerimetro(Math.round(auxPer*100.0)/100.0);
                 //setPerimetro(auxPer + "");
                 mP += auxPer;
                 P[i] = auxPer;
@@ -334,25 +324,24 @@ public class ActCalculos extends AppCompatActivity{
                 dLC += Math.pow(LC[k] - mLC, 2);
             }
             dLC = Math.sqrt(dLC / getLeavesPCA().size());
-            // TODO AJUSTAR CASAS DECIMAIS DAS MEDIAS E DESVIOS
+
             setIdImg(data_completa);
             setNome(name);
-            setSumareas(mA);
-            setComp_Medio(mC);
-            setComp_Desvio(dC);
-            setLarg_Media(mL);
-            setLarg_Desvio(dL);
-            setPer_Media(mP);
-            setPer_Desvio(dP);
-            setLargComp_Desvio(dLC);
-            setLargComp_Media(mLC);
+            setSumareas(Math.round(mA*100.0)/100.0);
+            setComp_Medio(Math.round(mC*100.0)/100.0);
+            setComp_Desvio(Math.round(dC*100.0)/100.0);
+            setLarg_Media(Math.round(mL*100.0)/100.0);
+            setLarg_Desvio(Math.round(dL*100.0)/100.0);
+            setPer_Media(Math.round(mP*100.0)/100.0);
+            setPer_Desvio(Math.round(dP*100.0)/100.0);
+            setLargComp_Desvio(Math.round(dLC*100.0)/100.0);
+            setLargComp_Media(Math.round(mLC*100.0)/100.0);
             setArea_Quad(areaQuadrado);
-            setRepeticao("");
+            setRepeticao(repetition);
             setTratamento(treatment);
             setEspecie(species);
-            setArea_Desvio(dA);
-            setArea_Media(mA);
-        }
+            setArea_Desvio(Math.round(dA*100.0)/100.0);
+            setArea_Media(Math.round(mA*100.0)/100.0);
     }
 
 

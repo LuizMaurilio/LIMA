@@ -17,7 +17,7 @@ import android.widget.Toast;
 public class ActConfigGeral extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     //private CheckBox checkbox3,checkbox4,checkbox5;
-    private EditText editTextNumberDados, editTextSpecies, editTextTreatment;
+    private EditText editTextNumberDados, editTextSpecies, editTextTreatment, editTextRepetition;
     private Button buttonDados;
     private CheckBox c1,c2,c3,c4,c5,c6,c7;
 
@@ -35,6 +35,8 @@ public class ActConfigGeral extends AppCompatActivity {
         editTextTreatment.setText(sharedPreferences.getString("treatment", null));
         editTextSpecies = (EditText)findViewById(R.id.editTextSpecies);
         editTextSpecies.setText(sharedPreferences.getString("species", null));
+        editTextRepetition = (EditText)findViewById(R.id.editTextRepetition);
+        editTextRepetition.setText(sharedPreferences.getString("repetition", null));
 
         c1 = findViewById(R.id.calcArea);
         c2 = findViewById(R.id.calcSomaArea);
@@ -107,6 +109,7 @@ public class ActConfigGeral extends AppCompatActivity {
             editor.putInt("area", area);
             editor.putString("species", String.valueOf(editTextSpecies.getText()));
             editor.putString("treatment", String.valueOf(editTextTreatment.getText()));
+            editor.putString("repetition", String.valueOf(editTextRepetition.getText()));
             if (c1.isChecked()) editor.putBoolean("calcArea", true);
             else editor.putBoolean("calcArea", false);
             if (c2.isChecked()) editor.putBoolean("calcSomaArea", true);

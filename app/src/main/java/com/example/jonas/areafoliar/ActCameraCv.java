@@ -142,14 +142,13 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
 
                 ActCalculos calc = new ActCalculos();
                 calc.findObjects(result, ImageMat);
-                calc.surfaceCalc(areaQuadrado, ImageMat, "Camera", sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null));
-
-                folhaRepositorio.inserir(calc);
-
 
                 if (calc.getSquare().size() <= 0 || calc.getSquare().size() > 1 || calc.getLeaves().size() <= 0) {
-                    //Toast.makeText(getApplicationContext(), "An error occurred while analyzing the image. Please try again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "An error occurred while analyzing the image. Please try again.", Toast.LENGTH_LONG).show();
+                    Log.d("yourTag", "An error occurred while analyzing the image. Please try again.");
                 } else {
+                    calc.surfaceCalc(areaQuadrado, ImageMat, "Camera", sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null), sharedPreferences.getString("repetition", null));
+                    folhaRepositorio.inserir(calc);
                     Utils.matToBitmap(ImageMat, bitmap);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -223,7 +222,7 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
 
                 ActCalculos calc = new ActCalculos();
                 calc.findObjects(result, ImageMat);
-                calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null));
+                calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null), sharedPreferences.getString("repetition", null));
 
                 folhaRepositorio.inserir(calc);
 //                findObjects(result);

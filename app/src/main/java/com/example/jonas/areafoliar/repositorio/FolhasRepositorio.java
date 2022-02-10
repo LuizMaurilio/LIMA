@@ -62,7 +62,7 @@ public class FolhasRepositorio {
         conexao.delete("IMAGEM", "id_Imagem = ?", parametros);
     }
 
-    public void alterar(String idImg, String nome){ //todo conferir funções de excluir e alterar
+    public void alterar(String idImg, String nome){
         ContentValues contentValues = new ContentValues();
         contentValues.put("nome",nome);
         String[] parametros  = new String[1];
@@ -70,21 +70,14 @@ public class FolhasRepositorio {
         conexao.update("IMAGEM",contentValues,"id_Imagem = ? ", parametros);
     }
 
-    public ActCalculos consultar(Boolean hist, String cod){ // FAZER UMA FUNÇÃO QUE SELECIONA APENAS AS FOLHAS COM O MESMO ID // FUNÇÃO AGORA RECEBE UMA VARIAVEL PARA DETERMINAR SE A CHAMADA É O HISTORICO OU O TESTE ATUAL
+    public ActCalculos consultar(String cod){ // FAZER UMA FUNÇÃO QUE SELECIONA APENAS AS FOLHAS COM O MESMO ID // FUNÇÃO AGORA RECEBE UMA VARIAVEL PARA DETERMINAR SE A CHAMADA É O HISTORICO OU O TESTE ATUAL
         if(cod != null) idAtual = cod;
         ActCalculos calc = new ActCalculos();
         List<Folha> folhas = new ArrayList<>();
+        String sql = "SELECT CODIGO,id_Imagem,num_Folha,AREA,COMPRIMENTO,LARGURA,largcomp,PERIMETRO " +  "FROM FOLHA" + " WHERE id_Imagem = '" + idAtual+ "' ;";
         String sql2 = "SELECT id_Imagem, especie, area_Quad, larg_Media, larg_Desvio, comp_Desvio, comp_Media, per_Desvio, per_Media, area_Media, area_Desvio, largcomp_Desvio, largcomp_Media, sumareas, tratamento, repeticao, nome " + "FROM IMAGEM" + " WHERE id_Imagem = '" + idAtual + "';";
-        @SuppressLint("Recycle") Cursor resultado;
+        @SuppressLint("Recycle") Cursor resultado = conexao.rawQuery(sql, null);
         @SuppressLint("Recycle") Cursor resultado2 = conexao.rawQuery(sql2, null);
-        if (hist) {
-            String sql3 = "SELECT CODIGO,id_Imagem,num_Folha,AREA,COMPRIMENTO,LARGURA,largcomp,PERIMETRO " +  "FROM FOLHA;";
-            resultado = conexao.rawQuery(sql3,null);
-        }
-        else{
-            String sql = "SELECT CODIGO,id_Imagem,num_Folha,AREA,COMPRIMENTO,LARGURA,largcomp,PERIMETRO " +  "FROM FOLHA" + " WHERE id_Imagem = '" + idAtual+ "' ;";
-            resultado = conexao.rawQuery(sql, null);
-        }
         if (resultado.getCount() > 0){
             resultado.moveToFirst();
             do{
@@ -122,5 +115,26 @@ public class FolhasRepositorio {
             calc.setNome(resultado2.getString(resultado2.getColumnIndexOrThrow("nome")));
         }
         return calc;
+    }
+
+    public List<Folha> consultaHist(){
+        List<Folha> calculos = new ArrayList<>();
+        @SuppressLint("Recycle") Cursor resultado;
+        String sql = "SELECT id_Imagem, larg_Media, comp_Media, per_Media, area_Media, nome " +  "FROM IMAGEM;";
+        resultado = conexao.rawQuery(sql,null);
+        if (resultado.getCount()>0) {
+            resultado.moveToFirst();
+            do{
+                Folha calc = new Folha();
+                calc.setIdImg(resultado.getString(resultado.getColumnIndexOrThrow("id_Imagem")));
+                calc.setLargura(resultado.getDouble(resultado.getColumnIndexOrThrow("larg_Media")));
+                calc.setComprimento(resultado.getDouble(resultado.getColumnIndexOrThrow("comp_Media")));
+                calc.setPerimetro(resultado.getDouble(resultado.getColumnIndexOrThrow("per_Media")));
+                calc.setArea(resultado.getDouble(resultado.getColumnIndexOrThrow("area_Media")));
+                calc.setNomeImagem(resultado.getString(resultado.getColumnIndexOrThrow("nome")));
+                calculos.add(calc);
+            } while(resultado.moveToNext());
+        }
+        return calculos;
     }
 }

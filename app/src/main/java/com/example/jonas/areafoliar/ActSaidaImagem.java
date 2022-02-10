@@ -64,7 +64,7 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
         criarConexao();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        calc = folhasRepositorio.consultar(false, null);
+        calc = folhasRepositorio.consultar(null);
         dados = calc.getListaFolhas();
         /*
         if(ActCameraCv.bitmap != null){

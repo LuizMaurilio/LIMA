@@ -47,7 +47,7 @@ public class ActConfigDados extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         String cod = bundle.getString("Id_img");
-        calc = folhasRepositorio.consultar(false, cod);
+        calc = folhasRepositorio.consultar(cod);
         dados = calc.getListaFolhas();
         edtNomeTeste = findViewById(R.id.edtNomeTeste);
         verificaParametro();
