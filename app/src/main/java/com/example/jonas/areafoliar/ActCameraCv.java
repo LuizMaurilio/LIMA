@@ -222,19 +222,16 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
 
                 ActCalculos calc = new ActCalculos();
                 calc.findObjects(result, ImageMat);
-                calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null), sharedPreferences.getString("repetition", null));
-
-                folhaRepositorio.inserir(calc);
-//                findObjects(result);
-//                surfaceCalc();
                 //Converte o Mat em bitmap para salvar na tela
                 Utils.matToBitmap(ImageMat, bitmap);
                 //Cria objeto de ByteArray
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //                if (square.size() <= 0 || square.size() > 1 || leaves.size() <= 0) {
                 if (calc.getSquare().size() <= 0 || calc.getSquare().size() > 1 || calc.getLeaves().size() <= 0) {
-                    //Toast.makeText(getApplicationContext(), "An error occurred while analyzing the image. Please try again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "An error occurred while analyzing the image. Please try again.", Toast.LENGTH_LONG).show();
                 } else {
+                    calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null), sharedPreferences.getString("repetition", null));
+                    folhaRepositorio.inserir(calc);
                     //Converte o bitmap para JPEG
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     BitmapHelper.getInstance().setBitmap(bitmap);

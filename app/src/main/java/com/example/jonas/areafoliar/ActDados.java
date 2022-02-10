@@ -130,8 +130,8 @@ public class ActDados extends AppCompatActivity{
         historicos.add(antigos);
         return historicos;
     }
-
-    public void histSections(List<Folha> calculos){
+        //TODO FUNÇÃO DE BUSCA PARA FILTRAGEM
+    public void histSections(List<Folha> calculos){ //TODO COLOCAR FORMATO INGLÊS
         for(int i = 0; i < calculos.size(); i ++){
             diaFolha = calculos.get(i).getIdImg().substring(0,2);
             mesFolha = calculos.get(i).getIdImg().substring(3,5);
