@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -29,6 +30,7 @@ public class ActConfigGeral extends AppCompatActivity {
         setSupportActionBar(toolbar);
         sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         int valor = sharedPreferences.getInt("area", 1);
+        int repetition = sharedPreferences.getInt("repetition", 0);
         editTextNumberDados = (EditText)findViewById(R.id.editTextNumberDados);
         editTextNumberDados.setText(String.valueOf(valor));
         editTextTreatment = (EditText)findViewById(R.id.editTextTreatment);
@@ -36,7 +38,7 @@ public class ActConfigGeral extends AppCompatActivity {
         editTextSpecies = (EditText)findViewById(R.id.editTextSpecies);
         editTextSpecies.setText(sharedPreferences.getString("species", null));
         editTextRepetition = (EditText)findViewById(R.id.editTextRepetition);
-        editTextRepetition.setText(sharedPreferences.getString("repetition", null));
+        editTextRepetition.setText(String.valueOf(repetition));
 
         c1 = findViewById(R.id.calcArea);
         c2 = findViewById(R.id.calcSomaArea);
@@ -46,7 +48,7 @@ public class ActConfigGeral extends AppCompatActivity {
         c6 = findViewById(R.id.calcPerimeter);
         c7 = findViewById(R.id.calcAvgDev);
 
-        Boolean prec1 = sharedPreferences.getBoolean("calcArea", false);
+        Boolean prec1 = sharedPreferences.getBoolean("calcArea", true);
         if(!prec1) {
             c1.setChecked(false);
             c2.setEnabled(false);
@@ -60,14 +62,14 @@ public class ActConfigGeral extends AppCompatActivity {
         if(!prec2) c2.setChecked(false);
         else if(prec1) c2.setChecked(true);
 
-        Boolean prec3 = sharedPreferences.getBoolean("calcWidth", false);
+        Boolean prec3 = sharedPreferences.getBoolean("calcWidth", true);
         if(!prec3) {
             c3.setChecked(false);
             c5.setEnabled(false);
         }
         else c3.setChecked(true);
 
-        Boolean prec4 = sharedPreferences.getBoolean("calcLength", false);
+        Boolean prec4 = sharedPreferences.getBoolean("calcLength", true);
         if(!prec4) {
             c4.setChecked(false);
             c5.setEnabled(false);
@@ -79,7 +81,7 @@ public class ActConfigGeral extends AppCompatActivity {
         if(!prec5) c5.setChecked(false);
         else if(prec3 && prec4) c5.setChecked(true);
 
-        Boolean prec6 = sharedPreferences.getBoolean("calcPerimeter", false);
+        Boolean prec6 = sharedPreferences.getBoolean("calcPerimeter", true);
         if(!prec6) c6.setChecked(false);
         else c6.setChecked(true);
 
@@ -95,21 +97,25 @@ public class ActConfigGeral extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 validaCampos();
+                finish();
             }
         });
+        validaCampos();
     }
 
     public void validaCampos(){
+        Log.d("Tag", "validaCampos");
         sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String valor = editTextNumberDados.getText().toString();
         if (isCampoVazio(valor)) editTextNumberDados.requestFocus();
         else {
             int area = Integer.parseInt(String.valueOf(editTextNumberDados.getText()));
+            int repetition = Integer.parseInt(String.valueOf(editTextRepetition.getText()));
             editor.putInt("area", area);
             editor.putString("species", String.valueOf(editTextSpecies.getText()));
             editor.putString("treatment", String.valueOf(editTextTreatment.getText()));
-            editor.putString("repetition", String.valueOf(editTextRepetition.getText()));
+            editor.putInt("repetition", repetition);
             if (c1.isChecked()) editor.putBoolean("calcArea", true);
             else editor.putBoolean("calcArea", false);
             if (c2.isChecked()) editor.putBoolean("calcSomaArea", true);
@@ -125,7 +131,6 @@ public class ActConfigGeral extends AppCompatActivity {
             if (c7.isChecked()) editor.putBoolean("calcAvgDev", true);
             else editor.putBoolean("calcAvgDev", false);
             editor.apply();
-            finish();
         }
 
     }

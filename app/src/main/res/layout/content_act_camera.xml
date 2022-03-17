@@ -26,27 +26,6 @@
         android:contentDescription="@string/desc_img_cameraOpenCv" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/download"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="32dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:onClick="onClick"
-        android:src="@drawable/ic_file_download"
-        app:backgroundTint="@android:color/background_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.914"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <android.support.design.widget.FloatingActionButton
         android:id="@+id/dados_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

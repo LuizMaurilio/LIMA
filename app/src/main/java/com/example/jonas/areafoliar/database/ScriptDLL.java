@@ -24,7 +24,7 @@ public class ScriptDLL {
         sql.append("  nome        VARCHAR (300) NOT NULL, "); // EDITAR O NOME, DEFAULT NOME DA IMAGEM
         sql.append(" especie     STRING (200), ");
         sql.append(" tratamento  STRING (200),");
-        sql.append(" repeticao   STRING (4),");
+        sql.append(" repeticao   INTEGER,");
         sql.append(" area_Quad   REAL (2, 0),");
         sql.append(" larg_Media  REAL (3, 4),");
         sql.append(" larg_Desvio REAL (3, 4),");

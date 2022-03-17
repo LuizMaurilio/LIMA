@@ -75,7 +75,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
         setContentView(R.layout.act_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        //TODO TESTE SE NEGAR PERMISSÃO
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) +
             ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) +
             ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -222,9 +222,8 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                     Toast.makeText(getApplicationContext(), "An error occurred while analyzing the image. Please try again.", Toast.LENGTH_LONG).show();
                     Log.d("yourTag", "An error occurred while analyzing the image. Please try again.");
                 } else {
-                    calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null), sharedPreferences.getString("repetition", null));
+                    calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null), sharedPreferences.getInt("repetition", 0));
                     folhaRepositorio.inserir(calc);
-                    //Log.d("yourTag", "ERROR");
                     //Converte o Mat em bitmap para salvar na tela
                     Utils.matToBitmap(ImageMat, bitmap);
                     //Cria objeto de ByteArray

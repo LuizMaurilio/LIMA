@@ -147,7 +147,7 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
                     Toast.makeText(getApplicationContext(), "An error occurred while analyzing the image. Please try again.", Toast.LENGTH_LONG).show();
                     Log.d("yourTag", "An error occurred while analyzing the image. Please try again.");
                 } else {
-                    calc.surfaceCalc(areaQuadrado, ImageMat, "Camera", sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null), sharedPreferences.getString("repetition", null));
+                    calc.surfaceCalc(areaQuadrado, ImageMat, "Camera", sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null), sharedPreferences.getInt("repetition", 0));
                     folhaRepositorio.inserir(calc);
                     Utils.matToBitmap(ImageMat, bitmap);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -230,7 +230,7 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
                 if (calc.getSquare().size() <= 0 || calc.getSquare().size() > 1 || calc.getLeaves().size() <= 0) {
                     Toast.makeText(getApplicationContext(), "An error occurred while analyzing the image. Please try again.", Toast.LENGTH_LONG).show();
                 } else {
-                    calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null), sharedPreferences.getString("repetition", null));
+                    calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null), sharedPreferences.getInt("repetition", 0));
                     folhaRepositorio.inserir(calc);
                     //Converte o bitmap para JPEG
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);

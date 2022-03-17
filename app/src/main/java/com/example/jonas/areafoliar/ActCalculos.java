@@ -55,7 +55,7 @@ public class ActCalculos extends AppCompatActivity{
     private Double largComp_Media;
     private String especie;
     private String tratamento;
-    private String repeticao;
+    private Integer repeticao;
 
     static {
         if (!OpenCVLoader.initDebug()) {
@@ -170,7 +170,7 @@ public class ActCalculos extends AppCompatActivity{
         }
     }
 
-    void surfaceCalc(float areaQuadrado, Mat ImageMat, String name, String treatment, String species, String repetition) {
+    void surfaceCalc(float areaQuadrado, Mat ImageMat, String name, String treatment, String species, Integer repetition) {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
         Date dataCalc = new Date();
         Calendar cal = Calendar.getInstance();
@@ -243,33 +243,40 @@ public class ActCalculos extends AppCompatActivity{
                 aux2 = (aux2 * realSideSquare) / pixelsLenSquare;
 
                 if (aux2 > aux) {
+                    aux2 = Math.round(aux2*100.0)/100.0;
+                    aux = Math.round(aux*100.0)/100.0;
                     mL += aux;
                     mC += aux2;
-                    folha.setLargura(Math.round(aux*100.0)/100.0);
+                    folha.setLargura(aux);
                     L[i] = aux;
-                    folha.setComprimento(Math.round(aux2*100.0)/100.0);
+                    folha.setComprimento(aux2);
                     C[i] = aux2;
 
                     Double largcomp = aux/aux2;
-                    folha.setLargcomp(Math.round(largcomp*100.0)/100.0);
+                    largcomp = Math.round(largcomp*100.0)/100.0;
+                    folha.setLargcomp(largcomp);
                     mLC += largcomp;
                     LC[i] = largcomp;
                 } else {
+                    aux2 = Math.round(aux2*100.0)/100.0;
+                    aux = Math.round(aux*100.0)/100.0;
                     mL += aux2;
                     mC += aux;
-                    folha.setLargura(Math.round(aux2*100.0)/100.0);
+                    folha.setLargura(aux2);
                     L[i] = aux2;
                     C[i] = aux;
-                    folha.setComprimento(Math.round(aux*100.0)/100.0);
+                    folha.setComprimento(aux);
 
                     Double largcomp = aux2/aux;
-                    folha.setLargcomp(Math.round(largcomp*100.0)/100.0);
+                    largcomp = Math.round(largcomp*100.0)/100.0;
+                    folha.setLargcomp(largcomp);
                     mLC += largcomp;
                     LC[i] = largcomp;
                 }
                 //_____________Calculo Area_____________
                 double auxArea = ((Imgproc.contourArea(getLeaves().get(i)) * areaQuadrado) / pixelsAreaSquare);
-                folha.setArea(Math.round(auxArea*10.0)/10.0);
+                auxArea = Math.round(auxArea*10.0)/10.0;
+                folha.setArea(auxArea);
                 //setArea(auxArea + "");
                 //sum += auxArea;
                 //result.append("\nArea: "); result.append(QString::number(auxArea));
@@ -278,7 +285,8 @@ public class ActCalculos extends AppCompatActivity{
                 //_____________Calculo Perimetro_____________
                 double auxPer = ((Imgproc.arcLength(new MatOfPoint2f(getLeaves().get(i).toArray()), true) * realPerSquare) / pixelsPerSquare);
                 //result.append("\nPerimeter: "); result.append(QString::number(auxPer));
-                folha.setPerimetro(Math.round(auxPer*100.0)/100.0);
+                auxPer = Math.round(auxPer*100.0)/100.0;
+                folha.setPerimetro(auxPer);
                 //setPerimetro(auxPer + "");
                 mP += auxPer;
                 P[i] = auxPer;
@@ -481,11 +489,11 @@ public class ActCalculos extends AppCompatActivity{
         this.tratamento = tratamento;
     }
 
-    public String getRepeticao() {
+    public Integer getRepeticao() {
         return repeticao;
     }
 
-    public void setRepeticao(String repeticao) {
+    public void setRepeticao(Integer repeticao) {
         this.repeticao = repeticao;
     }
 

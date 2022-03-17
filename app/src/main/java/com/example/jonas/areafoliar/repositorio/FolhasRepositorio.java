@@ -38,7 +38,7 @@ public class FolhasRepositorio {
         content.put("nome", calc.getNome());
         content.put("especie", calc.getEspecie());
         content.put("tratamento", calc.getTratamento());
-        content.put("repeticao", " ");
+        content.put("repeticao", calc.getRepeticao());
         content.put("area_Quad", calc.getArea_Quad());
         content.put("larg_Media", calc.getLarg_Media());
         content.put("larg_Desvio", calc.getLarg_Desvio());
@@ -111,7 +111,7 @@ public class FolhasRepositorio {
             calc.setLargComp_Desvio(resultado2.getDouble(resultado2.getColumnIndexOrThrow("largcomp_Desvio")));
             calc.setSumareas(resultado2.getDouble(resultado2.getColumnIndexOrThrow("sumareas")));
             calc.setTratamento(resultado2.getString(resultado2.getColumnIndexOrThrow("tratamento")));
-            calc.setRepeticao(resultado2.getString(resultado2.getColumnIndexOrThrow("repeticao")));
+            calc.setRepeticao(resultado2.getInt(resultado2.getColumnIndexOrThrow("repeticao")));
             calc.setNome(resultado2.getString(resultado2.getColumnIndexOrThrow("nome")));
         }
         return calc;
