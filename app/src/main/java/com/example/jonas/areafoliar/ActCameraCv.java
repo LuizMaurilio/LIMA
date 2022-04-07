@@ -121,7 +121,9 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.camera:
+                ImageMat = new Mat();
                 Mat result = new Mat(ImageMat.size(), ImageMat.type());
+                //converte a imagem em tons de cinza
                 Imgproc.cvtColor(ImageMat, result, Imgproc.COLOR_RGB2GRAY);
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
                 Date dataCalc = new Date();
@@ -222,21 +224,26 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
 
                 ActCalculos calc = new ActCalculos();
                 calc.findObjects(result, ImageMat);
-                //Converte o Mat em bitmap para salvar na tela
-                Utils.matToBitmap(ImageMat, bitmap);
-                //Cria objeto de ByteArray
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //                if (square.size() <= 0 || square.size() > 1 || leaves.size() <= 0) {
                 if (calc.getSquare().size() <= 0 || calc.getSquare().size() > 1 || calc.getLeaves().size() <= 0) {
                     Toast.makeText(getApplicationContext(), "An error occurred while analyzing the image. Please try again.", Toast.LENGTH_LONG).show();
                 } else {
                     calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null), sharedPreferences.getInt("repetition", 0));
                     folhaRepositorio.inserir(calc);
+                    //Converte o Mat em bitmap para salvar na tela
+                    Utils.matToBitmap(ImageMat, bitmap);
+                    //Cria objeto de ByteArray
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     //Converte o bitmap para JPEG
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     BitmapHelper.getInstance().setBitmap(bitmap);
                     //Abre a tela para mostrar o resultado
                     Intent it = new Intent(this, ActSaidaImagem.class);
+                    it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    ActCalculos auxCalc = folhaRepositorio.consultar(null);
+                    List<Folha> dados = auxCalc.getListaFolhas();
+                    int codigo = dados.get(dados.size() - 1).getCod();
+                    it.putExtra("CODIGO",codigo);
                     try {
                         stream.close();
                     } catch (IOException e) {

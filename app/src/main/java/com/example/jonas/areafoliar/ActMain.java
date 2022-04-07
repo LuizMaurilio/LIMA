@@ -238,7 +238,29 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                     ActCalculos auxCalc = folhaRepositorio.consultar(null);
                     List<Folha> dados = auxCalc.getListaFolhas();
                     int codigo = dados.get(dados.size() - 1).getCod();
-                    it.putExtra("CODIGO",codigo);
+                    //creating a bundle to transfer the data to the next activity
+                    Bundle extras = new Bundle();
+                    extras.putInt("CODIGO", codigo);
+                    extras.putString("nome", calc.getNome());
+                    extras.putString("idImg", calc.getIdImg());
+                    extras.putDouble("larg_Media", calc.getLarg_Media());
+                    extras.putDouble("larg_Desvio", calc.getLarg_Desvio());
+                    extras.putDouble("comp_Medio", calc.getComp_Medio());
+                    extras.putDouble("comp_Desvio", calc.getComp_Desvio());
+                    extras.putDouble("largComp_Desvio", calc.getLargComp_Desvio());
+                    extras.putDouble("largComp_Media", calc.getLargComp_Media());
+                    extras.putDouble("area_Media", calc.getArea_Media());
+                    extras.putDouble("area_Desvio", calc.getArea_Desvio());
+                    extras.putDouble("per_Media", calc.getPer_Media());
+                    extras.putDouble("per_Desvio", calc.getPer_Desvio());
+                    extras.putFloat("area_Quad", calc.getArea_Quad());
+                    extras.putDouble("sumareas", calc.getSumareas());
+                    extras.putString("tratamento", calc.getTratamento());
+                    extras.putString("especie", calc.getEspecie());
+                    extras.putInt("repeticao", calc.getRepeticao());
+
+                    //it.putExtra("CODIGO",codigo);
+                    it.putExtras(extras);
                     // Show progress bar
                     //progressBar.show(this,"Loading...");
                     //Inicia a intent
