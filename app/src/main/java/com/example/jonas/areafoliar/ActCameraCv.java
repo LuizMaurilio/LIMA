@@ -121,7 +121,7 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.camera:
-                ImageMat = new Mat();
+                //ImageMat = new Mat();
                 Mat result = new Mat(ImageMat.size(), ImageMat.type());
                 //converte a imagem em tons de cinza
                 Imgproc.cvtColor(ImageMat, result, Imgproc.COLOR_RGB2GRAY);
@@ -291,6 +291,7 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         //Converte a imagem fornecida pela camera em tons de cinza
         ImageMat = inputFrame.rgba();
+        Imgproc.cvtColor(ImageMat, ImageMat, Imgproc.COLOR_RGBA2RGB);
         //Cria um matriz
         //result = new Mat();
         //Converte o Mat em tons de cinza
