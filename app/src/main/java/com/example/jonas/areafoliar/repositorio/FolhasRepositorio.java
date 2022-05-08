@@ -69,11 +69,11 @@ public class FolhasRepositorio {
         parametros[0] = idImg;
         conexao.update("IMAGEM",contentValues,"id_Imagem = ? ", parametros);
     }
-
-    public ActCalculos consultar(String cod){ // FAZER UMA FUNÇÃO QUE SELECIONA APENAS AS FOLHAS COM O MESMO ID // FUNÇÃO AGORA RECEBE UMA VARIAVEL PARA DETERMINAR SE A CHAMADA É O HISTORICO OU O TESTE ATUAL
+    //TODO revisar como isso funciona com o parcelable
+    public ActCalculos consultar(String cod){
         if(cod != null) idAtual = cod;
         ActCalculos calc = new ActCalculos();
-        List<Folha> folhas = new ArrayList<>();
+        ArrayList<Folha> folhas = new ArrayList<Folha>();
         String sql = "SELECT CODIGO,id_Imagem,num_Folha,AREA,COMPRIMENTO,LARGURA,largcomp,PERIMETRO " +  "FROM FOLHA" + " WHERE id_Imagem = '" + idAtual+ "' ;";
         String sql2 = "SELECT id_Imagem, especie, area_Quad, larg_Media, larg_Desvio, comp_Desvio, comp_Media, per_Desvio, per_Media, area_Media, area_Desvio, largcomp_Desvio, largcomp_Media, sumareas, tratamento, repeticao, nome " + "FROM IMAGEM" + " WHERE id_Imagem = '" + idAtual + "';";
         @SuppressLint("Recycle") Cursor resultado = conexao.rawQuery(sql, null);

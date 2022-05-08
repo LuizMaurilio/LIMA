@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -23,13 +25,14 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class ActCalculos extends AppCompatActivity{
+public class ActCalculos implements Parcelable{
     //private Mat ImageMat;
     public Bitmap bitmap;
 
@@ -37,7 +40,7 @@ public class ActCalculos extends AppCompatActivity{
     private List<MatOfPoint> square = new ArrayList<>();
     private List<MatOfPoint> leaves = new ArrayList<>();
     private List<MatOfPoint> leavesPCA = new ArrayList<>();
-    private List<Folha> ListaFolhas = new ArrayList<>();
+    private ArrayList<Folha> ListaFolhas = new ArrayList<>();
 
     private String nome;
     private String idImg;
@@ -51,11 +54,33 @@ public class ActCalculos extends AppCompatActivity{
     private Double area_Desvio;
     private Double per_Media;
     private Double per_Desvio;
-    private Double largComp_Desvio;
+    private Double largComp_Desvio = 20000.00;
     private Double largComp_Media;
     private String especie;
-    private String tratamento;
-    private Integer repeticao;
+    private String tratamento = "TESTE";
+    private Integer repeticao = 10;
+
+    public ActCalculos(String idImg, Integer repeticao, String tratamento, String especie, Double largComp_Media, Double largComp_Desvio, Double per_Desvio,
+                       Double per_Media, Double area_Desvio, Double area_Media, Double comp_Desvio, Double comp_Medio, Double larg_Desvio, Double larg_Media,
+                       Double sumareas, String nome, ArrayList<Folha> ListaFolhas){
+        this.idImg = idImg;
+        this.repeticao = repeticao;
+        this.tratamento = tratamento;
+        this.especie = especie;
+        this.sumareas = sumareas;
+        this.larg_Desvio = larg_Desvio;
+        this.larg_Media = larg_Media;
+        this.comp_Desvio = comp_Desvio;
+        this.comp_Medio = comp_Medio;
+        this.largComp_Desvio = largComp_Desvio;
+        this.largComp_Media = largComp_Media;
+        this.area_Desvio = area_Desvio;
+        this.area_Media = area_Media;
+        this.per_Desvio = per_Desvio;
+        this.per_Media = per_Media;
+    }
+
+    public ActCalculos(){ }
 
     static {
         if (!OpenCVLoader.initDebug()) {
@@ -63,6 +88,51 @@ public class ActCalculos extends AppCompatActivity{
         } else {
             Log.i("OpenCv", "OpenCV loaded successfully");
         }
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        //parcel.writeList(getListaFolhas());
+        parcel.writeString(getNome());
+        parcel.writeString(getIdImg());
+        parcel.writeDouble(getSumareas());
+        parcel.writeDouble(getArea_Quad());
+        parcel.writeDouble(getLarg_Media());
+        parcel.writeDouble(getLarg_Desvio());
+        parcel.writeDouble(getComp_Medio());
+        parcel.writeDouble(getComp_Desvio());
+        parcel.writeDouble(getArea_Media());
+        parcel.writeDouble(getArea_Desvio());
+        parcel.writeDouble(getPer_Media());
+        parcel.writeDouble(getPer_Desvio());
+        parcel.writeDouble(getLarg_Desvio());
+        parcel.writeDouble(getLargComp_Media());
+        parcel.writeString(getEspecie());
+        parcel.writeString(getTratamento());
+        parcel.writeInt(getRepeticao());
+    }
+
+    public ActCalculos(Parcel in) {
+//        bitmap = in.readParcelable(Bitmap.class.getClassLoader());
+//        data_completa = in.readString();
+        //ListaFolhas = in.createTypedArrayList(Folha.CREATOR);
+        nome = in.readString();
+        idImg = in.readString();
+        sumareas = in.readDouble();
+        area_Quad = in.readFloat();
+        larg_Media = in.readDouble();
+        larg_Desvio = in.readDouble();
+        comp_Medio = in.readDouble();
+        comp_Desvio = in.readDouble();
+        area_Media = in.readDouble();
+        area_Desvio = in.readDouble();
+        per_Media = in.readDouble();
+        per_Desvio = in.readDouble();
+        largComp_Desvio = in.readDouble();
+        largComp_Media = in.readDouble();
+        especie = in.readString();
+        tratamento = in.readString();
+        repeticao = in.readInt();
     }
 
     static double angle(Point pt1, Point pt2, Point pt0) {
@@ -377,11 +447,11 @@ public class ActCalculos extends AppCompatActivity{
         this.leavesPCA = leavesPCA;
     }
 
-    public List<Folha> getListaFolhas() {
+    public ArrayList<Folha> getListaFolhas() {
         return ListaFolhas;
     }
 
-    public void setListaFolhas(List<Folha> listaFolhas) {
+    public void setListaFolhas(ArrayList<Folha> listaFolhas) {
         ListaFolhas = listaFolhas;
     }
 
@@ -520,6 +590,23 @@ public class ActCalculos extends AppCompatActivity{
     public void setLargComp_Media(Double largComp_Media) {
         this.largComp_Media = largComp_Media;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<ActCalculos> CREATOR = new Creator<ActCalculos>() {
+        @Override
+        public ActCalculos createFromParcel(Parcel in) {
+            return new ActCalculos(in);
+        }
+
+        @Override
+        public ActCalculos[] newArray(int size) {
+            return new ActCalculos[size];
+        }
+    };
 }
 
 

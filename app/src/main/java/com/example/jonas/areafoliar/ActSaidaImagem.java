@@ -1,17 +1,11 @@
 package com.example.jonas.areafoliar;
 
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -26,11 +20,6 @@ import com.example.jonas.areafoliar.database.DadosOpenHelper;
 import com.example.jonas.areafoliar.helper.BitmapHelper;
 import com.example.jonas.areafoliar.repositorio.FolhasRepositorio;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,8 +33,6 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
     //private SQLiteDatabase conexao;
     private Folha folha;
     public static List<Folha> dados;
-    private ActCalculos calc;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,18 +41,16 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
         matrix.postRotate(90);
         setContentView(R.layout.act_saida_imagem);
         imageViewFoto = findViewById(R.id.imageViewFoto);
-        Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
-        codigo = bundle.getInt("CODIGO");
+//        Bundle extras = new Bundle();
+//        extras = getIntent().getExtras();
+        //assert extras != null;
+//        codigo = extras.getInt("CODIGO");
         foto = BitmapHelper.getInstance().getBitmap();
         Bitmap rotated = Bitmap.createBitmap(foto, 0, 0, foto.getWidth(), foto.getHeight(), matrix, true);
         imageViewFoto.setImageBitmap(rotated);
         voltar = 0;
-        criarConexao();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        calc = folhasRepositorio.consultar(null);
-        dados = calc.getListaFolhas();
         /*
         if(ActCameraCv.bitmap != null){
             foto = ActCameraCv.bitmap;
@@ -116,14 +101,61 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
 //                        e.printStackTrace();
 //                }
 //                break;
-                case R.id.dados_camera:
-                        Intent it = new Intent(this, ActConfigDados.class);
-                        it.putExtra("CODIGO", codigo);
-                        startActivityForResult(it, 0);
-                        //Intent it1 = new Intent(this, ActDados.class);
-                        //startActivity(it1);
-                        break;
-                }
+            case R.id.confirmar:
+
+                criarConexao();
+                ActCalculos calc = getIntent().getExtras().getParcelable("calc");
+                Log.d("teste ", "outros" + calc.getIdImg());
+                Log.d("teste ", "id IMG" + calc.getNome());
+                Log.d("teste ", "tratamnto" + calc.getTratamento());
+                Log.d("teste ", "largcomp" + calc.getLargComp_Desvio());
+                Log.d("teste ", "repeticao " + calc.getRepeticao());
+                Log.d("teste ", "folha" + calc.getListaFolhas().get(0).getComprimento());
+
+                //folhasRepositorio.inserir(calc);
+                //calc.setListaFolhas(folhas);
+//                calc.setArea_Quad(extras.getFloat("area_Quad"));
+//                calc.setRepeticao(extras.getInt("repeticao"));
+//                calc.setNome(extras.getString("nome"));
+//                calc.setLarg_Desvio(extras.getDouble("larg_Desvio"));
+//                calc.setLarg_Media(extras.getDouble("larg_Media"));
+//                calc.setComp_Desvio(extras.getDouble("comp_Desvio"));
+//                calc.setComp_Medio(extras.getDouble("comp_Medio"));
+//                calc.setLargComp_Desvio(extras.getDouble("largcomp_Desvio"));
+//                calc.setLargComp_Media(extras.getDouble("largcomp_Media"));
+//                calc.setPer_Desvio(extras.getDouble("per_Desvio"));
+//                calc.setPer_Media(extras.getDouble("per_Media"));
+//                calc.setArea_Desvio(extras.getDouble("area_Desvio"));
+//                calc.setArea_Media(extras.getDouble("area_Media"));
+//                calc.setTratamento(extras.getString("tratamento"));
+//                calc.setEspecie(extras.getString("especie"));
+//                calc.setSumareas(extras.getDouble("sumareas"));
+//                calc.setIdImg(extras.getString("idImg"));
+//                ArrayList<Folha> folhas = extras.getParcelableArrayList("listaFolhas");
+
+
+//                folhasRepositorio.inserir(calc);
+//                ActCalculos auxCalc = folhasRepositorio.consultar(null);
+//                ArrayList<Folha> dados = auxCalc.getListaFolhas();
+//                codigo = dados.get(dados.size() - 1).getCod();
+//
+                Intent it = new Intent(this, ActConfigDados.class);
+                it.putExtra("CODIGO", calc.getIdImg());
+                startActivityForResult(it, 0);
+                Intent it1 = new Intent(this, ActDados.class);
+                startActivity(it1);
+//                Intent it = new Intent(this, ActMain.class);
+//                it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                it.putExtra("cod", 1);
+//                startActivity(it);
+                break;
+
+            case R.id.cancelar:
+                //voltar para a tela anterior
+                finish();
+                break;
+        }
+
         }
 
     @Override

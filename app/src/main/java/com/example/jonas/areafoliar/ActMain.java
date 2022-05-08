@@ -14,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -215,6 +216,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                 float areaQuadrado = sharedPreferences.getInt("area", 1);
 
                 ActCalculos calc = new ActCalculos();
+                //calc = new ActCalculos();
                 calc.findObjects(result, ImageMat);
 
                 //if (square.size() <= 0 || square.size() > 1 || leaves.size() <= 0) {
@@ -223,7 +225,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                     Log.d("yourTag", "An error occurred while analyzing the image. Please try again.");
                 } else {
                     calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null), sharedPreferences.getInt("repetition", 0));
-                    folhaRepositorio.inserir(calc);
+                    //folhaRepositorio.inserir(calc);
                     //Converte o Mat em bitmap para salvar na tela
                     Utils.matToBitmap(ImageMat, bitmap);
                     //Cria objeto de ByteArray
@@ -235,31 +237,22 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                     //Abre a tela para mostrar o resultado
                     Intent it = new Intent(this, ActSaidaImagem.class);
                     it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    ActCalculos auxCalc = folhaRepositorio.consultar(null);
-                    List<Folha> dados = auxCalc.getListaFolhas();
-                    int codigo = dados.get(dados.size() - 1).getCod();
-                    //creating a bundle to transfer the data to the next activity
+//                    ActCalculos auxCalc = folhaRepositorio.consultar(null);
+//                    ArrayList<Folha> dados = auxCalc.getListaFolhas();
+//                    int codigo = dados.get(dados.size() - 1).getCod();
                     Bundle extras = new Bundle();
-                    extras.putInt("CODIGO", codigo);
-                    extras.putString("nome", calc.getNome());
-                    extras.putString("idImg", calc.getIdImg());
-                    extras.putDouble("larg_Media", calc.getLarg_Media());
-                    extras.putDouble("larg_Desvio", calc.getLarg_Desvio());
-                    extras.putDouble("comp_Medio", calc.getComp_Medio());
-                    extras.putDouble("comp_Desvio", calc.getComp_Desvio());
-                    extras.putDouble("largComp_Desvio", calc.getLargComp_Desvio());
-                    extras.putDouble("largComp_Media", calc.getLargComp_Media());
-                    extras.putDouble("area_Media", calc.getArea_Media());
-                    extras.putDouble("area_Desvio", calc.getArea_Desvio());
-                    extras.putDouble("per_Media", calc.getPer_Media());
-                    extras.putDouble("per_Desvio", calc.getPer_Desvio());
-                    extras.putFloat("area_Quad", calc.getArea_Quad());
-                    extras.putDouble("sumareas", calc.getSumareas());
-                    extras.putString("tratamento", calc.getTratamento());
-                    extras.putString("especie", calc.getEspecie());
-                    extras.putInt("repeticao", calc.getRepeticao());
 
-                    //it.putExtra("CODIGO",codigo);
+                    Log.d("teste ", "id IMG" + calc.getIdImg());
+                    Log.d("teste ", "tratamnto" + calc.getTratamento());
+                    Log.d("teste ", "largcomp " + calc.getLargComp_Desvio());
+                    Log.d("teste ", "folha" + calc.getListaFolhas().get(0).getComprimento());
+                    Log.d("teste ", "repe " + calc.getRepeticao());
+//                    extras.putParcelable("calc", calc);
+//                    it.putExtra("CODIGO",calc.getIdImg());
+                    //it.putExtra("calc", calc);
+                    // TODO criar o construtor completo
+                    //ActCalculos aux = new ActCalculos(calc.getIdImg(), calc.getRepeticao(), calc.getTratamento(), calc.getEspecie(), calc.getLargComp_Desvio());
+                    extras.putParcelable("calc", calc);
                     it.putExtras(extras);
                     // Show progress bar
                     //progressBar.show(this,"Loading...");
@@ -270,6 +263,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                     finish();
                 }
             }
@@ -324,14 +318,19 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
     @Override
     protected void onResume() {
 
+//        if(getIntent().getExtras() != null){
+//            if(getIntent().getExtras().getInt("cod") == 1);{
+//                Log.d("tsete de mensagem", ""+ calc.getIdImg());
+//            }
+//        }
         if (getIntent().getBooleanExtra("EXIT", false)) {
-
             //Toast.makeText(getApplicationContext(), "Fechar tudo", Toast.LENGTH_LONG).show();
             //finish();
         }
 
         super.onResume();
     }
+
 }
 
 
