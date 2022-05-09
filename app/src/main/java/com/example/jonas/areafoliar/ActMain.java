@@ -225,7 +225,6 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                     Log.d("yourTag", "An error occurred while analyzing the image. Please try again.");
                 } else {
                     calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null), sharedPreferences.getInt("repetition", 0));
-                    //folhaRepositorio.inserir(calc);
                     //Converte o Mat em bitmap para salvar na tela
                     Utils.matToBitmap(ImageMat, bitmap);
                     //Cria objeto de ByteArray
@@ -247,11 +246,8 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                     Log.d("teste ", "largcomp " + calc.getLargComp_Desvio());
                     Log.d("teste ", "folha" + calc.getListaFolhas().get(0).getComprimento());
                     Log.d("teste ", "repe " + calc.getRepeticao());
-//                    extras.putParcelable("calc", calc);
-//                    it.putExtra("CODIGO",calc.getIdImg());
-                    //it.putExtra("calc", calc);
-                    // TODO criar o construtor completo
-                    //ActCalculos aux = new ActCalculos(calc.getIdImg(), calc.getRepeticao(), calc.getTratamento(), calc.getEspecie(), calc.getLargComp_Desvio());
+                    Log.d("teste ", "largcompmedia " + calc.getLargComp_Media());
+                    Log.d("teste ", "compmedia " + calc.getComp_Medio());
                     extras.putParcelable("calc", calc);
                     it.putExtras(extras);
                     // Show progress bar
@@ -264,7 +260,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
                         e.printStackTrace();
                     }
 
-                    finish();
+                    //finish();
                 }
             }
         }

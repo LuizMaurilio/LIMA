@@ -110,28 +110,13 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
                 Log.d("teste ", "tratamnto" + calc.getTratamento());
                 Log.d("teste ", "largcomp" + calc.getLargComp_Desvio());
                 Log.d("teste ", "repeticao " + calc.getRepeticao());
-                Log.d("teste ", "folha" + calc.getListaFolhas().get(0).getComprimento());
-
-                //folhasRepositorio.inserir(calc);
-                //calc.setListaFolhas(folhas);
-//                calc.setArea_Quad(extras.getFloat("area_Quad"));
-//                calc.setRepeticao(extras.getInt("repeticao"));
-//                calc.setNome(extras.getString("nome"));
-//                calc.setLarg_Desvio(extras.getDouble("larg_Desvio"));
-//                calc.setLarg_Media(extras.getDouble("larg_Media"));
-//                calc.setComp_Desvio(extras.getDouble("comp_Desvio"));
-//                calc.setComp_Medio(extras.getDouble("comp_Medio"));
-//                calc.setLargComp_Desvio(extras.getDouble("largcomp_Desvio"));
-//                calc.setLargComp_Media(extras.getDouble("largcomp_Media"));
-//                calc.setPer_Desvio(extras.getDouble("per_Desvio"));
-//                calc.setPer_Media(extras.getDouble("per_Media"));
-//                calc.setArea_Desvio(extras.getDouble("area_Desvio"));
-//                calc.setArea_Media(extras.getDouble("area_Media"));
-//                calc.setTratamento(extras.getString("tratamento"));
-//                calc.setEspecie(extras.getString("especie"));
-//                calc.setSumareas(extras.getDouble("sumareas"));
-//                calc.setIdImg(extras.getString("idImg"));
-//                ArrayList<Folha> folhas = extras.getParcelableArrayList("listaFolhas");
+                Log.d("teste ", "largcompmedia " + calc.getLargComp_Media());
+                Log.d("teste ", "compmedia " + calc.getComp_Medio());
+                Log.d("TESTE FOLHA ", "folha" + calc.getListaFolhas().get(0).getComprimento());
+                Log.d("TESTE FOLHA ", "folha" + calc.getListaFolhas().get(0).getLargura());
+                Log.d("TESTE FOLHA ", "folha" + calc.getListaFolhas().get(0).getIdImg());
+                Log.d("TESTE FOLHA ", "folha" + calc.getListaFolhas().get(0).getArea());
+                folhasRepositorio.inserir(calc);
 
 
 //                folhasRepositorio.inserir(calc);
@@ -142,17 +127,15 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
                 Intent it = new Intent(this, ActConfigDados.class);
                 it.putExtra("CODIGO", calc.getIdImg());
                 startActivityForResult(it, 0);
-                Intent it1 = new Intent(this, ActDados.class);
-                startActivity(it1);
-//                Intent it = new Intent(this, ActMain.class);
-//                it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                it.putExtra("cod", 1);
-//                startActivity(it);
+                //Intent it1 = new Intent(this, ActDados.class);
+                //startActivity(it1);
+                finish();
                 break;
 
             case R.id.cancelar:
                 //voltar para a tela anterior
-                finish();
+                Intent it2 = new Intent(this, ActMain.class);
+                startActivity(it2);
                 break;
         }
 

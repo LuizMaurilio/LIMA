@@ -115,6 +115,12 @@ public class Folha implements Serializable, Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(idImg);
+        dest.writeDouble(area);
+        dest.writeDouble(comprimento);
+        dest.writeDouble(largura);
+        dest.writeDouble(perimetro);
+        dest.writeInt(num_Folha);
+        dest.writeDouble(largcomp);
     }
 
     public Double getLargcomp() {

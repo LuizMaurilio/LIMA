@@ -40,7 +40,7 @@ public class ActCalculos implements Parcelable{
     private List<MatOfPoint> square = new ArrayList<>();
     private List<MatOfPoint> leaves = new ArrayList<>();
     private List<MatOfPoint> leavesPCA = new ArrayList<>();
-    private ArrayList<Folha> ListaFolhas = new ArrayList<>();
+    private List<Folha> ListaFolhas = new ArrayList<>();
 
     private String nome;
     private String idImg;
@@ -54,16 +54,17 @@ public class ActCalculos implements Parcelable{
     private Double area_Desvio;
     private Double per_Media;
     private Double per_Desvio;
-    private Double largComp_Desvio = 20000.00;
+    private Double largComp_Desvio;
     private Double largComp_Media;
     private String especie;
-    private String tratamento = "TESTE";
-    private Integer repeticao = 10;
+    private String tratamento;
+    private Integer repeticao;
 
     public ActCalculos(String idImg, Integer repeticao, String tratamento, String especie, Double largComp_Media, Double largComp_Desvio, Double per_Desvio,
                        Double per_Media, Double area_Desvio, Double area_Media, Double comp_Desvio, Double comp_Medio, Double larg_Desvio, Double larg_Media,
-                       Double sumareas, String nome, ArrayList<Folha> ListaFolhas){
+                       Double sumareas, String nome, Float area_Quad, List<Folha> ListaFolhas){
         this.idImg = idImg;
+        this.nome = nome;
         this.repeticao = repeticao;
         this.tratamento = tratamento;
         this.especie = especie;
@@ -78,6 +79,8 @@ public class ActCalculos implements Parcelable{
         this.area_Media = area_Media;
         this.per_Desvio = per_Desvio;
         this.per_Media = per_Media;
+        this.area_Quad = area_Quad;
+        this.ListaFolhas = ListaFolhas;
     }
 
     public ActCalculos(){ }
@@ -92,11 +95,10 @@ public class ActCalculos implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        //parcel.writeList(getListaFolhas());
         parcel.writeString(getNome());
         parcel.writeString(getIdImg());
         parcel.writeDouble(getSumareas());
-        parcel.writeDouble(getArea_Quad());
+        parcel.writeFloat(getArea_Quad());
         parcel.writeDouble(getLarg_Media());
         parcel.writeDouble(getLarg_Desvio());
         parcel.writeDouble(getComp_Medio());
@@ -110,12 +112,10 @@ public class ActCalculos implements Parcelable{
         parcel.writeString(getEspecie());
         parcel.writeString(getTratamento());
         parcel.writeInt(getRepeticao());
+        parcel.writeTypedList(getListaFolhas());
     }
 
     public ActCalculos(Parcel in) {
-//        bitmap = in.readParcelable(Bitmap.class.getClassLoader());
-//        data_completa = in.readString();
-        //ListaFolhas = in.createTypedArrayList(Folha.CREATOR);
         nome = in.readString();
         idImg = in.readString();
         sumareas = in.readDouble();
@@ -133,6 +133,7 @@ public class ActCalculos implements Parcelable{
         especie = in.readString();
         tratamento = in.readString();
         repeticao = in.readInt();
+        ListaFolhas = in.createTypedArrayList(Folha.CREATOR);
     }
 
     static double angle(Point pt1, Point pt2, Point pt0) {
@@ -447,11 +448,11 @@ public class ActCalculos implements Parcelable{
         this.leavesPCA = leavesPCA;
     }
 
-    public ArrayList<Folha> getListaFolhas() {
+    public List<Folha> getListaFolhas() {
         return ListaFolhas;
     }
 
-    public void setListaFolhas(ArrayList<Folha> listaFolhas) {
+    public void setListaFolhas(List<Folha> listaFolhas) {
         ListaFolhas = listaFolhas;
     }
 

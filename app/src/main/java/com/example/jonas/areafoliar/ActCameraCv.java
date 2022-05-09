@@ -150,7 +150,6 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
                     Log.d("yourTag", "An error occurred while analyzing the image. Please try again.");
                 } else {
                     calc.surfaceCalc(areaQuadrado, ImageMat, "Camera", sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null), sharedPreferences.getInt("repetition", 0));
-                    folhaRepositorio.inserir(calc);
                     Utils.matToBitmap(ImageMat, bitmap);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -158,10 +157,13 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
                     //Abre a tela para mostrar o resultado
                     Intent it = new Intent(this, ActSaidaImagem.class); //OUTPUT IMAGE
                     it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    List<Folha> dados = calc.getListaFolhas();
-                    int codigo = dados.get(dados.size() - 1).getCod();
-                    it.putExtra("CODIGO",codigo);
+                    //List<Folha> dados = calc.getListaFolhas();
+                    //int codigo = dados.get(dados.size() - 1).getCod();
+                    //it.putExtra("CODIGO",codigo);
                     //Inicia a intent
+                    Bundle extras = new Bundle();
+                    extras.putParcelable("calc", calc);
+                    it.putExtras(extras);
                     startActivity(it);
                     // Show progress bar
                     //progressBar.show(this,"Loading...");
@@ -229,7 +231,6 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
                     Toast.makeText(getApplicationContext(), "An error occurred while analyzing the image. Please try again.", Toast.LENGTH_LONG).show();
                 } else {
                     calc.surfaceCalc(areaQuadrado, ImageMat, nome, sharedPreferences.getString("treatment", null), sharedPreferences.getString("species", null), sharedPreferences.getInt("repetition", 0));
-                    folhaRepositorio.inserir(calc);
                     //Converte o Mat em bitmap para salvar na tela
                     Utils.matToBitmap(ImageMat, bitmap);
                     //Cria objeto de ByteArray
@@ -240,10 +241,15 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
                     //Abre a tela para mostrar o resultado
                     Intent it = new Intent(this, ActSaidaImagem.class);
                     it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    ActCalculos auxCalc = folhaRepositorio.consultar(null);
-                    List<Folha> dados = auxCalc.getListaFolhas();
-                    int codigo = dados.get(dados.size() - 1).getCod();
-                    it.putExtra("CODIGO",codigo);
+                    //ActCalculos auxCalc = folhaRepositorio.consultar(null);
+                    //List<Folha> dados = auxCalc.getListaFolhas();
+                    //int codigo = dados.get(dados.size() - 1).getCod();
+                    //it.putExtra("CODIGO",codigo);
+
+                    Bundle extras = new Bundle();
+                    extras.putParcelable("calc", calc);
+                    it.putExtras(extras);
+
                     try {
                         stream.close();
                     } catch (IOException e) {
