@@ -29,7 +29,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Species:"
+        android:text="@string/species"
         android:textColor="@android:color/black"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -44,7 +44,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Repetition:"
+        android:text="@string/repetition"
         android:textColor="@android:color/black"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -59,7 +59,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Treatment:"
+        android:text="@string/treatment"
         android:textColor="@android:color/black"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -164,7 +164,7 @@
             android:layout_marginBottom="20dp"
             android:checked="false"
             android:onClick="onCheckboxClicked"
-            android:text="Area" />
+            android:text="@string/area" />
 
         <CheckBox
             android:id="@+id/calcWidth"
@@ -172,7 +172,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:onClick="onCheckboxClicked"
-            android:text="Width" />
+            android:text="@string/width" />
 
         <CheckBox
             android:id="@+id/calcLength"
@@ -180,7 +180,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:onClick="onCheckboxClicked"
-            android:text="Length" />
+            android:text="@string/length" />
 
         <CheckBox
             android:id="@+id/calcPerimeter"
@@ -188,28 +188,28 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:onClick="onCheckboxClicked"
-            android:text="Perimeter" />
+            android:text="@string/perimeter" />
 
         <CheckBox
             android:id="@+id/calcSomaArea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Sum Areas" />
+            android:text="@string/sum_areas" />
 
         <CheckBox
             android:id="@+id/calcWidthDLength"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Width/Length" />
+            android:text="@string/width_length" />
 
         <CheckBox
             android:id="@+id/calcAvgDev"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Average and Standard Deviation" />
+            android:text="@string/average_and_standard_deviation" />
 
     </LinearLayout>
 
@@ -217,7 +217,7 @@
         android:id="@+id/buttonDados"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OK"
+        android:text="@string/ok"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.86"

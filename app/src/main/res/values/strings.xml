@@ -93,6 +93,17 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="ok">OK</string>
+    <string name="species">Species:</string>
+    <string name="repetition">Repetition:</string>
+    <string name="treatment">Treatment:</string>
+    <string name="area">Area</string>
+    <string name="width">Width</string>
+    <string name="length">Length</string>
+    <string name="perimeter">Perimeter</string>
+    <string name="sum_areas">Sum Areas</string>
+    <string name="width_length">Width/Length</string>
+    <string name="average_and_standard_deviation">Average and Standard Deviation</string>
 
 
 </resources>
