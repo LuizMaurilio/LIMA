@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Leaf Area</string>
+    <string name="app_name">LIMA</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -32,7 +32,7 @@
     <string name="desc_btn_galeriaOpenCv">btnGaleriaOpenCv</string>
     <string name="desc_btn_cameraOpenCv">btnCameraOpenCv</string>
     <!--<string name="nav_title">Dimensionamento Foliar</string>-->
-    <string name="nav_title">Leaf Area</string>
+    <string name="nav_title">LIMA</string>
     <!--<string name="historicoDados">Histórico</string>-->
     <string name="historicoDados">Historic</string>
     <string name="desc_img_arrowDados">arrowDados</string>
@@ -84,7 +84,7 @@
     <string name="perimeter_linha_config_dados">Perimeter:</string>
     <string name="perimeter_value_linha_config_dados">Perimeter value</string>
     <string name="txtPerimetroDados">Average Perimeter:</string>
-    <string name="title_activity_splash_screen_inicial">Leaf Area</string>
+    <string name="title_activity_splash_screen_inicial">LIMA</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -104,6 +104,7 @@
     <string name="sum_areas">Sum Areas</string>
     <string name="width_length">Width/Length</string>
     <string name="average_and_standard_deviation">Average and Standard Deviation</string>
+    <string name="lima">LIMA</string>
 
 
 </resources>

@@ -16,8 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:gravity="center"
-        android:text="Leaf Area"
+        android:text="@string/lima"
         android:textColor="#fff"
-        android:textSize="40dp" />
+        android:textSize="40sp" />
 
 </LinearLayout>

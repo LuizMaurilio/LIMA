@@ -2,12 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_dados"
-        android:orderInCategory="100"
-        android:icon="@drawable/ic_informacao_act_main"
-        android:title="Info"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/action_home"
         android:orderInCategory="200"
         android:icon="@drawable/ic_home_menu_24dp"

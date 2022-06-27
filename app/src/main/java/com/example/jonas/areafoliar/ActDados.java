@@ -185,32 +185,33 @@ public class ActDados extends AppCompatActivity{
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_dados) {
-            /*final AlertDialog.Builder builderDialog = new AlertDialog.Builder(this);
-            final View customLayout = getLayoutInflater().inflate(R.layout.dialog_dados_info, null);
-            builderDialog.setView(customLayout);
-            final AlertDialog dialog = builderDialog.create();
-            dialog.show();*/
-
-            final Dialog dialog = new Dialog(this);
-
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_dados_info); // seu layout
-            dialog.setCancelable(false);
-
-            Button fechar = dialog.findViewById(R.id.fecharBtn);
-            fechar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        dialog.dismiss(); // fecha o dialog
-                    } catch (SQLException ignored) {
-
-                    }
-                }
-            });
-            dialog.show();
-        }else if(id == R.id.action_home){
+//        if (id == R.id.action_dados) {
+//            /*final AlertDialog.Builder builderDialog = new AlertDialog.Builder(this);
+//            final View customLayout = getLayoutInflater().inflate(R.layout.dialog_dados_info, null);
+//            builderDialog.setView(customLayout);
+//            final AlertDialog dialog = builderDialog.create();
+//            dialog.show();*/
+//
+//            final Dialog dialog = new Dialog(this);
+//
+//            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//            dialog.setContentView(R.layout.dialog_dados_info); // seu layout
+//            dialog.setCancelable(false);
+//
+//            Button fechar = dialog.findViewById(R.id.fecharBtn);
+//            fechar.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    try {
+//                        dialog.dismiss(); // fecha o dialog
+//                    } catch (SQLException ignored) {
+//
+//                    }
+//                }
+//            });
+//            dialog.show();
+//        }else
+        if(id == R.id.action_home){
             Intent it3 = new Intent(this, ActMain.class);
             it3.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             it3.putExtra("EXIT", true);
