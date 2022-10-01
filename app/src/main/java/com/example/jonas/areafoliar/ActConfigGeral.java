@@ -163,7 +163,7 @@ public class ActConfigGeral extends AppCompatActivity {
                 else {
                     c2.setEnabled(false);
                     c2.setChecked(false);
-                    Toast.makeText(getApplicationContext(), "To calculate the Sum of the Areas please select the Area Checkbox", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "To calculate the Sum of the Areas please select the Area Checkbox", Toast.LENGTH_SHORT).show();
                 }
 
                 if(c3.isChecked() && c4.isChecked()) {
@@ -172,7 +172,7 @@ public class ActConfigGeral extends AppCompatActivity {
                 else {
                     c5.setEnabled(false);
                     c5.setChecked(false);
-                    Toast.makeText(getApplicationContext(), "To calculate Width/Length please select both the Width and Length CheckBoxes", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "To calculate Width/Length please select both the Width and Length CheckBoxes", Toast.LENGTH_SHORT).show();
                 }
 
                 if(c1.isChecked() || c3.isChecked() || c4.isChecked() || c7.isChecked()) c6.setEnabled(true);

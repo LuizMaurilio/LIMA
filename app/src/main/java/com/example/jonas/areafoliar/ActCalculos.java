@@ -258,7 +258,7 @@ public class ActCalculos implements Parcelable{
             double pixelsWidSquare, pixelsLenSquare;
             double pixelsPerSquare;
             //double sum = 0.0;
-            double mL = 0.0, mC = 0.0, mA = 0.0, mP = 0.0, mLC = 0.0;
+            double mL = 0.0, mC = 0.0, mA = 0.0, mP = 0.0, mLC = 0.0, sumA = 0.0;
             double dL = 0.0, dC = 0.0, dA = 0.0, dP = 0.0, dLC = 0.0;
             double[] L = new double[getLeaves().size()];
             double[] C = new double[getLeaves().size()];
@@ -373,6 +373,8 @@ public class ActCalculos implements Parcelable{
             mC = mC / getLeavesPCA().size();
             //result.append("\nAverage lenght: "); result.append(QString::number(mC));
             mLC = mLC / getLeavesPCA().size();
+
+            sumA = mA;
             mA = mA / getLeavesPCA().size();
             //result.append("\nAverage area: "); result.append(QString::number(mA));
             mP = mP / getLeavesPCA().size();
@@ -406,7 +408,7 @@ public class ActCalculos implements Parcelable{
 
             setIdImg(data_completa);
             setNome(name);
-            setSumareas(Math.round(mA*100.0)/100.0);
+            setSumareas(Math.round(sumA*100.0)/100.0);
             setComp_Medio(Math.round(mC*100.0)/100.0);
             setComp_Desvio(Math.round(dC*100.0)/100.0);
             setLarg_Media(Math.round(mL*100.0)/100.0);

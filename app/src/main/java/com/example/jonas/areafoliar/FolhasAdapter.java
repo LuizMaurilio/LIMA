@@ -2,6 +2,7 @@ package com.example.jonas.areafoliar;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
@@ -21,9 +22,11 @@ import java.util.List;
 
 public class FolhasAdapter extends RecyclerView.Adapter<FolhasAdapter.ViewHolderFolhas> {
     private List<Folha> folhas;
+    private SharedPreferences sharedPreferences;
 
-    FolhasAdapter(List<Folha> folhas) {
+    FolhasAdapter(List<Folha> folhas, SharedPreferences sharedPreferences) {
         this.folhas = folhas;
+        this.sharedPreferences = sharedPreferences;
     }
 
     @NonNull
@@ -36,13 +39,15 @@ public class FolhasAdapter extends RecyclerView.Adapter<FolhasAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull FolhasAdapter.ViewHolderFolhas viewHolder, int i) {
+
         if (folhas != null && (folhas.size() > 0)) {
             Folha folha = folhas.get(i);
             viewHolder.edtNome.setText(folha.getNum_Folha()+"");
-            viewHolder.edtArea.setText(folha.getArea()+"");
-            viewHolder.edtAltura.setText(folha.getComprimento()+"");
-            viewHolder.edtLargura.setText(folha.getLargura()+"");
-            viewHolder.edtPerimetro.setText(folha.getPerimetro()+"");
+            if (sharedPreferences.getBoolean("calcWidth", false)) viewHolder.edtLargura.setText(folha.getLargura()+"");
+            if (sharedPreferences.getBoolean("calcLength", false)) viewHolder.edtAltura.setText(folha.getComprimento()+"");
+            if (sharedPreferences.getBoolean("calcArea", false)) viewHolder.edtArea.setText(folha.getArea()+"");
+            if (sharedPreferences.getBoolean("calcPerimeter", false)) viewHolder.edtPerimetro.setText(folha.getPerimetro()+"");
+            if (sharedPreferences.getBoolean("calcWidthDLength", false)) viewHolder.edtLarguraComprimento.setText(folha.getLargcomp()+"");
         }
     }
 
@@ -52,7 +57,7 @@ public class FolhasAdapter extends RecyclerView.Adapter<FolhasAdapter.ViewHolder
     }
 
     class ViewHolderFolhas extends RecyclerView.ViewHolder {
-        private EditText edtNome, edtArea, edtAltura, edtLargura,edtPerimetro;
+        private EditText edtNome, edtArea, edtAltura, edtLargura,edtPerimetro, edtLarguraComprimento;
         private FolhasRepositorio folhasRepositorio;
         private SQLiteDatabase conexao;
         private Context contextoApp;
@@ -65,6 +70,14 @@ public class FolhasAdapter extends RecyclerView.Adapter<FolhasAdapter.ViewHolder
             edtAltura = itemView.findViewById(R.id.edtAltura);
             edtLargura = itemView.findViewById(R.id.edtLargura);
             edtPerimetro = itemView.findViewById(R.id.edtPerimetro);
+            edtLarguraComprimento = itemView.findViewById(R.id.edtLarguraComprimento);
+
+            if (!sharedPreferences.getBoolean("calcWidth", false)) edtLargura.setVisibility(itemView.INVISIBLE);
+            if (!sharedPreferences.getBoolean("calcLength", false)) edtAltura.setVisibility(itemView.INVISIBLE);
+            if (!sharedPreferences.getBoolean("calcArea", false)) edtArea.setVisibility(itemView.INVISIBLE);
+            if (!sharedPreferences.getBoolean("calcPerimeter", false)) edtPerimetro.setVisibility(itemView.INVISIBLE);
+            if (!sharedPreferences.getBoolean("calcWidthDLength", false)) edtLarguraComprimento.setVisibility(itemView.INVISIBLE);
+
             contextoApp = context;
             criarConexao();
             folhasRepositorio = new FolhasRepositorio(conexao);

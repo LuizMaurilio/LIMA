@@ -241,13 +241,13 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
 //                    int codigo = dados.get(dados.size() - 1).getCod();
                     Bundle extras = new Bundle();
 
-                    Log.d("teste ", "id IMG" + calc.getIdImg());
-                    Log.d("teste ", "tratamnto" + calc.getTratamento());
-                    Log.d("teste ", "largcomp " + calc.getLargComp_Desvio());
-                    Log.d("teste ", "folha" + calc.getListaFolhas().get(0).getComprimento());
-                    Log.d("teste ", "repe " + calc.getRepeticao());
-                    Log.d("teste ", "largcompmedia " + calc.getLargComp_Media());
-                    Log.d("teste ", "compmedia " + calc.getComp_Medio());
+//                    Log.d("teste ", "id IMG" + calc.getIdImg());
+//                    Log.d("teste ", "tratamnto" + calc.getTratamento());
+//                    Log.d("teste ", "largcomp " + calc.getLargComp_Desvio());
+//                    Log.d("teste ", "folha" + calc.getListaFolhas().get(0).getComprimento());
+//                    Log.d("teste ", "repe " + calc.getRepeticao());
+//                    Log.d("teste ", "largcompmedia " + calc.getLargComp_Media());
+//                    Log.d("teste ", "compmedia " + calc.getComp_Medio());
                     extras.putParcelable("calc", calc);
                     it.putExtras(extras);
                     // Show progress bar

@@ -1,6 +1,8 @@
 package com.example.jonas.areafoliar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -105,25 +107,19 @@ public class ActSaidaImagem extends AppCompatActivity implements View.OnClickLis
 
                 criarConexao();
                 ActCalculos calc = getIntent().getExtras().getParcelable("calc");
-                Log.d("teste ", "outros" + calc.getIdImg());
-                Log.d("teste ", "id IMG" + calc.getNome());
-                Log.d("teste ", "tratamnto" + calc.getTratamento());
-                Log.d("teste ", "largcomp" + calc.getLargComp_Desvio());
-                Log.d("teste ", "repeticao " + calc.getRepeticao());
-                Log.d("teste ", "largcompmedia " + calc.getLargComp_Media());
-                Log.d("teste ", "compmedia " + calc.getComp_Medio());
-                Log.d("TESTE FOLHA ", "folha" + calc.getListaFolhas().get(0).getComprimento());
-                Log.d("TESTE FOLHA ", "folha" + calc.getListaFolhas().get(0).getLargura());
-                Log.d("TESTE FOLHA ", "folha" + calc.getListaFolhas().get(0).getIdImg());
-                Log.d("TESTE FOLHA ", "folha" + calc.getListaFolhas().get(0).getArea());
+//                Log.d("teste ", "outros" + calc.getIdImg());
+//                Log.d("teste ", "id IMG" + calc.getNome());
+//                Log.d("teste ", "tratamnto" + calc.getTratamento());
+//                Log.d("teste ", "largcomp" + calc.getLargComp_Desvio());
+//                Log.d("teste ", "repeticao " + calc.getRepeticao());
+//                Log.d("teste ", "largcompmedia " + calc.getLargComp_Media());
+//                Log.d("teste ", "compmedia " + calc.getComp_Medio());
+//                Log.d("TESTE FOLHA ", "folha" + calc.getListaFolhas().get(0).getComprimento());
+//                Log.d("TESTE FOLHA ", "folha" + calc.getListaFolhas().get(0).getLargura());
+//                Log.d("TESTE FOLHA ", "folha" + calc.getListaFolhas().get(0).getIdImg());
+//                Log.d("TESTE FOLHA ", "folha" + calc.getListaFolhas().get(0).getArea());
                 folhasRepositorio.inserir(calc);
 
-
-//                folhasRepositorio.inserir(calc);
-//                ActCalculos auxCalc = folhasRepositorio.consultar(null);
-//                ArrayList<Folha> dados = auxCalc.getListaFolhas();
-//                codigo = dados.get(dados.size() - 1).getCod();
-//
                 Intent it = new Intent(this, ActConfigDados.class);
                 it.putExtra("CODIGO", calc.getIdImg());
                 startActivityForResult(it, 0);

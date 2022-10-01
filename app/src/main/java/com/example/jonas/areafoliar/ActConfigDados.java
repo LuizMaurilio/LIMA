@@ -38,9 +38,11 @@ public class ActConfigDados extends AppCompatActivity {
     private Folha folha;
     public static List<Folha> dados;
     private ActCalculos calc;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_config_dados);
         Toolbar toolbar = this.findViewById(R.id.toolbar);
@@ -113,7 +115,7 @@ public class ActConfigDados extends AppCompatActivity {
         edtNomeTeste.setText(calc.getNome());
         edtNomeTeste.setSelection(edtNomeTeste.getText().length());
 
-        FolhasAdapter folhasAdapter = new FolhasAdapter(folhasSelecionadas);
+        FolhasAdapter folhasAdapter = new FolhasAdapter(folhasSelecionadas, sharedPreferences);
         listDados.setAdapter(folhasAdapter);
     }
 
@@ -149,7 +151,7 @@ public class ActConfigDados extends AppCompatActivity {
                 ContentValues contentValues = new ContentValues();
                 Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
 
-                SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+                sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
 
                 StringBuilder data = new StringBuilder();
                 String repeticao = String.valueOf(calc.getRepeticao());
@@ -185,7 +187,7 @@ public class ActConfigDados extends AppCompatActivity {
                     if (sharedPreferences.getBoolean("calcLength", false))
                         data.append(calc.getComp_Medio() + ",");
                     if (sharedPreferences.getBoolean("calcWidthDLength", false))
-                        data.append(calc.getLargComp_Media() + ",");
+                        data.append(" - ,");
                     if (sharedPreferences.getBoolean("calcArea", false))
                         data.append(calc.getArea_Media() + ",");
                     if (sharedPreferences.getBoolean("calcPerimeter", false))
@@ -197,7 +199,7 @@ public class ActConfigDados extends AppCompatActivity {
                     if (sharedPreferences.getBoolean("calcLength", false))
                         data.append(calc.getComp_Desvio() + ",");
                     if (sharedPreferences.getBoolean("calcWidthDLength", false))
-                        data.append(calc.getLargComp_Desvio() + ",");
+                        data.append(" - ,");
                     if (sharedPreferences.getBoolean("calcArea", false))
                         data.append(calc.getArea_Desvio() + ",");
                     if (sharedPreferences.getBoolean("calcPerimeter", false))
