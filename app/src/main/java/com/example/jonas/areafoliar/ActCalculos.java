@@ -197,6 +197,8 @@ public class ActCalculos implements Parcelable{
         Mat thresh = new Mat();
         Mat hierarchy = new Mat();
 
+        int thickness = ImageMat.width()/375;
+
         List<MatOfPoint> contours = new ArrayList<>();
 
         //MatOfPoint2f[] approx = new MatOfPoint2f[contours.size()];
@@ -223,20 +225,20 @@ public class ActCalculos implements Parcelable{
                 }
                 if (maxCosine < 0.3) {
                     getSquare().add(contours.get(i));
-                    Imgproc.drawContours(ImageMat, contours, i, new Scalar(0, 255, 0), 3);
+                    Imgproc.drawContours(ImageMat, contours, i, new Scalar(0, 255, 0), thickness);
                 } else {
                     getLeaves().add(contours.get(i));
                     MatOfPoint contourPCA = pca(contours, i);
                     getLeavesPCA().add(contourPCA);
                     List<Point> pts = contourPCA.toList();
-                    Imgproc.drawContours(ImageMat, contours, i, new Scalar(255, 0, 0), 3);
+                    Imgproc.drawContours(ImageMat, contours, i, new Scalar(255, 0, 0), thickness);
                 }
             } else if (Math.abs(Imgproc.contourArea(approx[i])) > 1000 && Math.abs(Imgproc.contourArea(approx[i])) < 10000000000.0) {
                 getLeaves().add(contours.get(i));
                 MatOfPoint contourPCA =  pca(contours, i);
                 getLeavesPCA().add(contourPCA);
                 List<Point> pts = contourPCA.toList();
-                Imgproc.drawContours(ImageMat, contours, i, new Scalar(255, 0, 0), 3);
+                Imgproc.drawContours(ImageMat, contours, i, new Scalar(255, 0, 0), thickness);
             }
         }
     }
@@ -276,32 +278,42 @@ public class ActCalculos implements Parcelable{
 
             double pixelsAreaSquare = Imgproc.contourArea(getSquare().get(0));
             double realPerSquare = Math.sqrt(areaQuadrado) * 4;
-
+//            int thickness = ImageMat.width()/375;
+//            int fontScale = ImageMat.width()/375;
             //final Point p = square.get(0).toArray()[0];
             //int n = square.get(0).toArray().length;
             Scalar color = new Scalar(0, 255, 0);
-            Imgproc.polylines(ImageMat, result, true, color, 1, 10, Imgproc.LINE_AA);
+            //Imgproc.polylines(ImageMat, result, true, color, thickness*5, 10, Imgproc.LINE_AA);
 
             //---------------------LEAFS-----------------------
+
+            int thickness = ImageMat.width()/375;
+            int fontScale = ImageMat.width()/375;
 
             Rect[] boundRect = new Rect[getLeavesPCA().size()];
             double realSideSquare = Math.sqrt(areaQuadrado);
             for (int i = 0; i < getLeavesPCA().size(); i++) {
+
                 Folha folha = new Folha();
                 folha.setIdImg(data_completa);
                 folha.setNum_Folha(i+1);
                 //final Point p = leaves.get(i).toArray()[0];
                 //int n = leaves.get(i).toArray().length;
                 Scalar color2 = new Scalar(0, 0, 255);
-                Imgproc.polylines(ImageMat, result, true, color2, 1, 10, Imgproc.LINE_AA);
+                //Imgproc.polylines(ImageMat, result, true, color2, 1, 10, Imgproc.LINE_AA);
                 Scalar color3 = new Scalar(255, 0, 0);
                 //leaves[i].at(leaves[i].capacity()/2);
                 //double x = boundRect[i].x + 0.5 * boundRect[i].width;
                 double x = getLeaves().get(i).toArray()[0].x + 0.5 * getLeaves().get(i).width();
                 //double y = boundRect[i].y + 0.5 * boundRect[i].height;
                 double y = getLeaves().get(i).toArray()[0].y + 0.5 * getLeaves().get(i).height();
-                Imgproc.putText(ImageMat, (i + 1) + "", new Point(x, y), Core.FONT_HERSHEY_SIMPLEX, 5, color3,
-                        12
+
+//                Imgproc.putText(ImageMat, (i + 1) + "", new Point(x, y), Core.FONT_HERSHEY_SIMPLEX, 5, color3,
+//                        thickness
+//                );
+
+                Imgproc.putText(ImageMat, (i + 1) + "", new Point(x, y), Core.FONT_HERSHEY_SIMPLEX, fontScale, color3,
+                        thickness
                 );
 
                 //_____________Calculo Largura e Comprimento_____________
