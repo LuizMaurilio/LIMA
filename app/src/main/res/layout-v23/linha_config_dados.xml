@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_constraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -29,6 +30,7 @@
         android:layout_marginRight="8dp"
         android:text="@string/name_linha_config_dados"
         android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.073"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,10 +104,12 @@
         android:autofillHints="Name of leaf"
         android:ems="10"
         android:enabled="false"
+        android:gravity="center_horizontal"
         android:hint="@string/name_of_leaf_linha_config_dados"
         android:inputType="textPersonName"
         android:textColorLink="@android:color/background_dark"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.424"
         app:layout_constraintStart_toStartOf="@+id/textView"

@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jonas.areafoliar.database.DadosOpenHelper;
@@ -23,6 +26,7 @@ import java.util.List;
 public class FolhasAdapter extends RecyclerView.Adapter<FolhasAdapter.ViewHolderFolhas> {
     private List<Folha> folhas;
     private SharedPreferences sharedPreferences;
+    private ConstraintLayout constraint;
 
     FolhasAdapter(List<Folha> folhas, SharedPreferences sharedPreferences) {
         this.folhas = folhas;
@@ -61,10 +65,14 @@ public class FolhasAdapter extends RecyclerView.Adapter<FolhasAdapter.ViewHolder
         private FolhasRepositorio folhasRepositorio;
         private SQLiteDatabase conexao;
         private Context contextoApp;
-
+        private TextView txtArea, txtAltura, txtLargura, txtPerimetro, txtLarguraComprimento;
 
         ViewHolderFolhas(@NonNull final View itemView, final Context context) {
             super(itemView);
+            constraint = itemView.findViewById(R.id.parent_constraint);
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(constraint);
+
             edtNome = itemView.findViewById(R.id.edtNome);
             edtArea = itemView.findViewById(R.id.edtArea);
             edtAltura = itemView.findViewById(R.id.edtAltura);
@@ -72,11 +80,97 @@ public class FolhasAdapter extends RecyclerView.Adapter<FolhasAdapter.ViewHolder
             edtPerimetro = itemView.findViewById(R.id.edtPerimetro);
             edtLarguraComprimento = itemView.findViewById(R.id.edtLarguraComprimento);
 
-            if (!sharedPreferences.getBoolean("calcWidth", false)) edtLargura.setVisibility(itemView.INVISIBLE);
-            if (!sharedPreferences.getBoolean("calcLength", false)) edtAltura.setVisibility(itemView.INVISIBLE);
-            if (!sharedPreferences.getBoolean("calcArea", false)) edtArea.setVisibility(itemView.INVISIBLE);
-            if (!sharedPreferences.getBoolean("calcPerimeter", false)) edtPerimetro.setVisibility(itemView.INVISIBLE);
-            if (!sharedPreferences.getBoolean("calcWidthDLength", false)) edtLarguraComprimento.setVisibility(itemView.INVISIBLE);
+            txtArea = itemView.findViewById(R.id.textView2);
+            txtAltura = itemView.findViewById(R.id.textView3);
+            txtLargura = itemView.findViewById(R.id.textView4);
+            txtPerimetro = itemView.findViewById(R.id.textView5);
+            txtLarguraComprimento = itemView.findViewById(R.id.textView9);
+
+            Boolean notCheckedArea = !sharedPreferences.getBoolean("calcArea", false);
+            Boolean notCheckedAltura = !sharedPreferences.getBoolean("calcLength", false);
+            Boolean notCheckedLargura = !sharedPreferences.getBoolean("calcWidth", false);
+            Boolean notCheckedPerimetro = !sharedPreferences.getBoolean("calcPerimeter", false);
+            Boolean notCheckedLargComp = !sharedPreferences.getBoolean("calcWidthDLength", false);
+
+
+            if (notCheckedArea) {
+                constraintSet.connect(R.id.edtAltura,ConstraintSet.TOP,R.id.edtNome,ConstraintSet.BOTTOM,16);
+                constraintSet.connect(R.id.textView3,ConstraintSet.TOP,R.id.edtNome,ConstraintSet.BOTTOM,28);
+            }
+
+            if (notCheckedAltura) {
+                if (notCheckedArea){
+                    constraintSet.connect(R.id.edtLargura,ConstraintSet.TOP,R.id.edtNome,ConstraintSet.BOTTOM,16);
+                    constraintSet.connect(R.id.textView4,ConstraintSet.TOP,R.id.edtNome,ConstraintSet.BOTTOM,28);
+                }
+                else {
+                    constraintSet.connect(R.id.edtLargura,ConstraintSet.TOP,R.id.edtArea,ConstraintSet.BOTTOM,16);
+                    constraintSet.connect(R.id.textView4,ConstraintSet.TOP,R.id.edtArea,ConstraintSet.BOTTOM,28);
+                }
+            }
+
+            if (notCheckedLargura) {
+                if (notCheckedAltura){
+                    if (notCheckedArea){
+                        constraintSet.connect(R.id.edtPerimetro,ConstraintSet.TOP,R.id.edtNome,ConstraintSet.BOTTOM,16);
+                        constraintSet.connect(R.id.textView5,ConstraintSet.TOP,R.id.edtNome,ConstraintSet.BOTTOM,28);
+                    }
+                    else {
+                        constraintSet.connect(R.id.edtPerimetro,ConstraintSet.TOP,R.id.edtArea,ConstraintSet.BOTTOM,16);
+                        constraintSet.connect(R.id.textView5,ConstraintSet.TOP,R.id.edtArea,ConstraintSet.BOTTOM,28);
+                    }
+                }
+                else {
+                    constraintSet.connect(R.id.edtPerimetro,ConstraintSet.TOP,R.id.edtAltura,ConstraintSet.BOTTOM,16);
+                    constraintSet.connect(R.id.textView5,ConstraintSet.TOP,R.id.edtAltura,ConstraintSet.BOTTOM,28);
+                }
+            }
+
+            if (notCheckedPerimetro) {
+                if(notCheckedLargura){
+                    if (notCheckedAltura){
+                        if (notCheckedArea){
+                            constraintSet.connect(R.id.edtLarguraComprimento,ConstraintSet.TOP,R.id.edtNome,ConstraintSet.BOTTOM,16);
+                            constraintSet.connect(R.id.textView9,ConstraintSet.TOP,R.id.edtNome,ConstraintSet.BOTTOM,28);
+                        }
+                        else {
+                            constraintSet.connect(R.id.edtLarguraComprimento,ConstraintSet.TOP,R.id.edtArea,ConstraintSet.BOTTOM,16);
+                            constraintSet.connect(R.id.textView9,ConstraintSet.TOP,R.id.edtArea,ConstraintSet.BOTTOM,28);
+                        }
+                    }
+                    else {
+                        constraintSet.connect(R.id.edtLarguraComprimento,ConstraintSet.TOP,R.id.edtAltura,ConstraintSet.BOTTOM,16);
+                        constraintSet.connect(R.id.textView9,ConstraintSet.TOP,R.id.edtAltura,ConstraintSet.BOTTOM,28);
+                    }
+                }
+                else {
+                    constraintSet.connect(R.id.edtLarguraComprimento,ConstraintSet.TOP,R.id.edtLargura,ConstraintSet.BOTTOM,16);
+                    constraintSet.connect(R.id.textView9,ConstraintSet.TOP,R.id.edtLargura,ConstraintSet.BOTTOM,28);
+                }
+            }
+
+            constraintSet.applyTo(constraint);
+
+            if (notCheckedArea) {
+                edtArea.setVisibility(itemView.INVISIBLE);
+                txtArea.setVisibility(itemView.INVISIBLE);
+            }
+            if (notCheckedAltura) {
+                edtAltura.setVisibility(itemView.INVISIBLE);
+                txtAltura.setVisibility(itemView.INVISIBLE);
+            }
+            if (notCheckedLargura) {
+                edtLargura.setVisibility(itemView.INVISIBLE);
+                txtLargura.setVisibility(itemView.INVISIBLE);
+            }
+            if (notCheckedPerimetro) {
+                edtPerimetro.setVisibility(itemView.INVISIBLE);
+                txtPerimetro.setVisibility(itemView.INVISIBLE);
+            }
+            if (notCheckedLargComp) {
+                edtLarguraComprimento.setVisibility(itemView.INVISIBLE);
+                txtLarguraComprimento.setVisibility(itemView.INVISIBLE);
+            }
 
             contextoApp = context;
             criarConexao();
