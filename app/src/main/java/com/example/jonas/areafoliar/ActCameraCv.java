@@ -143,7 +143,7 @@ public class ActCameraCv extends AppCompatActivity implements CvCameraViewListen
                 float areaQuadrado = sharedPreferences.getInt("area", 1);
 
                 ActCalculos calc = new ActCalculos();
-                calc.findObjects(result, ImageMat);
+                ImageMat = calc.findObjects(result, ImageMat);
 
                 if (calc.getSquare().size() <= 0 || calc.getSquare().size() > 1 || calc.getLeaves().size() <= 0) {
                     Toast.makeText(getApplicationContext(), "An error occurred while analyzing the image. Please try again.", Toast.LENGTH_LONG).show();

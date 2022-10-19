@@ -192,7 +192,7 @@ public class ActCalculos implements Parcelable{
         return contourPCA;
     }
 
-    void findObjects(Mat image, Mat ImageMat) {
+    Mat findObjects(Mat image, Mat ImageMat) {
         // Mat gray = new Mat();
         Mat thresh = new Mat();
         Mat hierarchy = new Mat();
@@ -241,6 +241,8 @@ public class ActCalculos implements Parcelable{
                 Imgproc.drawContours(ImageMat, contours, i, new Scalar(255, 0, 0), thickness);
             }
         }
+
+        return ImageMat;
     }
 
     void surfaceCalc(float areaQuadrado, Mat ImageMat, String name, String treatment, String species, Integer repetition) {
