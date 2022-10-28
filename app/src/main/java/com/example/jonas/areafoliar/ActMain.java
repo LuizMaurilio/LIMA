@@ -217,7 +217,7 @@ public class ActMain extends AppCompatActivity implements NavigationView.OnNavig
 
                 ActCalculos calc = new ActCalculos();
                 //calc = new ActCalculos();
-                calc.findObjects(result, ImageMat);
+                ImageMat = calc.findObjects(result, ImageMat);
 
                 //if (square.size() <= 0 || square.size() > 1 || leaves.size() <= 0) {
                 if (calc.getSquare().size() <= 0 || calc.getSquare().size() > 1 || calc.getLeaves().size() <= 0) {
