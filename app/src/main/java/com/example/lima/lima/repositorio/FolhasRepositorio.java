@@ -1,13 +1,12 @@
-package com.example.jonas.areafoliar.repositorio;
+package com.example.lima.lima.repositorio;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
-import com.example.jonas.areafoliar.ActCalculos;
-import com.example.jonas.areafoliar.Folha;
+import com.example.lima.lima.ActCalculos;
+import com.example.lima.lima.Folha;
 
 import java.util.ArrayList;
 import java.util.List;

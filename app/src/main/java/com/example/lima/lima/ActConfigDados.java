@@ -1,4 +1,4 @@
-package com.example.jonas.areafoliar;
+package com.example.lima.lima;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -22,8 +22,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.jonas.areafoliar.database.DadosOpenHelper;
-import com.example.jonas.areafoliar.repositorio.FolhasRepositorio;
+import com.example.lima.lima.database.DadosOpenHelper;
+import com.example.lima.lima.repositorio.FolhasRepositorio;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -230,7 +230,7 @@ public class ActConfigDados extends AppCompatActivity {
                     //exporting
                     Context context = getApplicationContext();
                     File filelocation = new File(getFilesDir(), "data.csv");
-                    Uri path = FileProvider.getUriForFile(context, "com.example.jonas.fileprovider", filelocation);
+                    Uri path = FileProvider.getUriForFile(context, "com.example.lima.lima.fileprovider", filelocation);
                     Intent fileIntent = new Intent(Intent.ACTION_SEND);
                     fileIntent.setType("text/csv");
                     fileIntent.putExtra(Intent.EXTRA_SUBJECT, "Data");

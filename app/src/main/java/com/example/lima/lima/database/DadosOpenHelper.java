@@ -1,4 +1,4 @@
-package com.example.jonas.areafoliar.database;
+package com.example.lima.lima.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

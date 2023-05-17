@@ -1,18 +1,10 @@
-package com.example.jonas.areafoliar;
+package com.example.lima.lima;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
-import com.example.jonas.areafoliar.database.DadosOpenHelper;
-import com.example.jonas.areafoliar.repositorio.FolhasRepositorio;
 
 import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Core;
@@ -25,7 +17,6 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;

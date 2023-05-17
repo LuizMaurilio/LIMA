@@ -1,4 +1,4 @@
-package com.example.jonas.areafoliar;
+package com.example.lima.lima;
 
 import android.view.View;
 import android.view.animation.RotateAnimation;

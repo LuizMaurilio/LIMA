@@ -1,4 +1,4 @@
-package com.example.jonas.areafoliar;
+package com.example.lima.lima;
 
 import android.app.Dialog;
 import android.app.SearchManager;

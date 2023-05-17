@@ -1,4 +1,4 @@
-package com.example.jonas.areafoliar;
+package com.example.lima.lima;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.jonas.areafoliar", appContext.getPackageName());
+        assertEquals("com.example.lima.lima", appContext.getPackageName());
     }
 }

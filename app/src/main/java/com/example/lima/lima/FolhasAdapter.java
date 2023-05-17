@@ -1,4 +1,4 @@
-package com.example.jonas.areafoliar;
+package com.example.lima.lima;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -18,8 +18,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.jonas.areafoliar.database.DadosOpenHelper;
-import com.example.jonas.areafoliar.repositorio.FolhasRepositorio;
+import com.example.lima.lima.database.DadosOpenHelper;
+import com.example.lima.lima.repositorio.FolhasRepositorio;
 
 import java.util.List;
 

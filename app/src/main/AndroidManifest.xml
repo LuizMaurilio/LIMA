@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.jonas.areafoliar">
+    package="com.example.lima.lima">
 
     <application
         android:allowBackup="true"
@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".SplashScreenActivityInicial"
+            android:name="com.example.lima.br.com.lima.SplashScreenActivityInicial"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -24,29 +24,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ActMain"
+            android:name="com.example.lima.br.com.lima.ActMain"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".ActSaidaImagem"
+            android:name="com.example.lima.br.com.lima.ActSaidaImagem"
             android:label="@string/title_activity_act_saida_imagem"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActCameraCv"
+            android:name="com.example.lima.br.com.lima.ActCameraCv"
             android:label="@string/app_name" />
-        <activity android:name=".ActDados" />
+        <activity android:name="com.example.lima.br.com.lima.ActDados" />
         <activity
-            android:name=".ActConfigDados"
+            android:name="com.example.lima.br.com.lima.ActConfigDados"
             android:label="@string/title_activity_act_config_dados"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActConfigGeral"
+            android:name="com.example.lima.br.com.lima.ActConfigGeral"
             android:label="@string/title_activity_act_config_geral"
             android:theme="@style/AppTheme.NoActionBar" />
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.jonas.fileprovider"
+            android:authorities="com.example.lima.fileprovider"
             android:grantUriPermissions="true"
             android:exported="false">
             <meta-data

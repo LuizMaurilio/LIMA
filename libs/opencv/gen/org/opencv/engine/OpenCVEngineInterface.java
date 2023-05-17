@@ -1,9 +1,5 @@
 /*___Generated_by_IDEA___*/
 
-/*
- * This file is auto-generated.  DO NOT MODIFY.
- * Original file: C:\\Users\\jonas\\Downloads\\OpenCV-android-sdk\\sdk\\java\\src\\org\\opencv\\engine\\OpenCVEngineInterface.aidl
- */
 package org.opencv.engine;
 /**
 * Class provides a Java interface for OpenCV Engine Service. It's synchronous with native OpenCVEngine class.

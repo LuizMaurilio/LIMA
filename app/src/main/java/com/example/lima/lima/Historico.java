@@ -1,4 +1,4 @@
-package com.example.jonas.areafoliar;
+package com.example.lima.lima;
 
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 

@@ -1,10 +1,7 @@
-package com.example.jonas.areafoliar;
+package com.example.lima.lima;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -12,18 +9,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.jonas.areafoliar.database.DadosOpenHelper;
-import com.example.jonas.areafoliar.repositorio.FolhasRepositorio;
-
-import org.opencv.core.Mat;
+import com.example.lima.lima.database.DadosOpenHelper;
+import com.example.lima.lima.repositorio.FolhasRepositorio;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

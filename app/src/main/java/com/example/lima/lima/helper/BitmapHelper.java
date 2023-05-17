@@ -1,4 +1,4 @@
-package com.example.jonas.areafoliar.helper;
+package com.example.lima.lima.helper;
 
 import android.graphics.Bitmap;
 
